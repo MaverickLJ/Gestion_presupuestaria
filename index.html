@@ -1,0 +1,1334 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OGP - Guías Presupuestarias | Portal Digital</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --ogp-primary: #0F2B5B;
+            --ogp-secondary: #1A365D;
+            --ogp-accent: #3182CE;
+            --ogp-light: #F7FAFC;
+            --ogp-gray: #718096;
+            --ogp-success: #38A169;
+            --ogp-warning: #D69E2E;
+            --ogp-danger: #E53E3E;
+            --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+            background: linear-gradient(135deg, #f8faff 0%, #eef4ff 100%);
+            color: #2D3748;
+            min-height: 100vh;
+        }
+        
+        /* Navbar */
+        .navbar-modern {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(15, 43, 91, 0.1);
+            padding: 1rem 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1030;
+            transition: all 0.3s ease;
+        }
+        
+        .navbar-brand-modern {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: var(--ogp-primary);
+            font-weight: 700;
+            font-size: 1.3rem;
+        }
+        
+        .brand-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--ogp-primary), var(--ogp-accent));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            margin-right: 0.75rem;
+        }
+        
+        /* Hero Section */
+        .hero-modern {
+            background: linear-gradient(135deg, var(--ogp-primary) 0%, var(--ogp-secondary) 50%, var(--ogp-accent) 100%);
+            color: white;
+            padding: 8rem 0 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-modern::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            opacity: 0.7;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(45deg, #ffffff, #e2e8f0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.25rem;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+            font-weight: 400;
+        }
+        
+        /* Stats Cards */
+        .stats-container {
+            margin-top: -3rem;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .stat-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-xl);
+        }
+        
+        .stat-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 1.5rem;
+            color: white;
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--ogp-primary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-label {
+            color: var(--ogp-gray);
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+        
+        /* Main Content */
+        .main-content {
+            padding: 4rem 0;
+        }
+        
+        /* Filter Section */
+        .filter-section {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .filter-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--ogp-primary);
+            margin-bottom: 0;
+            display: flex;
+            align-items: center;
+        }
+        
+        .view-toggle {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .view-toggle .btn {
+            border-radius: 8px !important;
+            padding: 0.4rem 0.8rem !important;
+            font-size: 0.85rem !important;
+        }
+        
+        .view-toggle .btn.active {
+            background: var(--ogp-primary) !important;
+            color: white !important;
+            border-color: var(--ogp-primary) !important;
+        }
+        
+        .filter-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+        
+        .filter-pill {
+            background: var(--ogp-light);
+            color: var(--ogp-primary);
+            border: 2px solid var(--ogp-light);
+            padding: 0.5rem 1.25rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+        
+        .filter-pill:hover,
+        .filter-pill.active {
+            background: var(--ogp-primary);
+            color: white;
+            border-color: var(--ogp-primary);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        /* Chapter Cards Grid */
+        .chapters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        /* List View Styles */
+        .chapters-list {
+            display: none;
+            margin-top: 2rem;
+        }
+        
+        .chapters-list.active {
+            display: block;
+        }
+        
+        .chapter-list-item {
+            background: white;
+            border-radius: 15px;
+            box-shadow: var(--shadow-md);
+            margin-bottom: 1.5rem;
+            overflow: hidden;
+            border: 1px solid rgba(15, 43, 91, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .chapter-list-item:hover {
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-2px);
+        }
+        
+        .chapter-list-header {
+            background: linear-gradient(135deg, var(--ogp-primary), var(--ogp-secondary));
+            color: white;
+            padding: 1.25rem 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .chapter-list-header:hover {
+            background: linear-gradient(135deg, var(--ogp-secondary), var(--ogp-primary));
+        }
+        
+        .chapter-list-title {
+            display: flex;
+            align-items: center;
+            justify-content: between;
+            width: 100%;
+        }
+        
+        .chapter-list-info {
+            flex: 1;
+        }
+        
+        .chapter-list-code {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            display: inline-block;
+            letter-spacing: 0.5px;
+        }
+        
+        .chapter-list-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+            line-height: 1.3;
+        }
+        
+        .chapter-list-summary {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            line-height: 1.4;
+        }
+        
+        .chapter-list-meta {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: 0.85rem;
+            margin-left: auto;
+            flex-shrink: 0;
+        }
+        
+        .chapter-expand-icon {
+            margin-left: 1rem;
+            transition: transform 0.3s ease;
+        }
+        
+        .chapter-expand-icon.expanded {
+            transform: rotate(90deg);
+        }
+        
+        .chapter-subcapitulos {
+            background: #f8faff;
+            padding: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .chapter-subcapitulos.expanded {
+            max-height: 500px;
+            padding: 1rem 0;
+        }
+        
+        .subcapitulo-item {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 1.5rem;
+            border-bottom: 1px solid rgba(15, 43, 91, 0.05);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .subcapitulo-item:last-child {
+            border-bottom: none;
+        }
+        
+        .subcapitulo-item:hover {
+            background: rgba(49, 130, 206, 0.05);
+            padding-left: 2rem;
+        }
+        
+        .subcapitulo-code {
+            background: var(--ogp-accent);
+            color: white;
+            padding: 0.3rem 0.7rem;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            margin-right: 1rem;
+            min-width: 80px;
+            text-align: center;
+        }
+        
+        .subcapitulo-title {
+            color: var(--ogp-primary);
+            font-weight: 500;
+            flex: 1;
+        }
+        
+        .subcapitulo-arrow {
+            color: var(--ogp-gray);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .subcapitulo-item:hover .subcapitulo-arrow {
+            opacity: 1;
+        }
+        
+        .subseccion-container {
+            margin-left: 2rem;
+            border-left: 2px solid rgba(49, 130, 206, 0.2);
+            padding-left: 1rem;
+        }
+        
+        .subseccion-item {
+            display: flex;
+            align-items: center;
+            padding: 0.5rem 1rem;
+            border-bottom: 1px solid rgba(15, 43, 91, 0.03);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            background: rgba(248, 250, 255, 0.5);
+        }
+        
+        .subseccion-item:last-child {
+            border-bottom: none;
+        }
+        
+        .subseccion-item:hover {
+            background: rgba(49, 130, 206, 0.08);
+            padding-left: 1.5rem;
+        }
+        
+        .subseccion-code {
+            background: rgba(49, 130, 206, 0.1);
+            color: var(--ogp-accent);
+            padding: 0.2rem 0.6rem;
+            border-radius: 8px;
+            font-size: 0.65rem;
+            font-weight: 600;
+            margin-right: 0.75rem;
+            min-width: 75px;
+            text-align: center;
+            border: 1px solid rgba(49, 130, 206, 0.2);
+        }
+        
+        .subseccion-title {
+            color: var(--ogp-gray);
+            font-weight: 400;
+            font-size: 0.9rem;
+            flex: 1;
+        }
+        
+        .subseccion-arrow {
+            color: var(--ogp-gray);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            font-size: 0.8rem;
+        }
+        
+        .subseccion-item:hover .subseccion-arrow {
+            opacity: 1;
+        }
+        
+        .subcapitulo-with-subsections {
+            position: relative;
+        }
+        
+        .subcapitulo-with-subsections .subcapitulo-code {
+            background: linear-gradient(135deg, var(--ogp-accent), var(--ogp-primary));
+            color: white;
+        }
+        
+        .subcapitulo-expand-btn {
+            margin-left: auto;
+            color: var(--ogp-accent);
+            font-size: 0.8rem;
+            opacity: 0.7;
+            transition: all 0.3s ease;
+        }
+        
+        .subcapitulo-expand-btn:hover {
+            opacity: 1;
+            transform: scale(1.1);
+        }
+        
+        .subcapitulo-expand-btn.expanded {
+            transform: rotate(90deg);
+        }
+        
+        .chapter-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(15, 43, 91, 0.05);
+            position: relative;
+        }
+        
+        .chapter-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-xl);
+        }
+        
+        .chapter-header {
+            background: linear-gradient(135deg, var(--ogp-primary), var(--ogp-secondary));
+            color: white;
+            padding: 1.5rem;
+            position: relative;
+        }
+        
+        .chapter-code {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 0.4rem 1rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 1rem;
+            letter-spacing: 0.5px;
+        }
+        
+        .chapter-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            line-height: 1.3;
+            margin-bottom: 0.5rem;
+        }
+        
+        .chapter-summary {
+            opacity: 0.9;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+        
+        .chapter-body {
+            padding: 1.5rem;
+        }
+        
+        .chapter-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #f1f5f9;
+        }
+        
+        .chapter-docs {
+            display: flex;
+            align-items: center;
+            color: var(--ogp-gray);
+            font-size: 0.9rem;
+        }
+        
+        .chapter-date {
+            color: var(--ogp-gray);
+            font-size: 0.85rem;
+        }
+        
+        .chapter-actions {
+            display: flex;
+            gap: 0.75rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .chapter-actions .btn {
+            white-space: nowrap;
+        }
+        
+        .btn-modern {
+            background: var(--ogp-light) !important;
+            color: var(--ogp-primary) !important;
+            border: 2px solid var(--ogp-light) !important;
+            padding: 0.6rem 1.25rem !important;
+            border-radius: 12px !important;
+            text-decoration: none !important;
+            font-weight: 500 !important;
+            transition: all 0.3s ease !important;
+            font-size: 0.9rem !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            line-height: 1.2 !important;
+        }
+        
+        .btn-modern:hover {
+            background: var(--ogp-primary) !important;
+            color: white !important;
+            border-color: var(--ogp-primary) !important;
+            transform: translateY(-2px) !important;
+            box-shadow: var(--shadow-md) !important;
+            text-decoration: none !important;
+        }
+        
+        .btn-primary-modern {
+            background: var(--ogp-primary) !important;
+            color: white !important;
+            border: 2px solid var(--ogp-primary) !important;
+            padding: 0.6rem 1.25rem !important;
+            border-radius: 12px !important;
+            text-decoration: none !important;
+            font-weight: 500 !important;
+            transition: all 0.3s ease !important;
+            font-size: 0.9rem !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            line-height: 1.2 !important;
+        }
+        
+        .btn-primary-modern:hover {
+            background: var(--ogp-secondary) !important;
+            border-color: var(--ogp-secondary) !important;
+            color: white !important;
+            transform: translateY(-2px) !important;
+            box-shadow: var(--shadow-md) !important;
+            text-decoration: none !important;
+        }
+        
+        /* Search Section */
+        .search-section {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .search-input {
+            border: 2px solid #e2e8f0;
+            border-radius: 15px;
+            padding: 1rem 1.5rem;
+            font-size: 1rem;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+        
+        .search-input:focus {
+            outline: none;
+            border-color: var(--ogp-accent);
+            box-shadow: 0 0 0 3px rgba(49, 130, 206, 0.1);
+        }
+        
+        /* Footer */
+        .footer-modern {
+            background: var(--ogp-primary);
+            color: white;
+            padding: 3rem 0 1.5rem;
+            margin-top: 4rem;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .chapters-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .filter-pills {
+                justify-content: center;
+            }
+            
+            .hero-modern {
+                padding: 6rem 0 3rem;
+            }
+            
+            .view-toggle {
+                flex-direction: column;
+                width: 100%;
+            }
+            
+            .chapter-list-meta {
+                flex-direction: column;
+                gap: 0.5rem;
+                align-items: flex-end;
+            }
+            
+            .chapter-list-title {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .subcapitulo-item {
+                padding: 0.5rem 1rem;
+            }
+            
+            .subcapitulo-code {
+                min-width: 70px;
+                font-size: 0.65rem;
+            }
+            
+            .subseccion-container {
+                margin-left: 1rem;
+                padding-left: 0.5rem;
+            }
+            
+            .subseccion-code {
+                min-width: 65px;
+                font-size: 0.6rem;
+            }
+            
+            .subseccion-title {
+                font-size: 0.85rem;
+            }
+        }
+        
+        /* Loading Animation */
+        .loading {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.6s ease forwards;
+        }
+        
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar-modern">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center w-100">
+                <a href="index.html" class="navbar-brand-modern">
+                    <div class="brand-icon">
+                        <i class="bi bi-journals"></i>
+                    </div>
+                    <div>
+                        <div style="font-size: 1.3rem;">OGP Normativas</div>
+                        <div style="font-size: 0.7rem; opacity: 0.7; font-weight: 400;">Portal Presupuestario</div>
+                    </div>
+                </a>
+                
+                <div class="d-flex align-items-center gap-3">
+                    <button class="btn btn-modern btn-sm">
+                        <i class="bi bi-bell me-1"></i>
+                        Notificaciones
+                    </button>
+                    <button class="btn btn-primary-modern btn-sm">
+                        <i class="bi bi-person-circle me-1"></i>
+                        Mi Cuenta
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-modern">
+        <div class="container hero-content">
+            <div class="row align-items-center">
+                <div class="col-lg-7">
+                    <h1 class="hero-title">Portal de Normativa Integrada de Presupuesto</h1>
+                    <p class="hero-subtitle">
+                        Plataforma integral para el acceso a normativas, formularios y recursos del proceso presupuestario del Gobierno de Puerto Rico. Información actualizada y herramientas digitales para una gestión eficiente.
+                    </p>
+                    <div class="d-flex gap-3 flex-wrap">
+                        <a href="#capitulos" class="btn btn-light btn-lg">
+                            <i class="bi bi-book me-2"></i>
+                            Explorar Guías
+                        </a>
+                        <button class="btn btn-outline-light btn-lg" onclick="showQuickStart()">
+                            <i class="bi bi-play-circle me-2"></i>
+                            Guía Rápida
+                        </button>
+                    </div>
+                </div>
+                <div class="col-lg-5 text-center">
+                    <div class="position-relative">
+                        <i class="bi bi-clipboard-data" style="font-size: 8rem; opacity: 0.1;"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <div class="container stats-container">
+        <div class="row g-4">
+            <div class="col-lg-3 col-md-6">
+                <div class="stat-card loading" style="animation-delay: 0.1s;">
+                    <div class="stat-icon" style="background: linear-gradient(135deg, #4299E1, #3182CE);">
+                        <i class="bi bi-files"></i>
+                    </div>
+                    <div class="stat-number">7</div>
+                    <div class="stat-label">Capítulos Principales</div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="stat-card loading" style="animation-delay: 0.2s;">
+                    <div class="stat-icon" style="background: linear-gradient(135deg, #38A169, #2F855A);">
+                        <i class="bi bi-file-earmark-check"></i>
+                    </div>
+                    <div class="stat-number">67</div>
+                    <div class="stat-label">Documentos Disponibles</div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="stat-card loading" style="animation-delay: 0.3s;">
+                    <div class="stat-icon" style="background: linear-gradient(135deg, #ED8936, #D69E2E);">
+                        <i class="bi bi-arrow-up-circle"></i>
+                    </div>
+                    <div class="stat-number">23</div>
+                    <div class="stat-label">Actualizaciones del Mes</div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="stat-card loading" style="animation-delay: 0.4s;">
+                    <div class="stat-icon" style="background: linear-gradient(135deg, #9F7AEA, #805AD5);">
+                        <i class="bi bi-people"></i>
+                    </div>
+                    <div class="stat-number">3,247</div>
+                    <div class="stat-label">Consultas Atendidas</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container main-content">
+        <!-- Search Section -->
+        <div class="search-section loading" style="animation-delay: 0.5s;">
+            <div class="row align-items-center">
+                <div class="col-lg-8">
+                    <div class="position-relative">
+                        <input type="text" class="search-input" placeholder="Buscar por capítulo, documento o palabra clave..." id="globalSearch">
+                        <i class="bi bi-search position-absolute top-50 end-0 translate-middle-y me-3 text-muted"></i>
+                    </div>
+                </div>
+                <div class="col-lg-4 text-lg-end mt-3 mt-lg-0">
+                    <button class="btn btn-primary-modern">
+                        <i class="bi bi-funnel me-2"></i>
+                        Filtros Avanzados
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Filter Section -->
+        <div class="filter-section loading" style="animation-delay: 0.6s;" id="capitulos">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <div class="filter-title">
+                    <i class="bi bi-tags me-2"></i>
+                    Categorías de Guías
+                </div>
+                <div class="view-toggle">
+                    <button class="btn btn-modern btn-sm active" id="cardViewBtn" onclick="switchView('cards')">
+                        <i class="bi bi-grid-3x3-gap me-1"></i>
+                        Tarjetas
+                    </button>
+                    <button class="btn btn-modern btn-sm" id="listViewBtn" onclick="switchView('list')">
+                        <i class="bi bi-list-ul me-1"></i>
+                        Lista
+                    </button>
+                </div>
+            </div>
+            <div class="filter-pills">
+                <a href="#" class="filter-pill active" data-filter="all">Todas las Guías</a>
+                <a href="#" class="filter-pill" data-filter="general">Información del Manual</a>
+                <a href="#" class="filter-pill" data-filter="proceso">Proceso Presupuestario</a>
+                <a href="#" class="filter-pill" data-filter="politicas">Políticas Fiscales</a>
+                <a href="#" class="filter-pill" data-filter="normas">Normas de Petición</a>
+                <a href="#" class="filter-pill" data-filter="instrucciones">Instrucciones</a>
+                <a href="#" class="filter-pill" data-filter="control">Control y Monitoreo</a>
+                <a href="#" class="filter-pill" data-filter="especiales">Guías Especiales</a>
+            </div>
+        </div>
+
+        <!-- Chapters Grid -->
+        <div class="chapters-grid" id="chaptersContainer">
+            <!-- Los capítulos se cargarán aquí con JavaScript -->
+        </div>
+        
+        <!-- Chapters List -->
+        <div class="chapters-list" id="chaptersListContainer">
+            <!-- La vista de lista se cargará aquí con JavaScript -->
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer-modern">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-4">
+                    <div class="d-flex align-items-center mb-3">
+                        <div class="brand-icon me-3">
+                            <i class="bi bi-journals"></i>
+                        </div>
+                        <div>
+                            <div class="fw-bold">OGP Guías Presupuestarias</div>
+                            <div class="small opacity-75">Portal Digital Oficial</div>
+                        </div>
+                    </div>
+                    <p class="opacity-75 mb-0">
+                        Plataforma oficial para el acceso a normativas y recursos del proceso presupuestario del Gobierno de Puerto Rico.
+                    </p>
+                </div>
+                <div class="col-lg-2 col-md-4 mb-4">
+                    <h6 class="fw-bold mb-3">Guías</h6>
+                    <div class="d-flex flex-column gap-2">
+                        <a href="#" class="text-white-50 text-decoration-none">Proceso Presupuestario</a>
+                        <a href="#" class="text-white-50 text-decoration-none">Gastos Operacionales</a>
+                        <a href="#" class="text-white-50 text-decoration-none">Proyectos CAPEX</a>
+                        <a href="#" class="text-white-50 text-decoration-none">Plataforma Digital</a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-4 mb-4">
+                    <h6 class="fw-bold mb-3">Recursos</h6>
+                    <div class="d-flex flex-column gap-2">
+                        <a href="#" class="text-white-50 text-decoration-none">Formularios</a>
+                        <a href="#" class="text-white-50 text-decoration-none">Manuales</a>
+                        <a href="#" class="text-white-50 text-decoration-none">Circulares</a>
+                        <a href="#" class="text-white-50 text-decoration-none">Centro de Ayuda</a>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 mb-4">
+                    <h6 class="fw-bold mb-3">Contacto</h6>
+                    <div class="d-flex flex-column gap-2 text-white-50">
+                        <div><i class="bi bi-envelope me-2"></i> normativas@ogp.pr.gov</div>
+                        <div><i class="bi bi-telephone me-2"></i> (787) 977-9200 ext. 2340</div>
+                        <div><small>Lun-Vie: 8:00 AM - 5:00 PM</small></div>
+                    </div>
+                </div>
+            </div>
+            <hr class="my-4 opacity-25">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <small class="opacity-75">
+                        © 2025 Oficina de Gerencia y Presupuesto, Gobierno de Puerto Rico
+                    </small>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <small class="opacity-75">
+                        Versión 2.1.3 | Última actualización: 5 de octubre, 2025
+                    </small>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Estructura jerárquica: Los 7 capítulos principales (Basado en el Manual Oficial)
+        const capitulosData = [
+            {
+                codigo: "1",
+                titulo: "Información sobre este Manual",
+                resumen: "Propósito, estructura, aplicabilidad y terminología fundamental del Manual de Guías Presupuestarias del Gobierno de Puerto Rico.",
+                categoria: "general",
+                ultimaActualizacion: "2025-10-05",
+                documentos: 4,
+                prioridad: "alta",
+                subcapitulos: [
+                    { codigo: "1.1", titulo: "Propósito y estructura del Manual" },
+                    { codigo: "1.2", titulo: "Aplicabilidad" },
+                    { codigo: "1.3", titulo: "Términos y acrónimos" }
+                ]
+            },
+            {
+                codigo: "2",
+                titulo: "Información General del Proceso Presupuestario en Puerto Rico",
+                resumen: "Marco normativo integral del proceso presupuestario en Puerto Rico, incluyendo PROMESA, enfoque multianual y descripción detallada de etapas.",
+                categoria: "proceso", 
+                ultimaActualizacion: "2025-10-04",
+                documentos: 12,
+                prioridad: "critica",
+                subcapitulos: [
+                    { codigo: "2.1", titulo: "Ley federal PROMESA y el proceso presupuestario de Puerto Rico" },
+                    { codigo: "2.2", titulo: "Enfoque multianual en el proceso presupuestario" },
+                    { 
+                        codigo: "2.3", 
+                        titulo: "Descripción de las etapas del proceso presupuestario",
+                        subsecciones: [
+                            { codigo: "2.3.1", titulo: "Calendario presupuestario notificado por la JASF" },
+                            { codigo: "2.3.2", titulo: "OGP envía Carta Presupuestaria a las agencias" },
+                            { codigo: "2.3.3", titulo: "Agencias someten petición presupuestaria a la OGP" },
+                            { codigo: "2.3.4", titulo: "Reuniones entre OGP y las agencias" },
+                            { codigo: "2.3.5", titulo: "Gobernadora somete el presupuesto propuesto a la JASF" },
+                            { codigo: "2.3.6", titulo: "El presupuesto aprobado se presenta a la Asamblea Legislativa" }
+                        ]
+                    }
+                ]
+            },
+            {
+                codigo: "3",
+                titulo: "Políticas fiscales, presupuestarias y programáticas",
+                resumen: "Políticas integrales incluyendo alineación con planes gubernamentales, reservas, riesgos presupuestarios y fondos especiales.",
+                categoria: "politicas",
+                ultimaActualizacion: "2025-10-05",
+                documentos: 18,
+                prioridad: "critica",
+                subcapitulos: [
+                    { codigo: "3.1", titulo: "Alineación con el Plan de Gobierno y Plan Fiscal certificado" },
+                    { codigo: "3.2", titulo: "Reservas presupuestarias" },
+                    { 
+                        codigo: "3.3", 
+                        titulo: "Riesgos presupuestarios",
+                        subsecciones: [
+                            { codigo: "3.3.1", titulo: "Escenarios alternos y medidas de ahorro y eficiencia" }
+                        ]
+                    },
+                    { codigo: "3.4", titulo: "Gastos recurrentes y no recurrentes" },
+                    { codigo: "3.5", titulo: "Reasignaciones y reprogramaciones" },
+                    { codigo: "3.6", titulo: "Fondos especiales y federales" }
+                ]
+            },
+            {
+                codigo: "4",
+                titulo: "Normas sobre Petición Presupuestaria, Justificación y Narrativo del Presupuesto",
+                resumen: "Normativas detalladas para gastos operacionales, nómina y proyectos de infraestructura, incluyendo justificaciones y narrativos completos.",
+                categoria: "normas",
+                ultimaActualizacion: "2025-10-08",
+                documentos: 15,
+                prioridad: "critica",
+                subcapitulos: [
+                    { codigo: "4.1", titulo: "Gastos operacionales (OPEX)" },
+                    { codigo: "4.2", titulo: "Nómina y gastos de personal" },
+                    { codigo: "4.3", titulo: "Proyectos de infraestructura (CAPEX)" }
+                ]
+            },
+            {
+                codigo: "5",
+                titulo: "Instrucciones para someter la Petición Presupuestaria",
+                resumen: "Procedimientos paso a paso para la presentación formal de peticiones presupuestarias, incluyendo narrativos e instrucciones técnicas.",
+                categoria: "instrucciones",
+                ultimaActualizacion: "2025-10-06",  
+                documentos: 8,
+                prioridad: "alta",
+                subcapitulos: [
+                    { codigo: "5.1", titulo: "Narrativo de la petición presupuestaria" },
+                    { codigo: "5.2", titulo: "Instrucciones técnicas de sometimiento" }
+                ]
+            },
+            {
+                codigo: "6",
+                titulo: "Control y Monitoreo",
+                resumen: "Sistemas y metodologías para el control, seguimiento y monitoreo de la ejecución presupuestaria y cumplimiento de metas.",
+                categoria: "control",
+                ultimaActualizacion: "2025-10-03",
+                documentos: 6,
+                prioridad: "alta",
+                subcapitulos: [
+                    { codigo: "6.1", titulo: "Monitoreo y control de ejecución presupuestaria" }
+                ]
+            },
+            {
+                codigo: "7",
+                titulo: "Guías Especiales",
+                resumen: "Guías específicas y procedimientos especializados para situaciones particulares y casos excepcionales en el proceso presupuestario.",
+                categoria: "especiales",
+                ultimaActualizacion: "2025-09-28",
+                documentos: 4,
+                prioridad: "media",
+                subcapitulos: [
+                    { codigo: "7.1", titulo: "Procedimientos especiales y excepciones" }
+                ]
+            }
+        ];
+
+        // Variable para controlar la vista actual
+        let currentView = 'cards';
+
+        // Función para renderizar las tarjetas de capítulos
+        function renderChapters(chapters = capitulosData) {
+            const container = document.getElementById('chaptersContainer');
+            container.innerHTML = '';
+
+            chapters.forEach((capitulo, index) => {
+                const prioridadColor = {
+                    'critica': 'danger',
+                    'alta': 'warning', 
+                    'media': 'info'
+                };
+
+                const chapterCard = `
+                    <div class="chapter-card loading" style="animation-delay: ${0.7 + (index * 0.1)}s;">
+                        <div class="chapter-header">
+                            <div class="chapter-code">Capítulo ${capitulo.codigo}</div>
+                            <h3 class="chapter-title">${capitulo.titulo}</h3>
+                            <p class="chapter-summary">${capitulo.resumen}</p>
+                        </div>
+                        <div class="chapter-body">
+                            <div class="chapter-meta">
+                                <div class="chapter-docs">
+                                    <i class="bi bi-files me-1"></i>
+                                    ${capitulo.documentos} documento${capitulo.documentos !== 1 ? 's' : ''}
+                                </div>
+                                <div class="chapter-date">
+                                    <i class="bi bi-calendar3 me-1"></i>
+                                    ${new Date(capitulo.ultimaActualizacion).toLocaleDateString('es-PR')}
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="chapter-actions">
+                                    <a href="javascript:void(0)" onclick="goToSeccion('${capitulo.codigo}')" class="btn btn-primary-modern">
+                                    <i class="bi bi-arrow-right me-1"></i> Ver Secciones
+                                    </a>
+                                    <a href="#" class="btn btn-modern">
+                                        <i class="bi bi-download me-1"></i>
+                                        Descargar
+                                    </a>
+                                </div>
+                                <span class="badge bg-${prioridadColor[capitulo.prioridad]} rounded-pill">
+                                    ${capitulo.prioridad}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                container.innerHTML += chapterCard;
+            });
+        }
+
+        // Función para renderizar la vista de lista
+        function renderChaptersList(chapters = capitulosData) {
+            const container = document.getElementById('chaptersListContainer');
+            container.innerHTML = '';
+
+            chapters.forEach((capitulo, index) => {
+                const prioridadColor = {
+                    'critica': 'danger',
+                    'alta': 'warning', 
+                    'media': 'info'
+                };
+
+                const subcapitulosHtml = capitulo.subcapitulos.map(sub => {
+                    const hasSubsections = sub.subsecciones && sub.subsecciones.length > 0;
+                    
+                    let subseccionesHtml = '';
+                    if (hasSubsections) {
+                        subseccionesHtml = `
+                            <div class="subseccion-container" id="subsecciones-${sub.codigo}" style="display: none;">
+                                ${sub.subsecciones.map(subsec => `
+                                    <div class="subseccion-item" onclick="window.location.href='./seccion.html?codigo=${subsec.codigo}'">
+                                        <div class="subseccion-code">Sección ${subsec.codigo}</div>
+                                        <div class="subseccion-title">${subsec.titulo}</div>
+                                        <i class="bi bi-arrow-right subseccion-arrow"></i>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        `;
+                    }
+                    
+                    return `
+                        <div class="subcapitulo-item ${hasSubsections ? 'subcapitulo-with-subsections' : ''}" 
+                             onclick="${hasSubsections ? `toggleSubsecciones('${sub.codigo}', event)` : `window.location.href='./seccion.html?codigo=${sub.codigo}'`}">
+                            <div class="subcapitulo-code">Sección ${sub.codigo}</div>
+                            <div class="subcapitulo-title">${sub.titulo}</div>
+                            ${hasSubsections ? 
+                                `<i class="bi bi-chevron-right subcapitulo-expand-btn" id="btn-${sub.codigo}"></i>` : 
+                                `<i class="bi bi-arrow-right subcapitulo-arrow"></i>`
+                            }
+                        </div>
+                        ${subseccionesHtml}
+                    `;
+                }).join('');
+
+                const chapterListItem = `
+                    <div class="chapter-list-item loading" style="animation-delay: ${0.7 + (index * 0.1)}s;">
+                        <div class="chapter-list-header" onclick="toggleChapterExpansion('chapter-${capitulo.codigo}')">
+                            <div class="chapter-list-title">
+                                <div class="chapter-list-info">
+                                    <div class="chapter-list-code">Capítulo ${capitulo.codigo}</div>
+                                    <div class="chapter-list-name">${capitulo.titulo}</div>
+                                    <div class="chapter-list-summary">${capitulo.resumen}</div>
+                                </div>
+                                <div class="chapter-list-meta">
+                                    <div>
+                                        <i class="bi bi-files me-1"></i>
+                                        ${capitulo.documentos} docs
+                                    </div>
+                                    <div>
+                                        <i class="bi bi-calendar3 me-1"></i>
+                                        ${new Date(capitulo.ultimaActualizacion).toLocaleDateString('es-PR')}
+                                    </div>
+                                    <span class="badge bg-${prioridadColor[capitulo.prioridad]} rounded-pill">
+                                        ${capitulo.prioridad}
+                                    </span>
+                                </div>
+                                <i class="bi bi-chevron-right chapter-expand-icon" id="icon-chapter-${capitulo.codigo}"></i>
+                            </div>
+                        </div>
+                        <div class="chapter-subcapitulos" id="chapter-${capitulo.codigo}">
+                            ${subcapitulosHtml}
+                        </div>
+                    </div>
+                `;
+                container.innerHTML += chapterListItem;
+            });
+        }
+
+        // Función para alternar la expansión de capítulos
+        function toggleChapterExpansion(chapterId) {
+            const subcapitulos = document.getElementById(chapterId);
+            const icon = document.getElementById(`icon-${chapterId}`);
+            
+            subcapitulos.classList.toggle('expanded');
+            icon.classList.toggle('expanded');
+        }
+
+        // Función para alternar la expansión de sub-secciones
+        function toggleSubsecciones(subseccionId, event) {
+            event.stopPropagation(); // Evitar que se ejecute el click del padre
+            
+            const subsecciones = document.getElementById(`subsecciones-${subseccionId}`);
+            const btn = document.getElementById(`btn-${subseccionId}`);
+            
+            if (subsecciones.style.display === 'none' || subsecciones.style.display === '') {
+                subsecciones.style.display = 'block';
+                btn.classList.add('expanded');
+            } else {
+                subsecciones.style.display = 'none';
+                btn.classList.remove('expanded');
+            }
+        }
+
+        // Función para cambiar entre vistas
+        function switchView(viewType) {
+            const cardViewBtn = document.getElementById('cardViewBtn');
+            const listViewBtn = document.getElementById('listViewBtn');
+            const chaptersGrid = document.getElementById('chaptersContainer');
+            const chaptersList = document.getElementById('chaptersListContainer');
+
+            currentView = viewType;
+
+            if (viewType === 'cards') {
+                cardViewBtn.classList.add('active');
+                listViewBtn.classList.remove('active');
+                chaptersGrid.style.display = 'grid';
+                chaptersList.classList.remove('active');
+            } else {
+                listViewBtn.classList.add('active');
+                cardViewBtn.classList.remove('active');
+                chaptersGrid.style.display = 'none';
+                chaptersList.classList.add('active');
+                renderChaptersList();
+            }
+        }
+
+        // Función para filtrar capítulos
+        function filterChapters(categoria) {
+            const pills = document.querySelectorAll('.filter-pill');
+            pills.forEach(pill => pill.classList.remove('active'));
+            
+            const activePill = document.querySelector(`[data-filter="${categoria}"]`);
+            if (activePill) activePill.classList.add('active');
+
+            let filteredChapters;
+            if (categoria === 'all') {
+                filteredChapters = capitulosData;
+            } else {
+                filteredChapters = capitulosData.filter(cap => cap.categoria === categoria);
+            }
+
+            if (currentView === 'cards') {
+                renderChapters(filteredChapters);
+            } else {
+                renderChaptersList(filteredChapters);
+            }
+        }
+
+        // Función para búsqueda global
+        function setupSearch() {
+            const searchInput = document.getElementById('globalSearch');
+            searchInput.addEventListener('input', (e) => {
+                const searchTerm = e.target.value.toLowerCase();
+                
+                if (searchTerm.length === 0) {
+                    if (currentView === 'cards') {
+                        renderChapters(capitulosData);
+                    } else {
+                        renderChaptersList(capitulosData);
+                    }
+                    return;
+                }
+
+                const filteredChapters = capitulosData.filter(cap => 
+                    cap.titulo.toLowerCase().includes(searchTerm) ||
+                    cap.codigo.toLowerCase().includes(searchTerm) ||
+                    cap.resumen.toLowerCase().includes(searchTerm) ||
+                    cap.subcapitulos.some(sub => 
+                        sub.titulo.toLowerCase().includes(searchTerm) ||
+                        sub.codigo.toLowerCase().includes(searchTerm) ||
+                        (sub.subsecciones && sub.subsecciones.some(subsec =>
+                            subsec.titulo.toLowerCase().includes(searchTerm) ||
+                            subsec.codigo.toLowerCase().includes(searchTerm)
+                        ))
+                    )
+                );
+
+                if (currentView === 'cards') {
+                    renderChapters(filteredChapters);
+                } else {
+                    renderChaptersList(filteredChapters);
+                }
+            });
+        }
+
+        // Función para mostrar guía rápida
+        function showQuickStart() {
+            alert('Funcionalidad de Guía Rápida - En esta demo, puedes navegar por los capítulos y explorar el sistema completo.');
+        }
+
+        // Event listeners
+        document.addEventListener('DOMContentLoaded', () => {
+            renderChapters();
+            setupSearch();
+
+            // Setup filter pills
+            const filterPills = document.querySelectorAll('.filter-pill');
+            filterPills.forEach(pill => {
+                pill.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const filter = e.target.getAttribute('data-filter');
+                    filterChapters(filter);
+                });
+            });
+
+            // Navbar scroll effect
+            window.addEventListener('scroll', () => {
+                const navbar = document.querySelector('.navbar-modern');
+                if (window.scrollY > 100) {
+                    navbar.style.background = 'rgba(255, 255, 255, 0.98)';
+                    navbar.style.boxShadow = 'var(--shadow-lg)';
+                } else {
+                    navbar.style.background = 'rgba(255, 255, 255, 0.95)';
+                    navbar.style.boxShadow = 'none';
+                }
+            });
+        });
+
+        function goToSeccion(cod) {
+            // asegura texto y lo codifica
+            const codigo = encodeURIComponent(String(cod ?? ''));
+            // construye URL relativo al archivo actual (funciona en localhost, LAN y ngrok)
+            const url = new URL('./seccion.html', window.location.href);
+            url.searchParams.set('codigo', codigo);
+            // navega
+            window.location.assign(url.toString());
+        }        
+    </script>
+</body>
+</html>

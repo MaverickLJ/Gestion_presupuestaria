@@ -1,0 +1,2448 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OGP - Detalle de Sección | Portal Digital</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --ogp-primary: #0F2B5B;
+            --ogp-secondary: #1A365D;
+            --ogp-accent: #3182CE;
+            --ogp-light: #F7FAFC;
+            --ogp-gray: #718096;
+            --ogp-success: #38A169;
+            --ogp-warning: #D69E2E;
+            --ogp-danger: #E53E3E;
+            --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+            background: linear-gradient(135deg, #f8faff 0%, #eef4ff 100%);
+            color: #2D3748;
+            min-height: 100vh;
+        }
+
+        /* Navbar */
+        .navbar-modern {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(15, 43, 91, 0.1);
+            padding: 1rem 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1030;
+            box-shadow: var(--shadow-md);
+        }
+
+        .navbar-brand-modern {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: var(--ogp-primary);
+            font-weight: 700;
+            font-size: 1.3rem;
+        }
+
+        .brand-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--ogp-primary), var(--ogp-accent));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            margin-right: 0.75rem;
+        }
+
+        /* Breadcrumb */
+        .breadcrumb-modern {
+            background: white;
+            border-bottom: 1px solid rgba(15, 43, 91, 0.1);
+            padding: 6rem 0 1rem;
+        }
+
+        .breadcrumb-item a {
+            color: var(--ogp-accent);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .breadcrumb-item.active {
+            color: var(--ogp-gray);
+        }
+
+        /* Hero Header */
+        .section-hero {
+            background: linear-gradient(135deg, var(--ogp-primary) 0%, var(--ogp-secondary) 50%, var(--ogp-accent) 100%);
+            color: white;
+            padding: 2rem 0 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .section-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="8" height="8" patternUnits="userSpaceOnUse"><path d="M 8 0 L 0 0 0 8" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            opacity: 0.7;
+        }
+
+        .section-hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .section-code-badge {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 0.6rem 1.5rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            display: inline-block;
+            margin-bottom: 1.5rem;
+            letter-spacing: 1px;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .section-title-hero {
+            font-size: 2.8rem;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(45deg, #ffffff, #e2e8f0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-description-hero {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+        }
+
+        .action-buttons-hero {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-hero {
+            padding: 0.8rem 2rem;
+            border-radius: 12px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .btn-hero-primary {
+            background: white;
+            color: var(--ogp-primary);
+            border-color: white;
+        }
+
+        .btn-hero-primary:hover {
+            background: transparent;
+            color: white;
+            border-color: white;
+            transform: translateY(-2px);
+        }
+
+        .btn-hero-outline {
+            background: transparent;
+            color: white;
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        .btn-hero-outline:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: white;
+            transform: translateY(-2px);
+        }
+
+        /* Main Layout */
+        .main-layout {
+            margin-top: -2rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        .sidebar-modern {
+            background: white;
+            border-radius: 20px;
+            box-shadow: var(--shadow-lg);
+            padding: 2rem;
+            position: sticky;
+            top: 6rem;
+            height: fit-content;
+        }
+
+        .content-modern {
+            background: white;
+            border-radius: 20px;
+            box-shadow: var(--shadow-lg);
+            overflow: hidden;
+        }
+
+        /* Sidebar Styles */
+        .sidebar-section {
+            margin-bottom: 2.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(15, 43, 91, 0.08);
+        }
+
+        .sidebar-section:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+
+        .sidebar-title {
+            font-size: 1.05rem;
+            font-weight: 650;
+            color: var(--ogp-primary);
+            margin-bottom: 1.2rem;
+            display: flex;
+            align-items: center;
+            line-height: 1.3;
+            letter-spacing: -0.01em;
+        }
+
+        .info-card {
+            background: linear-gradient(135deg, #F8FAFC 0%, #EDF2F7 100%);
+            border-radius: 16px;
+            padding: 1.75rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(15, 43, 91, 0.05);
+        }
+
+        .info-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.2rem;
+            padding: 0.75rem;
+            background: white;
+            border-radius: 10px;
+            border-left: 4px solid var(--ogp-light);
+            transition: all 0.3s ease;
+        }
+
+        .info-item:hover {
+            border-left-color: var(--ogp-accent);
+            transform: translateX(2px);
+        }
+
+        .info-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .info-label {
+            color: #64748B;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .info-value {
+            font-weight: 650;
+            color: var(--ogp-primary);
+            font-size: 0.95rem;
+        }
+
+        .nav-quick {
+            list-style: none;
+            padding: 0;
+        }
+
+        .nav-quick li {
+            margin-bottom: 0.75rem;
+        }
+
+        .nav-quick a {
+            color: var(--ogp-gray);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            padding: 0.5rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-quick a:hover {
+            background: var(--ogp-light);
+            color: var(--ogp-primary);
+        }
+
+        .nav-quick a.active {
+            background: var(--ogp-light) !important;
+            color: var(--ogp-primary) !important;
+            font-weight: 600 !important;
+            border-left: 3px solid var(--ogp-primary);
+        }
+
+        .nav-quick .badge {
+            font-size: 0.7rem !important;
+            padding: 0.3rem 0.5rem;
+        }
+
+        .contact-card {
+            background: linear-gradient(135deg, var(--ogp-primary), var(--ogp-secondary));
+            color: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
+
+        /* Content Tabs */
+        .content-tabs {
+            border-bottom: 1px solid rgba(15, 43, 91, 0.1);
+            padding: 0 2rem;
+            background: var(--ogp-light);
+        }
+
+        .nav-tabs-modern {
+            border: none;
+        }
+
+        .nav-tabs-modern .nav-link {
+            border: none;
+            color: var(--ogp-gray);
+            font-weight: 600;
+            padding: 1.5rem 2rem;
+            background: transparent;
+            border-radius: 0;
+            position: relative;
+        }
+
+        .nav-tabs-modern .nav-link.active {
+            color: var(--ogp-primary);
+            background: white;
+            border-bottom: 3px solid var(--ogp-primary);
+        }
+
+        .nav-tabs-modern .nav-link:hover {
+            color: var(--ogp-primary);
+            background: rgba(15, 43, 91, 0.05);
+        }
+
+        /* Document Cards */
+        .documents-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+            gap: 1.8rem;
+            padding: 2rem;
+        }
+
+        .document-card {
+            border: 1px solid rgba(15, 43, 91, 0.08);
+            border-radius: 18px;
+            padding: 1.8rem;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            background: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .document-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--ogp-primary), var(--ogp-accent));
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .document-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 40px rgba(15, 43, 91, 0.15);
+            border-color: var(--ogp-accent);
+        }
+
+        .document-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .doc-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            margin-bottom: 1.2rem;
+        }
+
+        .doc-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+            margin-right: 1rem;
+            flex-shrink: 0;
+        }
+
+        .doc-title {
+            font-size: 1.15rem;
+            font-weight: 650;
+            color: var(--ogp-primary);
+            line-height: 1.3;
+            margin-bottom: 0.75rem;
+            letter-spacing: -0.01em;
+        }
+
+        .doc-meta {
+            color: #64748B;
+            font-size: 0.92rem;
+            line-height: 1.5;
+            margin-bottom: 1.2rem;
+        }
+
+        .doc-description {
+            color: #64748B;
+            font-size: 0.92rem;
+            line-height: 1.5;
+            margin-bottom: 1.2rem;
+        }
+
+        .doc-metadata-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.75rem;
+            margin-bottom: 1.2rem;
+            font-size: 0.87rem;
+        }
+
+        .doc-metadata-item {
+            display: flex;
+            align-items: center;
+            padding: 0.5rem 0.75rem;
+            background: #F8FAFC;
+            border-radius: 8px;
+            border-left: 3px solid var(--ogp-light);
+            color: var(--ogp-gray);
+        }
+
+        .doc-metadata-item i {
+            margin-right: 0.5rem;
+            color: var(--ogp-accent);
+            font-size: 0.9rem;
+        }
+
+        .doc-status {
+            flex-shrink: 0;
+        }
+
+        .doc-actions {
+            display: flex;
+            gap: 0.75rem;
+            margin-top: 1.25rem;
+            padding-top: 1.25rem;
+            border-top: 1px solid #e5e7eb;
+            justify-content: flex-start;
+            align-items: stretch;
+            flex-wrap: wrap;
+        }
+
+        @media (max-width: 768px) {
+            .doc-actions {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .btn-doc {
+                width: 100% !important;
+                min-width: unset !important;
+            }
+        }
+
+        .btn-doc {
+            padding: 0.625rem 1.25rem !important;
+            border-radius: 8px !important;
+            font-size: 0.875rem !important;
+            font-weight: 500 !important;
+            text-decoration: none !important;
+            text-align: center !important;
+            transition: all 0.25s ease !important;
+            position: relative !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            white-space: nowrap !important;
+            min-width: 140px !important;
+            letter-spacing: 0.2px !important;
+            cursor: pointer !important;
+            height: 40px !important;
+            line-height: 1 !important;
+            box-sizing: border-box !important;
+        }
+
+        .btn-doc::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
+            transition: left 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 1;
+        }
+
+        .btn-doc > * {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Animaciones gubernamentales sutiles */
+        @keyframes subtlePulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.95; }
+        }
+
+        .btn-doc:active {
+            transform: translateY(0) scale(0.98);
+            transition: all 0.1s ease;
+        }
+
+        .btn-doc-primary:active {
+            box-shadow: 0 2px 8px rgba(30, 74, 115, 0.4), inset 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .btn-doc-outline:active {
+            box-shadow: 0 1px 4px rgba(30, 74, 115, 0.25), inset 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .btn-doc-primary:hover::before {
+            left: 100%;
+        }
+
+        .btn-doc-primary {
+            /* Botón primario gubernamental - Octubre 2025 */
+            background: linear-gradient(135deg, #1e4a73 0%, #2c5f8a 100%) !important;
+            color: white !important;
+            border: 1px solid #1e4a73 !important;
+            box-shadow: 0 3px 12px rgba(30, 74, 115, 0.15), inset 0 1px 0 rgba(255,255,255,0.1) !important;
+            border-radius: 8px !important;
+            padding: 0.6rem 1.2rem !important;
+            font-weight: 500 !important;
+            font-size: 0.875rem !important;
+        }
+
+        .btn-doc-primary:hover {
+            background: linear-gradient(135deg, #0f2b5b 0%, #1e4a73 100%) !important;
+            border-color: #0f2b5b !important;
+            color: white !important;
+            transform: translateY(-2px) !important;
+            box-shadow: 0 6px 18px rgba(15, 43, 91, 0.25), inset 0 1px 0 rgba(255,255,255,0.15) !important;
+        }
+
+        .btn-doc-outline {
+            background: white !important;
+            color: #1e4a73 !important;
+            border: 1px solid #d1d5db !important;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255,255,255,0.9) !important;
+            border-radius: 8px !important;
+            padding: 0.6rem 1.2rem !important;
+            font-weight: 500 !important;
+            font-size: 0.875rem !important;
+        }
+
+        .btn-doc-outline:hover {
+            background: #f8fafc !important;
+            color: #1e4a73 !important;
+            border-color: #1e4a73 !important;
+            transform: translateY(-2px) !important;
+            box-shadow: 0 4px 12px rgba(30, 74, 115, 0.12), inset 0 1px 0 rgba(255,255,255,0.9) !important;
+        }
+
+        /* Updates Timeline */
+        .updates-timeline {
+            padding: 2rem;
+        }
+
+        .timeline-item {
+            display: flex;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            left: 20px;
+            top: 50px;
+            width: 2px;
+            height: calc(100% + 1rem);
+            background: linear-gradient(to bottom, var(--ogp-accent), transparent);
+        }
+
+        .timeline-item:last-child::after {
+            display: none;
+        }
+
+        .timeline-marker {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--ogp-primary), var(--ogp-accent));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            margin-right: 1.5rem;
+            flex-shrink: 0;
+            position: relative;
+            z-index: 2;
+        }
+
+        .timeline-content {
+            flex: 1;
+            background: var(--ogp-light);
+            border-radius: 12px;
+            padding: 1.5rem;
+            border-left: 4px solid var(--ogp-accent);
+        }
+
+        .timeline-title {
+            font-weight: 600;
+            color: var(--ogp-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-date {
+            color: var(--ogp-gray);
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+        }
+
+        /* Badges */
+        .status-vigente {
+            background: #059669;
+            color: white;
+            padding: 0.375rem 0.875rem;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.375rem;
+            box-shadow: 0 1px 3px rgba(5, 150, 105, 0.2);
+        }
+
+        .status-revision {
+            background: linear-gradient(135deg, var(--ogp-warning), #B7791F);
+            color: white;
+            padding: 0.4rem 1rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        /* Footer */
+        .footer-modern {
+            background: var(--ogp-primary);
+            color: white;
+            padding: 3rem 0 1.5rem;
+            margin-top: 4rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .section-title-hero {
+                font-size: 2.2rem;
+            }
+
+            .sidebar-modern {
+                position: static;
+                margin-bottom: 2rem;
+            }
+
+            .documents-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .main-layout {
+                margin-top: 1rem;
+            }
+        }
+
+        /* Animation */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar-modern">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center w-100">
+                <a href="index.html" class="navbar-brand-modern">
+                    <div class="brand-icon">
+                        <i class="bi bi-journals"></i>
+                    </div>
+                    <div>
+                        <div style="font-size: 1.3rem;">OGP Guías</div>
+                        <div style="font-size: 0.7rem; opacity: 0.7; font-weight: 400;">Portal Presupuestario</div>
+                    </div>
+                </a>
+                
+                <div class="d-flex align-items-center gap-3">
+                    <div class="input-group" style="width: 300px;">
+                        <input type="text" class="form-control" placeholder="Buscar en las guías..." id="searchInput">
+                        <button class="btn btn-outline-secondary" type="button">
+                            <i class="bi bi-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb-modern">
+        <div class="container">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a href="index.html">
+                            <i class="bi bi-house me-1"></i>Portal Principal
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item active" aria-current="page" id="breadcrumbCurrent">
+                        Cargando...
+                    </li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Section Hero -->
+    <section class="section-hero">
+        <div class="container section-hero-content">
+            <div class="row align-items-center">
+                <div class="col-lg-8">
+                    <div class="section-code-badge" id="sectionCode">Cargando...</div>
+                    <h1 class="section-title-hero" id="sectionTitle">Cargando...</h1>
+                    <p class="section-description-hero" id="sectionDescription">Cargando...</p>
+                    <div class="action-buttons-hero">
+                        <button class="btn btn-hero-primary" onclick="copyLink()">
+                            <i class="bi bi-link-45deg me-2"></i>
+                            Compartir Enlace
+                        </button>
+                        <button class="btn btn-hero-outline" onclick="window.print()">
+                            <i class="bi bi-printer me-2"></i>
+                            Imprimir Sección
+                        </button>
+                        <button class="btn btn-hero-outline" onclick="downloadAll()">
+                            <i class="bi bi-download me-2"></i>
+                            Descargar Todo
+                        </button>
+                    </div>
+                </div>
+                <div class="col-lg-4 text-center">
+                    <div class="position-relative">
+                        <i class="bi bi-file-earmark-richtext" style="font-size: 6rem; opacity: 0.1; color: white;"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Layout -->
+    <div class="container main-layout">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-lg-4">
+                <div class="sidebar-modern fade-in">
+                    <div class="sidebar-section">
+                        <div class="sidebar-title">
+                            <i class="bi bi-info-circle me-2"></i>
+                            Información de la Sección
+                        </div>
+                        <div class="info-card">
+                            <div class="info-item">
+                                <span class="info-label">Última actualización</span>
+                                <span class="info-value" id="lastUpdate">Cargando...</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Total documentos</span>
+                                <span class="info-value" id="totalDocs">Cargando...</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Estado actual</span>
+                                <span class="status-vigente">Vigente</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Fecha límite peticiones</span>
+                                <span class="info-value text-warning">
+                                    <i class="bi bi-calendar-event me-1"></i>
+                                    15 dic 2025
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="sidebar-section" id="subcapitulos-section">
+                        <div class="sidebar-title">
+                            <i class="bi bi-diagram-3 me-2"></i>
+                            Subcapítulos de esta sección
+                        </div>
+                        <ul class="nav-quick" id="subcapitulos-nav">
+                            <!-- Los subcapítulos se cargarán aquí dinámicamente -->
+                        </ul>
+                    </div>
+
+                    <div class="sidebar-section">
+                        <div class="sidebar-title">
+                            <i class="bi bi-list me-2"></i>
+                            Navegación Rápida
+                        </div>
+                        <ul class="nav-quick">
+                            <li>
+                                <a href="#documentos" onclick="showTab('documentos')">
+                                    <i class="bi bi-file-earmark-text me-2"></i>
+                                    Documentos y Formularios
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#actualizaciones" onclick="showTab('actualizaciones')">
+                                    <i class="bi bi-clock-history me-2"></i>
+                                    Historial de Actualizaciones
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#recursos" onclick="showTab('recursos')">
+                                    <i class="bi bi-tools me-2"></i>
+                                    Recursos Adicionales
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="sidebar-section">
+                        <div class="contact-card">
+                            <div class="sidebar-title text-white mb-3">
+                                <i class="bi bi-headset me-2"></i>
+                                Soporte Técnico
+                            </div>
+                            <div class="mb-2">
+                                <div class="fw-bold">División de Normativas</div>
+                                <div class="small opacity-75">Oficina de Gerencia y Presupuesto</div>
+                            </div>
+                            <div class="mb-2">
+                                <a href="mailto:normativas@ogp.pr.gov" class="text-white text-decoration-none d-flex align-items-center">
+                                    <i class="bi bi-envelope me-2"></i>
+                                    normativas@ogp.pr.gov
+                                </a>
+                            </div>
+                            <div class="mb-2">
+                                <div class="d-flex align-items-center">
+                                    <i class="bi bi-telephone me-2"></i>
+                                    (787) 977-9200 ext. 2340
+                                </div>
+                            </div>
+                            <div class="small opacity-75">
+                                <i class="bi bi-clock me-1"></i>
+                                Lun-Vie: 8:00 AM - 5:00 PM
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="col-lg-8">
+                <div class="content-modern fade-in" style="animation-delay: 0.2s;">
+                    <!-- Content Tabs -->
+                    <div class="content-tabs">
+                        <ul class="nav nav-tabs nav-tabs-modern" role="tablist">
+                            <li class="nav-item">
+                                <button class="nav-link active" id="documentos-tab" data-bs-toggle="tab" data-bs-target="#documentos" type="button">
+                                    <i class="bi bi-file-earmark-text me-2"></i>
+                                    Documentos
+                                </button>
+                            </li>
+                            <li class="nav-item">
+                                <button class="nav-link" id="actualizaciones-tab" data-bs-toggle="tab" data-bs-target="#actualizaciones" type="button">
+                                    <i class="bi bi-clock-history me-2"></i>
+                                    Actualizaciones
+                                </button>
+                            </li>
+                            <li class="nav-item">
+                                <button class="nav-link" id="recursos-tab" data-bs-toggle="tab" data-bs-target="#recursos" type="button">
+                                    <i class="bi bi-tools me-2"></i>
+                                    Recursos
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Tab Content -->
+                    <div class="tab-content">
+                        <!-- Documentos Tab -->
+                        <div class="tab-pane fade show active" id="documentos">
+                            <div class="documents-grid" id="documentsContainer">
+                                <!-- Los documentos se cargarán aquí -->
+                            </div>
+                        </div>
+
+                        <!-- Actualizaciones Tab -->
+                        <div class="tab-pane fade" id="actualizaciones">
+                            <div class="updates-timeline" id="updatesContainer">
+                                <!-- Las actualizaciones se cargarán aquí -->
+                            </div>
+                        </div>
+
+                        <!-- Recursos Tab -->
+                        <div class="tab-pane fade" id="recursos">
+                            <div class="p-4">
+                                <div class="row g-4">
+                                    <div class="col-md-6">
+                                        <div class="document-card">
+                                            <div class="doc-header">
+                                                <div class="d-flex">
+                                                    <div class="doc-icon" style="background: linear-gradient(135deg, #9F7AEA, #805AD5);">
+                                                        <i class="bi bi-question-circle"></i>
+                                                    </div>
+                                                    <div>
+                                                        <div class="doc-title">Centro de Ayuda</div>
+                                                        <div class="doc-meta">Preguntas frecuentes y tutoriales</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="doc-actions">
+                                                <a href="#" class="btn-doc btn-doc-primary">
+                                                    <i class="bi bi-arrow-right me-1"></i>
+                                                    Acceder
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="document-card">
+                                            <div class="doc-header">
+                                                <div class="d-flex">
+                                                    <div class="doc-icon" style="background: linear-gradient(135deg, #38A169, #2F855A);">
+                                                        <i class="bi bi-play-circle"></i>
+                                                    </div>
+                                                    <div>
+                                                        <div class="doc-title">Videos Tutoriales</div>
+                                                        <div class="doc-meta">Guías paso a paso en video</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="doc-actions">
+                                                <a href="#" class="btn-doc btn-doc-primary">
+                                                    <i class="bi bi-play me-1"></i>
+                                                    Ver Videos
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer-modern">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-4">
+                    <div class="d-flex align-items-center mb-3">
+                        <div class="brand-icon me-3">
+                            <i class="bi bi-journals"></i>
+                        </div>
+                        <div>
+                            <div class="fw-bold">OGP Guías Presupuestarias</div>
+                            <div class="small opacity-75">Portal Digital Oficial</div>
+                        </div>
+                    </div>
+                    <p class="opacity-75 mb-0">
+                        Sistema integral para el acceso a normativas y recursos del proceso presupuestario del Gobierno de Puerto Rico.
+                    </p>
+                </div>
+                <div class="col-lg-8">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <h6 class="fw-bold mb-3">Enlaces Útiles</h6>
+                            <div class="d-flex flex-column gap-2">
+                                <a href="#" class="text-white-50 text-decoration-none">Portal Principal OGP</a>
+                                <a href="#" class="text-white-50 text-decoration-none">Sistema Presupuestario</a>
+                                <a href="#" class="text-white-50 text-decoration-none">Centro de Ayuda</a>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <h6 class="fw-bold mb-3">Recursos</h6>
+                            <div class="d-flex flex-column gap-2">
+                                <a href="#" class="text-white-50 text-decoration-none">Formularios</a>
+                                <a href="#" class="text-white-50 text-decoration-none">Manuales</a>
+                                <a href="#" class="text-white-50 text-decoration-none">Circulares</a>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <h6 class="fw-bold mb-3">Contacto</h6>
+                            <div class="d-flex flex-column gap-2 text-white-50">
+                                <div><i class="bi bi-envelope me-2"></i> normativas@ogp.pr.gov</div>
+                                <div><i class="bi bi-telephone me-2"></i> (787) 977-9200</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr class="my-4 opacity-25">
+            <div class="text-center">
+                <small class="opacity-75">
+                    © 2025 Oficina de Gerencia y Presupuesto, Gobierno de Puerto Rico
+                </small>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Estructura Jerárquica de Capítulos y Subcapítulos (Basada en Manual Oficial)
+        const estructuraCapitulos = {
+            "1": {
+                codigo: "1",
+                titulo: "Información sobre este Manual",
+                subcapitulos: {
+                    "1.1": { codigo: "1.1", titulo: "Propósito y estructura del Manual" },
+                    "1.2": { codigo: "1.2", titulo: "Aplicabilidad" },
+                    "1.3": { codigo: "1.3", titulo: "Términos y acrónimos" }
+                }
+            },
+            "2": {
+                codigo: "2", 
+                titulo: "Información General del Proceso Presupuestario en Puerto Rico",
+                subcapitulos: {
+                    "2.1": { codigo: "2.1", titulo: "Ley federal PROMESA y el proceso presupuestario de Puerto Rico" },
+                    "2.2": { codigo: "2.2", titulo: "Enfoque multianual en el proceso presupuestario" },
+                    "2.3": { codigo: "2.3", titulo: "Descripción de las etapas del proceso presupuestario" },
+                    "2.3.1": { codigo: "2.3.1", titulo: "Calendario presupuestario notificado por la JASF" },
+                    "2.3.2": { codigo: "2.3.2", titulo: "OGP envía Carta Presupuestaria a las agencias" },
+                    "2.3.3": { codigo: "2.3.3", titulo: "Agencias someten petición presupuestaria a la OGP" },
+                    "2.3.4": { codigo: "2.3.4", titulo: "Reuniones entre OGP y las agencias" },
+                    "2.3.5": { codigo: "2.3.5", titulo: "Gobernadora somete el presupuesto propuesto a la JASF" },
+                    "2.3.6": { codigo: "2.3.6", titulo: "El presupuesto aprobado se presenta a la Asamblea Legislativa" }
+                }
+            },
+            "3": {
+                codigo: "3",
+                titulo: "Políticas fiscales, presupuestarias y programáticas", 
+                subcapitulos: {
+                    "3.1": { codigo: "3.1", titulo: "Alineación con el Plan de Gobierno y Plan Fiscal certificado" },
+                    "3.2": { codigo: "3.2", titulo: "Reservas presupuestarias" },
+                    "3.3": { codigo: "3.3", titulo: "Riesgos presupuestarios" },
+                    "III.3.1": { codigo: "III.3.1", titulo: "Escenarios alternos y medidas de ahorro y eficiencia" },
+                    "3.4": { codigo: "3.4", titulo: "Gastos recurrentes y no recurrentes" },
+                    "3.5": { codigo: "3.5", titulo: "Reasignaciones y reprogramaciones" },
+                    "3.6": { codigo: "3.6", titulo: "Special Revenue Funds (SRF)" }
+                }
+            },
+            "4": {
+                codigo: "4",
+                titulo: "Normas sobre Petición Presupuestaria, Justificación y Narrativo del Presupuesto",
+                subcapitulos: {
+                    "4.1": { codigo: "4.1", titulo: "Gastos Operacionales (OPEX)" },
+                    "4.1.1": { codigo: "4.1.1", titulo: "Requerimientos principales" },
+                    "4.1.2": { codigo: "4.1.2", titulo: "Iniciativas (Programa de Gobierno, política pública o del Plan Fiscal)" },
+                    "4.1.3": { codigo: "4.1.3", titulo: "Indicadores de desempeño" },
+                    "4.1.4": { codigo: "4.1.4", titulo: "Plan de implementación, plan de trabajo y cronograma" },
+                    "4.1.5": { codigo: "4.1.5", titulo: "Agencias que administran contratos y/o subvenciones federales" },
+                    "4.1.6": { codigo: "4.1.6", titulo: "Plan de tecnología" },
+                    "4.2": { codigo: "4.2", titulo: "Nómina" },
+                    "4.3": { codigo: "4.3", titulo: "Proyectos de Infraestructura o Mejoras Capitales (CAPEX)" },
+                    "4.3.1": { codigo: "4.3.1", titulo: "Tipos de proyectos" }
+                }
+            },
+            "5": {
+                codigo: "5",
+                titulo: "Instrucciones para someter la Petición Presupuestaria",
+                subcapitulos: {
+                    "5.1": { codigo: "5.1", titulo: "Narrativos" },
+                    "5.2": { codigo: "5.2", titulo: "Instrucciones técnicas" }
+                }
+            },
+            "6": {
+                codigo: "6",
+                titulo: "Control y Monitoreo",
+                subcapitulos: {
+                    "6.1": { codigo: "6.1", titulo: "Sistemas de control y seguimiento" }
+                }
+            },
+            "7": {
+                codigo: "7",
+                titulo: "Guías Especiales",
+                subcapitulos: {
+                    "7.1": { codigo: "7.1", titulo: "Procedimientos especializados" }
+                }
+            }
+        };
+
+        // Sistema Completo de Guías Presupuestarias OGP - Base de Datos de Producción
+        const seccionData = {
+            "4.1": {
+                codigo: "4.1",
+                titulo: "Gastos Operacionales (OPEX)",
+                descripcion: "Marco normativo integral para la clasificación, justificación y documentación de gastos operacionales en el proceso presupuestario del Gobierno de Puerto Rico. Sistema completo de gestión fiscal con metodologías actualizadas según PROMESA y estándares GASB.",
+                ultimaActualizacion: "2025-10-09",
+                documentos: [
+                    {
+                        id: 1,
+                        titulo: "Formulario OPEX-2026 (Gastos Operacionales Detallados)",
+                        descripcion: "Formulario oficial para la presentación de gastos operacionales con validaciones automáticas",
+                        tipo: "Formulario Excel",
+                        categoria: "formulario",
+                        version: "5.2.1",
+                        estado: "vigente",
+                        fechaPublicacion: "2025-10-05",
+                        tamaño: "423 KB",
+                        icono: "file-earmark-excel",
+                        color: "#38A169"
+                    },
+                    {
+                        id: 2,
+                        titulo: "Carta Circular 2025-18 - Normativas OPEX FY2026",
+                        descripcion: "Normativas oficiales y límites presupuestarios para el año fiscal 2026",
+                        tipo: "Documento Normativo",
+                        categoria: "normativa",
+                        version: "1.0",
+                        estado: "vigente",
+                        fechaPublicacion: "2025-10-03",
+                        tamaño: "267 KB",
+                        icono: "file-earmark-text",
+                        color: "#3182CE"
+                    },
+                    {
+                        id: 3,
+                        titulo: "Manual Técnico de Clasificación OPEX - Edición 2026",
+                        descripcion: "Guía completa con 200+ ejemplos de clasificación presupuestaria",
+                        tipo: "Manual Técnico",
+                        categoria: "manual",
+                        version: "6.1",
+                        estado: "vigente",
+                        fechaPublicacion: "2025-09-28",
+                        tamaño: "3.2 MB",
+                        icono: "book",
+                        color: "#9F7AEA"
+                    },
+                    {
+                        id: 4,
+                        titulo: "Matriz de Aprobación por Niveles Jerárquicos",
+                        descripcion: "Herramienta automatizada para procesos de aprobación institucional",
+                        tipo: "Herramienta Excel",
+                        categoria: "herramienta",
+                        version: "2.3",
+                        estado: "vigente",
+                        fechaPublicacion: "2025-09-20",
+                        tamaño: "187 KB",
+                        icono: "diagram-3",
+                        color: "#D69E2E"
+                    },
+                    {
+                        id: 5,
+                        titulo: "Instructivo Operacional - Llenado de Formularios",
+                        descripcion: "Guía paso a paso con capturas de pantalla y ejemplos prácticos",
+                        tipo: "Guía Operacional",
+                        categoria: "guia",
+                        version: "1.8",
+                        estado: "vigente",
+                        fechaPublicacion: "2025-09-15",
+                        tamaño: "1.1 MB",
+                        icono: "question-circle",
+                        color: "#ED8936"
+                    },
+                    {
+                        id: 6,
+                        titulo: "Plantilla de Justificación - Gastos Extraordinarios",
+                        descripcion: "Plantilla pre-formateada para solicitudes de gastos fuera de lo ordinario",
+                        tipo: "Plantilla Word",
+                        categoria: "plantilla",
+                        version: "3.0",
+                        estado: "vigente",
+                        fechaPublicacion: "2025-09-10",
+                        tamaño: "145 KB",
+                        icono: "file-earmark-word",
+                        color: "#4299E1"
+                    },
+                    {
+                        id: 7,
+                        titulo: "Memo Técnico 2025-09 - Cambios en Clasificación de Materiales",
+                        descripcion: "Actualización de códigos presupuestarios para materiales y suministros de oficina",
+                        tipo: "Memorando Técnico",
+                        categoria: "normativa",
+                        version: "1.0",
+                        estado: "vigente",
+                        fechaPublicacion: "2025-10-08",
+                        tamaño: "89 KB",
+                        icono: "file-earmark-text",
+                        color: "#E53E3E"
+                    },
+                    {
+                        id: 8,
+                        titulo: "Formulario OPEX-COVID - Gastos Relacionados a Emergencias",
+                        descripcion: "Formulario especializado para gastos operacionales relacionados con emergencias y situaciones especiales",
+                        tipo: "Formulario Especializado",
+                        categoria: "formulario",
+                        version: "2.1",
+                        estado: "vigente",
+                        fechaPublicacion: "2025-10-05",
+                        tamaño: "298 KB",
+                        icono: "file-earmark-medical",
+                        color: "#DC2626"
+                    },
+                    {
+                        id: 9,
+                        titulo: "Checklist de Validación OPEX - Lista de Verificación",
+                        descripcion: "Lista de verificación obligatoria para revisar antes del envío de peticiones OPEX",
+                        tipo: "Checklist PDF",
+                        categoria: "herramienta",
+                        version: "1.5",
+                        estado: "vigente",
+                        fechaPublicacion: "2025-10-01",
+                        tamaño: "156 KB",
+                        icono: "check2-square",
+                        color: "#059669"
+                    },
+                    {
+                        id: 10,
+                        titulo: "Calculadora de Escalamiento OPEX - Herramienta Digital",
+                        descripcion: "Calculadora automatizada para proyecciones de crecimiento en gastos operacionales",
+                        tipo: "Herramienta Web",
+                        categoria: "calculadora",
+                        version: "3.2",
+                        estado: "vigente",
+                        fechaPublicacion: "2025-09-28",
+                        tamaño: "2.1 MB",
+                        icono: "calculator",
+                        color: "#7C3AED"
+                    },
+                    {
+                        id: 11,
+                        titulo: "Base de Datos de Proveedores Certificados OPEX",
+                        descripcion: "Directorio actualizado de proveedores pre-calificados para gastos operacionales",
+                        tipo: "Base de Datos Excel",
+                        categoria: "referencia",
+                        version: "4.7",
+                        estado: "vigente",
+                        fechaPublicacion: "2025-10-07",
+                        tamaño: "1.8 MB",
+                        icono: "database",
+                        color: "#0891B2"
+                    },
+                    {
+                        id: 12,
+                        titulo: "Manual de Integración con Sistema SAP - OPEX Module",
+                        descripcion: "Guía técnica para la integración de datos OPEX con el sistema SAP gubernamental",
+                        tipo: "Manual de Integración",
+                        categoria: "tecnico",
+                        version: "2.0",
+                        estado: "vigente",
+                        fechaPublicacion: "2025-09-25",
+                        tamaño: "4.1 MB",
+                        icono: "gear-wide-connected",
+                        color: "#DC2626"
+                    },
+                    {
+                        id: 13,
+                        titulo: "Reporte de Análisis Comparativo FY2024 vs FY2025 - OPEX",
+                        descripcion: "Análisis estadístico de tendencias en gastos operacionales comparando años fiscales recientes",
+                        tipo: "Reporte Analítico",
+                        categoria: "analisis",
+                        version: "1.0",
+                        estado: "vigente",
+                        fechaPublicacion: "2025-10-06",
+                        tamaño: "5.3 MB",
+                        icono: "graph-up",
+                        color: "#7C2D12"
+                    },
+                    {
+                        id: 14,
+                        titulo: "Certificación de Completitud OPEX - Formulario de Cierre",
+                        descripcion: "Formulario de certificación requerido para el cierre oficial del proceso de petición OPEX",
+                        tipo: "Formulario de Certificación",
+                        categoria: "certificacion",
+                        version: "1.3",
+                        estado: "vigente",
+                        fechaPublicacion: "2025-09-30",
+                        tamaño: "201 KB",
+                        icono: "award",
+                        color: "#B45309"
+                    },
+                    {
+                        id: 15,
+                        titulo: "Video Tutorial - Llenado Formulario OPEX 2026 (45 min)",
+                        descripcion: "Tutorial completo en video con demostración paso a paso del llenado del formulario OPEX",
+                        tipo: "Video Tutorial",
+                        categoria: "tutorial",
+                        version: "1.0",
+                        estado: "vigente",
+                        fechaPublicacion: "2025-10-02",
+                        tamaño: "127 MB",
+                        icono: "play-circle",
+                        color: "#BE185D"
+                    }
+                ],
+                updates: [
+                    {
+                        id: 1,
+                        titulo: "Formulario OPEX v5.2.1 - Validaciones Mejoradas",
+                        descripcion: "Implementación de validaciones automáticas y nuevos campos de sustentabilidad fiscal",
+                        fecha: "2025-10-05",
+                        tipo: "Actualización crítica",
+                        icono: "file-earmark-excel"
+                    },
+                    {
+                        id: 2,
+                        titulo: "Carta Circular 2025-18 - Límites Presupuestarios",
+                        descripcion: "Nueva normativa establece límites de crecimiento OPEX diferenciados por tipo de agencia",
+                        fecha: "2025-10-03",
+                        tipo: "Normativa oficial",
+                        icono: "file-text"
+                    },
+                    {
+                        id: 3,
+                        titulo: "Manual Técnico v6.1 - Expansión de Ejemplos",
+                        descripcion: "Adición de 47 nuevos casos de clasificación con jurisprudencia administrativa actualizada",
+                        fecha: "2025-09-28",
+                        tipo: "Expansión de contenido",
+                        icono: "book"
+                    },
+                    {
+                        id: 4,
+                        titulo: "Sistema Digital de Aprobaciones Implementado",
+                        descripcion: "Integración de la matriz de aprobación con la plataforma presupuestaria digital",
+                        fecha: "2025-09-20",
+                        tipo: "Mejora tecnológica",
+                        icono: "diagram-3"
+                    },
+                    {
+                        id: 5,
+                        titulo: "Actualización Urgente - Memo Técnico 2025-09",
+                        descripcion: "Cambios inmediatos en códigos de clasificación para materiales y suministros, efectivos desde el 8 de octubre",
+                        fecha: "2025-10-08",
+                        tipo: "Actualización urgente",
+                        icono: "exclamation-triangle"
+                    },
+                    {
+                        id: 6,
+                        titulo: "Nueva Base de Datos de Proveedores Certificados",
+                        descripcion: "Actualización semanal del directorio de proveedores con 127 nuevas empresas certificadas",
+                        fecha: "2025-10-07",
+                        tipo: "Actualización de base de datos",
+                        icono: "database"
+                    },
+                    {
+                        id: 7,
+                        titulo: "Reporte Analítico FY2024-2025 Publicado",
+                        descripcion: "Análisis comparativo completo con tendencias identificadas y recomendaciones estratégicas",
+                        fecha: "2025-10-06",
+                        tipo: "Publicación de reporte",
+                        icono: "graph-up"
+                    },
+                    {
+                        id: 8,
+                        titulo: "Formulario OPEX-COVID v2.1 Disponible",
+                        descripcion: "Nueva versión del formulario especializado con campos adicionales para gastos de emergencia",
+                        fecha: "2025-10-05",
+                        tipo: "Formulario especializado",
+                        icono: "file-earmark-medical"
+                    },
+                    {
+                        id: 9,
+                        titulo: "Video Tutorial Completo - 45 Minutos de Capacitación",
+                        descripcion: "Tutorial detallado del proceso completo OPEX 2026 con casos prácticos y errores comunes",
+                        fecha: "2025-10-02",
+                        tipo: "Material de capacitación",
+                        icono: "play-circle"
+                    },
+                    {
+                        id: 10,
+                        titulo: "Checklist de Validación Actualizado v1.5",
+                        descripcion: "Lista de verificación expandida con 23 puntos de control adicionales basados en errores frecuentes",
+                        fecha: "2025-10-01",
+                        tipo: "Herramienta de validación",
+                        icono: "check2-square"
+                    },
+                    {
+                        id: 11,
+                        titulo: "Certificación de Completitud - Nuevo Proceso",
+                        descripcion: "Implementación de formulario de certificación obligatorio para el cierre del proceso OPEX",
+                        fecha: "2025-09-30",
+                        tipo: "Proceso de certificación",
+                        icono: "award"
+                    },
+                    {
+                        id: 12,
+                        titulo: "Calculadora Digital OPEX v3.2 - Mejoras de Performance",
+                        descripcion: "Optimización del algoritmo de cálculo con tiempo de respuesta reducido en 60%",
+                        fecha: "2025-09-28",
+                        tipo: "Mejora de herramienta",
+                        icono: "calculator"
+                    },
+                    {
+                        id: 13,
+                        titulo: "Manual de Integración SAP v2.0 Lanzado",
+                        descripcion: "Documentación técnica actualizada para la nueva versión de integración con SAP gubernamental",
+                        fecha: "2025-09-25",
+                        tipo: "Manual técnico",
+                        icono: "gear-wide-connected"
+                    }
+                ]
+            },
+            "4.2": {
+                codigo: "4.2",
+                titulo: "Nómina",
+                descripcion: "Normativas y procedimientos para la gestión, clasificación y presupuestación de gastos de nómina y recursos humanos en el Gobierno de Puerto Rico. Incluye metodologías para proyecciones salariales y beneficios marginales.",
+                ultimaActualizacion: "2025-10-07",
+                documentos: [
+                    {
+                        id: 1,
+                        titulo: "Manual de Clasificación de Nómina FY2026",
+                        descripcion: "Guía completa para clasificación y codificación de todos los componentes de nómina",
+                        tipo: "Manual Técnico",
+                        categoria: "manual",
+                        version: "4.1",
+                        estado: "vigente",
+                        fechaPublicacion: "2025-10-07",
+                        tamaño: "1.8 MB",
+                        icono: "people",
+                        color: "#38A169"
+                    },
+                    {
+                        id: 2,
+                        titulo: "Formulario NOMINA-2026 - Proyecciones de Personal",
+                        descripcion: "Formulario oficial para proyecciones de nómina con validaciones automáticas",
+                        tipo: "Formulario Excel",
+                        categoria: "formulario",
+                        version: "3.2",
+                        estado: "vigente",
+                        fechaPublicacion: "2025-10-05",
+                        tamaño: "367 KB",
+                        icono: "file-earmark-excel",
+                        color: "#4299E1"
+                    },
+                    {
+                        id: 3,
+                        titulo: "Calculadora de Beneficios Marginales",
+                        descripcion: "Herramienta automatizada para cálculo de beneficios marginales por categoría",
+                        tipo: "Herramienta de Cálculo",
+                        categoria: "herramienta",
+                        version: "2.0",
+                        estado: "vigente",
+                        fechaPublicacion: "2025-09-30",
+                        tamaño: "289 KB",
+                        icono: "calculator",
+                        color: "#9F7AEA"
+                    }
+                ],
+                updates: [
+                    {
+                        id: 1,
+                        titulo: "Manual v4.1 - Nuevas Clasificaciones de Personal",
+                        descripcion: "Incorporación de nuevas categorías de personal según reforma gubernamental",
+                        fecha: "2025-10-07",
+                        tipo: "Actualización clasificación",
+                        icono: "person-badge"
+                    },
+                    {
+                        id: 2,
+                        titulo: "Calculadora v2.0 - Beneficios Actualizados",
+                        descripcion: "Actualización de tasas de beneficios marginales para FY2026",
+                        fecha: "2025-09-30",
+                        tipo: "Actualización técnica",
+                        icono: "calculator"
+                    }
+                ]
+            },
+            "4.3": {
+                codigo: "4.3",
+                titulo: "Proyectos de Infraestructura o Mejoras Capitales (CAPEX)",
+                descripcion: "Normativas y procedimientos integrales para la planificación, evaluación y documentación de proyectos de infraestructura y mejoras capitales. Sistema completo de gestión de inversiones de capital con metodologías PMBOK adaptadas al sector público puertorriqueño.",
+                ultimaActualizacion: "2025-10-08",
+                documentos: [
+                    {
+                        id: 16,
+                        titulo: "Formulario CAPEX-2026 - Proyectos de Infraestructura",
+                        descripcion: "Formulario maestro para solicitud de proyectos de infraestructura con evaluación de impacto y análisis costo-beneficio",
+                        tipo: "Formulario Excel Maestro",
+                        categoria: "formulario",
+                        version: "4.1.2",
+                        estado: "vigente",
+                        fechaPublicacion: "2025-10-08",
+                        tamaño: "1.2 MB",
+                        icono: "building",
+                        color: "#DC2626"
+                    },
+                    {
+                        id: 17,
+                        titulo: "Manual de Evaluación de Proyectos CAPEX - Metodología 2026",
+                        descripcion: "Guía completa de evaluación con matrices de decisión, análisis financiero y criterios de priorización",
+                        tipo: "Manual de Evaluación",
+                        categoria: "manual",
+                        version: "3.5",
+                        estado: "vigente",
+                        fechaPublicacion: "2025-10-05",
+                        tamaño: "6.8 MB",
+                        icono: "clipboard-data",
+                        color: "#7C3AED"
+                    },
+                    {
+                        id: 18,
+                        titulo: "Catálogo de Costos de Construcción PR-2026",
+                        descripcion: "Base de datos actualizada de costos de construcción por metro cuadrado para diferentes tipos de proyectos",
+                        tipo: "Catálogo de Costos",
+                        categoria: "referencia",
+                        version: "2.3",
+                        estado: "vigente",
+                        fechaPublicacion: "2025-10-01",
+                        tamaño: "3.4 MB",
+                        icono: "calculator",
+                        color: "#059669"
+                    },
+                    {
+                        id: 19,
+                        titulo: "Carta Circular 2025-19 - Nuevos Umbrales CAPEX",
+                        descripcion: "Actualización de umbrales monetarios para clasificación de proyectos pequeños, medianos y grandes",
+                        tipo: "Circular Normativa",
+                        categoria: "normativa",
+                        version: "1.0",
+                        estado: "vigente",
+                        fechaPublicacion: "2025-09-30",
+                        tamaño: "178 KB",
+                        icono: "file-earmark-text",
+                        color: "#3182CE"
+                    },
+                    {
+                        id: 20,
+                        titulo: "Herramienta de Análisis Costo-Beneficio Digital",
+                        descripcion: "Calculadora automatizada para análisis económico de proyectos con VPN, TIR y análisis de sensibilidad",
+                        tipo: "Herramienta Web",
+                        categoria: "calculadora",
+                        version: "2.8",
+                        estado: "vigente",
+                        fechaPublicacion: "2025-09-25",
+                        tamaño: "4.7 MB",
+                        icono: "graph-up-arrow",
+                        color: "#DC2626"
+                    },
+                    {
+                        id: 21,
+                        titulo: "Base de Datos de Contratistas Certificados CAPEX",
+                        descripcion: "Directorio oficial de contratistas pre-calificados con historial de desempeño y certificaciones vigentes",
+                        tipo: "Base de Datos",
+                        categoria: "referencia",
+                        version: "5.2",
+                        estado: "vigente",
+                        fechaPublicacion: "2025-10-07",
+                        tamaño: "2.9 MB",
+                        icono: "people",
+                        color: "#0891B2"
+                    }
+                ],
+                updates: [
+                    {
+                        id: 14,
+                        titulo: "Formulario CAPEX v4.1.2 - Integración con Sistema de Permisos",
+                        descripcion: "Nueva integración automática con el sistema de permisos municipales y estatales",
+                        fecha: "2025-10-08",
+                        tipo: "Integración de sistemas",
+                        icono: "building"
+                    },
+                    {
+                        id: 15,
+                        titulo: "Base de Datos de Contratistas - Actualización Semanal",
+                        descripcion: "Incorporación de 34 nuevos contratistas certificados y actualización de estados de licencias",
+                        fecha: "2025-10-07",
+                        tipo: "Actualización de base de datos",
+                        icono: "people"
+                    },
+                    {
+                        id: 16,
+                        titulo: "Manual de Evaluación v3.5 - Nuevos Criterios Ambientales",
+                        descripcion: "Adición de criterios de sostenibilidad ambiental y cumplimiento con NEPA",
+                        fecha: "2025-10-05",
+                        tipo: "Expansión normativa",
+                        icono: "clipboard-data"
+                    }
+                ]
+            },
+            "4.1": {
+                codigo: "4.1",
+                titulo: "Plataforma Presupuestaria Digital",
+                descripcion: "Manual técnico y operativo completo para el uso de la plataforma digital de gestión presupuestaria. Incluye guías de usuario, administración del sistema, integraciones API y procedimientos de seguridad cibernética.",
+                ultimaActualizacion: "2025-10-09",
+                documentos: [
+                    {
+                        id: 22,
+                        titulo: "Manual de Usuario - Plataforma Digital v8.2",
+                        descripcion: "Guía completa del usuario final con capturas de pantalla actualizadas y flujos de trabajo paso a paso",
+                        tipo: "Manual de Usuario",
+                        categoria: "manual",
+                        version: "8.2.1",
+                        estado: "vigente",
+                        fechaPublicacion: "2025-10-09",
+                        tamaño: "12.3 MB",
+                        icono: "laptop",
+                        color: "#6366F1"
+                    },
+                    {
+                        id: 23,
+                        titulo: "Guía de Administrador del Sistema",
+                        descripcion: "Documentación técnica para administradores con configuraciones avanzadas y troubleshooting",
+                        tipo: "Guía Técnica",
+                        categoria: "tecnico",
+                        version: "3.1",
+                        estado: "vigente",
+                        fechaPublicacion: "2025-10-05",
+                        tamaño: "8.7 MB",
+                        icono: "gear-wide-connected",
+                        color: "#DC2626"
+                    },
+                    {
+                        id: 24,
+                        titulo: "Documentación API v2.0 - Integraciones Externas",
+                        descripcion: "Especificaciones técnicas de la API REST para integraciones con sistemas de terceros",
+                        tipo: "Documentación API",
+                        categoria: "api",
+                        version: "2.0.3",
+                        estado: "vigente",
+                        fechaPublicacion: "2025-10-01",
+                        tamaño: "4.1 MB",
+                        icono: "code-slash",
+                        color: "#059669"
+                    },
+                    {
+                        id: 25,
+                        titulo: "Plan de Seguridad Cibernética - Plataforma Digital",
+                        descripcion: "Protocolo de seguridad con medidas de protección, auditoría y respuesta a incidentes",
+                        tipo: "Plan de Seguridad",
+                        categoria: "seguridad",
+                        version: "1.7",
+                        estado: "vigente",
+                        fechaPublicacion: "2025-09-28",
+                        tamaño: "2.8 MB",
+                        icono: "shield-check",
+                        color: "#7C2D12"
+                    }
+                ],
+                updates: [
+                    {
+                        id: 17,
+                        titulo: "Plataforma v8.2.1 - Mejoras de Performance Críticas",
+                        descripcion: "Optimización de base de datos que reduce tiempo de carga en 75% y mejora experiencia de usuario",
+                        fecha: "2025-10-09",
+                        tipo: "Actualización crítica",
+                        icono: "laptop"
+                    },
+                    {
+                        id: 18,
+                        titulo: "Nueva API v2.0.3 - Endpoints Adicionales",
+                        descripcion: "Lanzamiento de 12 nuevos endpoints para integración con sistemas municipales",
+                        fecha: "2025-10-01",
+                        tipo: "Expansión de API",
+                        icono: "code-slash"
+                    }
+                ]
+            },
+            "3.1": {
+                codigo: "3.1",
+                titulo: "Targets Presupuestarios",
+                descripcion: "Metodología oficial para el establecimiento y comunicación de límites presupuestarios a las agencias gubernamentales del Estado Libre Asociado de Puerto Rico.",
+                ultimaActualizacion: "2025-09-25",
+                documentos: [
+                    {
+                        id: 1,
+                        titulo: "Circular Normativa 2026-01 - Límites Presupuestarios FY2026",
+                        descripcion: "Establecimiento oficial de techos presupuestarios por agencia para el año fiscal 2026",
+                        tipo: "Circular Normativa",
+                        categoria: "normativa",
+                        version: "1.0",
+                        estado: "vigente",
+                        fechaPublicacion: "2025-09-25",
+                        tamaño: "345 KB",
+                        icono: "file-earmark-ruled",
+                        color: "#D69E2E"
+                    },
+                    {
+                        id: 2,
+                        titulo: "Metodología de Cálculo - Targets por Categoría",
+                        descripcion: "Guía técnica para el cálculo y aplicación de límites presupuestarios por categoría de gasto",
+                        tipo: "Manual Técnico",
+                        categoria: "manual",
+                        version: "2.1",
+                        estado: "vigente",
+                        fechaPublicacion: "2025-09-20",
+                        tamaño: "1.2 MB",
+                        icono: "calculator",
+                        color: "#3182CE"
+                    }
+                ],
+                updates: [
+                    {
+                        id: 1,
+                        titulo: "Actualización de Límites - Sector Salud",
+                        descripcion: "Ajuste extraordinario de límites presupuestarios para agencias del sector salud debido a necesidades críticas",
+                        fecha: "2025-10-08",
+                        tipo: "Ajuste de límites",
+                        icono: "heart-pulse"
+                    }
+                ]
+            },
+            "3.2.4.2": {
+                codigo: "3.2.4.2",
+                titulo: "Proyectos de Infraestructura (CAPEX)",
+                descripcion: "Procedimientos integrales para el detalle, evaluación y justificación de proyectos de infraestructura y mejoras capitales en el proceso presupuestario gubernamental.",
+                ultimaActualizacion: "2025-09-20",
+                documentos: [
+                    {
+                        id: 1,
+                        titulo: "Formulario CAPEX-2026 (Proyectos de Infraestructura)",
+                        descripcion: "Formulario oficial para presentación de proyectos de infraestructura con análisis costo-beneficio",
+                        tipo: "Formulario Excel",
+                        categoria: "formulario",
+                        version: "4.1.2",
+                        estado: "vigente",
+                        fechaPublicacion: "2025-09-20",
+                        tamaño: "892 KB",
+                        icono: "file-earmark-excel",
+                        color: "#38A169"
+                    },
+                    {
+                        id: 2,
+                        titulo: "Manual de Evaluación de Proyectos CAPEX",
+                        descripcion: "Metodología completa para evaluación técnica y financiera de proyectos de infraestructura",
+                        tipo: "Manual de Evaluación",
+                        categoria: "manual",
+                        version: "3.0",
+                        estado: "vigente",
+                        fechaPublicacion: "2025-09-15",
+                        tamaño: "2.1 MB",
+                        icono: "building",
+                        color: "#9F7AEA"
+                    },
+                    {
+                        id: 3,
+                        titulo: "Matriz de Criterios de Priorización",
+                        descripcion: "Herramienta de scoring para priorización objetiva de proyectos de infraestructura",
+                        tipo: "Herramienta Excel",
+                        categoria: "herramienta",
+                        version: "1.5",
+                        estado: "vigente",
+                        fechaPublicacion: "2025-09-10",
+                        tamaño: "234 KB",
+                        icono: "list-check",
+                        color: "#ED8936"
+                    }
+                ],
+                updates: [
+                    {
+                        id: 1,
+                        titulo: "Nuevos Criterios de Sostenibilidad Ambiental",
+                        descripcion: "Incorporación de métricas ambientales y de sostenibilidad en la evaluación de proyectos CAPEX",
+                        fecha: "2025-10-05",
+                        tipo: "Actualización de criterios",
+                        icono: "tree"
+                    },
+                    {
+                        id: 2,
+                        titulo: "Integración con Sistema de Seguimiento",
+                        descripción: "Nueva funcionalidad de tracking automático del progreso de proyectos aprobados",
+                        fecha: "2025-09-28",
+                        tipo: "Mejora de sistema",
+                        icono: "graph-up"
+                    }
+                ]
+            },
+            "1.1": {
+                codigo: "1.1",
+                titulo: "Propósito y estructura del Manual",
+                descripcion: "Marco conceptual y objetivos del Manual de Guías Presupuestarias del Gobierno de Puerto Rico. Define los principios fundamentales, estructura organizacional y alcance del manual para la gestión presupuestaria efectiva.",
+                ultimaActualizacion: "2025-10-05",
+                documentos: [
+                    {
+                        id: 1,
+                        titulo: "Declaración de Propósito y Estructura del Manual - OGP",
+                        descripcion: "Documento marco que establece los objetivos y estructura organizacional del manual",
+                        tipo: "Documento Marco",
+                        categoria: "normativa",
+                        version: "2.0",
+                        estado: "vigente",
+                        fechaPublicacion: "2025-10-05",
+                        tamaño: "156 KB",
+                        icono: "file-earmark-text",
+                        color: "#3182CE"
+                    },
+                    {
+                        id: 2,
+                        titulo: "Beneficios del Sistema Digital Presupuestario",
+                        descripcion: "Análisis detallado de ventajas y mejoras en eficiencia operacional",
+                        tipo: "Análisis Técnico",
+                        categoria: "analisis",
+                        version: "1.3",
+                        estado: "vigente",
+                        fechaPublicacion: "2025-09-28",
+                        tamaño: "892 KB",
+                        icono: "graph-up-arrow",
+                        color: "#38A169"
+                    }
+                ],
+                updates: [
+                    {
+                        id: 1,
+                        titulo: "Actualización Marco Normativo - Nueva Versión 2.0",
+                        descripcion: "Actualización integral que incorpora las últimas directrices federales",
+                        fecha: "2025-10-05",
+                        tipo: "Actualización normativa",
+                        icono: "file-text"
+                    }
+                ]
+            },
+            "1.2": {
+                codigo: "1.2",
+                titulo: "Aplicabilidad",
+                descripcion: "Alcance y aplicabilidad del Manual de Guías Presupuestarias para todas las agencias, corporaciones públicas y entidades del Gobierno de Puerto Rico sujetas al proceso presupuestario.",
+                ultimaActualizacion: "2025-10-03",
+                documentos: [
+                    {
+                        id: 1,
+                        titulo: "Matriz de Aplicabilidad por Tipo de Entidad",
+                        descripcion: "Tabla detallada que especifica la aplicabilidad según el tipo de entidad gubernamental",
+                        tipo: "Matriz de Referencia",
+                        categoria: "referencia",
+                        version: "1.0",
+                        estado: "vigente",
+                        fechaPublicacion: "2025-10-03",
+                        tamaño: "89 KB",
+                        icono: "table",
+                        color: "#4299E1"
+                    },
+                    {
+                        id: 2,
+                        titulo: "Excepciones y Casos Especiales",
+                        descripcion: "Documento que detalla las excepciones y tratamiento especial para entidades específicas",
+                        tipo: "Guía de Excepciones",
+                        categoria: "guia",
+                        version: "1.1",
+                        estado: "vigente",
+                        fechaPublicacion: "2025-09-30",
+                        tamaño: "156 KB",
+                        icono: "exclamation-circle",
+                        color: "#D69E2E"
+                    }
+                ],
+                updates: [
+                    {
+                        id: 1,
+                        titulo: "Actualización Matriz - Nuevas Entidades Incorporadas",
+                        descripcion: "Incorporación de nuevas entidades gubernamentales al ámbito de aplicación",
+                        fecha: "2025-10-03",
+                        tipo: "Actualización de alcance",
+                        icono: "building"
+                    }
+                ]
+            },
+            "1.3": {
+                codigo: "1.3",
+                titulo: "Términos y acrónimos",
+                descripcion: "Glosario completo de terminología técnica, definiciones operacionales y acrónimos utilizados en el proceso presupuestario del Gobierno de Puerto Rico.",
+                ultimaActualizacion: "2025-10-01",
+                documentos: [
+                    {
+                        id: 1,
+                        titulo: "Glosario Oficial de Términos Presupuestarios",
+                        descripcion: "Diccionario completo con más de 200 términos técnicos del proceso presupuestario",
+                        tipo: "Glosario Oficial",
+                        categoria: "referencia",
+                        version: "3.2",
+                        estado: "vigente",
+                        fechaPublicacion: "2025-10-01",
+                        tamaño: "234 KB",
+                        icono: "book-half",
+                        color: "#9F7AEA"
+                    },
+                    {
+                        id: 2,
+                        titulo: "Índice de Acrónimos y Abreviaciones",
+                        descripcion: "Lista alfabética de todos los acrónimos utilizados en el ámbito presupuestario",
+                        tipo: "Índice de Referencia",
+                        categoria: "referencia",
+                        version: "2.1",
+                        estado: "vigente",
+                        fechaPublicacion: "2025-09-28",
+                        tamaño: "67 KB",
+                        icono: "list-ul",
+                        color: "#38A169"
+                    }
+                ],
+                updates: [
+                    {
+                        id: 1,
+                        titulo: "Glosario v3.2 - Nuevos Términos PROMESA",
+                        descripcion: "Incorporación de términos técnicos relacionados con las nuevas disposiciones",
+                        fecha: "2025-10-01",
+                        tipo: "Expansión terminológica",
+                        icono: "plus-circle"
+                    }
+                ]
+            },
+            "2.1": {
+                codigo: "2.1",
+                titulo: "Ley federal PROMESA y el proceso presupuestario de Puerto Rico",
+                descripcion: "Marco normativo establecido por la Ley federal PROMESA y su impacto en el proceso presupuestario del Gobierno de Puerto Rico, incluyendo requerimientos de la Junta de Supervisión Fiscal y procedimientos de certificación.",
+                ultimaActualizacion: "2025-10-04",
+                documentos: [
+                    {
+                        id: 1,
+                        titulo: "Manual del Proceso Presupuestario FY2026",
+                        descripcion: "Guía completa del proceso presupuestario con cronogramas actualizados",
+                        tipo: "Manual Oficial",
+                        categoria: "manual",
+                        version: "2026.1",
+                        estado: "vigente",
+                        fechaPublicacion: "2025-10-04",
+                        tamaño: "2.3 MB",
+                        icono: "book",
+                        color: "#9F7AEA"
+                    },
+                    {
+                        id: 2,
+                        titulo: "Cronograma Maestro FY2026 - Fechas Críticas",
+                        descripcion: "Calendario oficial con todas las fechas límite y entregables",
+                        tipo: "Calendario Oficial",
+                        categoria: "cronograma",
+                        version: "1.0",
+                        estado: "vigente",
+                        fechaPublicacion: "2025-10-01",
+                        tamaño: "234 KB",
+                        icono: "calendar-event",
+                        color: "#D69E2E"
+                    },
+                    {
+                        id: 3,
+                        titulo: "Requerimientos PROMESA - Compliance Guide",
+                        descripcion: "Guía de cumplimiento con todos los requerimientos de la Junta de Control Fiscal",
+                        tipo: "Guía de Cumplimiento",
+                        categoria: "compliance",
+                        version: "1.2",
+                        estado: "vigente",
+                        fechaPublicacion: "2025-09-25",
+                        tamaño: "1.8 MB",
+                        icono: "shield-check",
+                        color: "#E53E3E"
+                    }
+                ],
+                updates: [
+                    {
+                        id: 1,
+                        titulo: "Actualización Cronograma - Nuevas Fechas FY2026",
+                        descripcion: "Ajustes en fechas límite para mejor coordinación interagencial",
+                        fecha: "2025-10-04",
+                        tipo: "Actualización cronograma",
+                        icono: "calendar"
+                    },
+                    {
+                        id: 2,
+                        titulo: "Nueva Guía PROMESA - Requerimientos Actualizados",
+                        descripcion: "Incorporación de las últimas directrices de la Junta de Control Fiscal",
+                        fecha: "2025-09-25",
+                        tipo: "Actualización normativa",
+                        icono: "shield"
+                    }
+                ]
+            },
+            "3.1": {
+                codigo: "3.1",
+                titulo: "Targets Presupuestarios",
+                descripcion: "Metodología oficial para el establecimiento, comunicación y seguimiento de límites presupuestarios a agencias gubernamentales. Sistema integral de gestión de targets con validaciones automáticas.",
+                ultimaActualizacion: "2025-09-25",
+                documentos: [
+                    {
+                        id: 1,
+                        titulo: "Metodología de Targets FY2026 - Guía Oficial",
+                        descripcion: "Procedimiento oficial para establecimiento de límites presupuestarios",
+                        tipo: "Metodología Oficial",
+                        categoria: "metodologia",
+                        version: "3.1",
+                        estado: "vigente",
+                        fechaPublicacion: "2025-09-25",
+                        tamaño: "1.2 MB",
+                        icono: "bullseye",
+                        color: "#4299E1"
+                    },
+                    {
+                        id: 2,
+                        titulo: "Matriz de Distribución - Targets por Agencia",
+                        descripcion: "Herramienta automatizada para distribución de límites presupuestarios",
+                        tipo: "Herramienta Excel",
+                        categoria: "herramienta",
+                        version: "2.8",
+                        estado: "vigente",
+                        fechaPublicacion: "2025-09-20",
+                        tamaño: "445 KB",
+                        icono: "table",
+                        color: "#38A169"
+                    }
+                ],
+                updates: [
+                    {
+                        id: 1,
+                        titulo: "Metodología v3.1 - Ajustes para FY2026",
+                        descripcion: "Refinamientos en la metodología basados en lecciones aprendidas",
+                        fecha: "2025-09-25",
+                        tipo: "Mejora metodológica",
+                        icono: "target"
+                    }
+                ]
+            },
+            "5.1": {
+                codigo: "5.1",
+                titulo: "Narrativos",
+                descripcion: "Guía detallada para la elaboración de narrativos presupuestarios, incluyendo estructura, contenido requerido y mejores prácticas para la presentación clara y efectiva de las justificaciones presupuestarias.",
+                ultimaActualizacion: "2025-10-06",
+                documentos: [
+                    {
+                        id: 1,
+                        titulo: "Guía para Elaboración de Narrativos Presupuestarios",
+                        descripcion: "Manual completo con ejemplos y plantillas para narrativos efectivos",
+                        tipo: "Guía Metodológica",
+                        categoria: "guia",
+                        version: "2.3",
+                        estado: "vigente",
+                        fechaPublicacion: "2025-10-06",
+                        tamaño: "1.4 MB",
+                        icono: "file-text",
+                        color: "#4299E1"
+                    },
+                    {
+                        id: 2,
+                        titulo: "Plantilla Estándar de Narrativo - FY2026",
+                        descripcion: "Plantilla oficial con formato y estructura predefinida",
+                        tipo: "Plantilla Word",
+                        categoria: "plantilla",
+                        version: "1.0",
+                        estado: "vigente",
+                        fechaPublicacion: "2025-10-05",
+                        tamaño: "234 KB",
+                        icono: "file-earmark-word",
+                        color: "#38A169"
+                    }
+                ],
+                updates: [
+                    {
+                        id: 1,
+                        titulo: "Guía v2.3 - Nuevos Estándares de Narrativo",
+                        descripcion: "Actualización con mejores prácticas y nuevos requerimientos de claridad",
+                        fecha: "2025-10-06",
+                        tipo: "Mejora metodológica",
+                        icono: "file-text"
+                    }
+                ]
+            },
+            "6.1": {
+                codigo: "6.1",
+                titulo: "Sistemas de control y seguimiento",
+                descripcion: "Metodologías y herramientas para el control presupuestario continuo, monitoreo de ejecución y sistemas de alerta temprana para desviaciones presupuestarias.",
+                ultimaActualizacion: "2025-10-03",
+                documentos: [
+                    {
+                        id: 1,
+                        titulo: "Manual de Control Presupuestario - Sistemas Integrados",
+                        descripcion: "Guía completa para sistemas de control y monitoreo presupuestario",
+                        tipo: "Manual de Sistema",
+                        categoria: "manual",
+                        version: "3.0",
+                        estado: "vigente",
+                        fechaPublicacion: "2025-10-03",
+                        tamaño: "2.1 MB",
+                        icono: "graph-up",
+                        color: "#E53E3E"
+                    },
+                    {
+                        id: 2,
+                        titulo: "Dashboard de Monitoreo - Herramienta de Seguimiento",
+                        descripcion: "Aplicación web para monitoreo en tiempo real de ejecución presupuestaria",
+                        tipo: "Herramienta Digital",
+                        categoria: "herramienta",
+                        version: "1.2",
+                        estado: "vigente",
+                        fechaPublicacion: "2025-09-30",
+                        tamaño: "Web App",
+                        icono: "speedometer2",
+                        color: "#9F7AEA"
+                    }
+                ],
+                updates: [
+                    {
+                        id: 1,
+                        titulo: "Sistema v3.0 - Integración con Plataforma Central",
+                        descripcion: "Nueva integración que permite monitoreo unificado de todas las agencias",
+                        fecha: "2025-10-03",
+                        tipo: "Mejora tecnológica",
+                        icono: "diagram-3"
+                    }
+                ]
+            },
+            "7.1": {
+                codigo: "7.1",
+                titulo: "Procedimientos especializados",
+                descripcion: "Guías específicas para situaciones excepcionales, procedimientos de emergencia y casos especiales que requieren tratamiento diferenciado en el proceso presupuestario.",
+                ultimaActualizacion: "2025-09-28",
+                documentos: [
+                    {
+                        id: 1,
+                        titulo: "Guía de Procedimientos de Emergencia Presupuestaria",
+                        descripcion: "Protocolo para situaciones de emergencia que requieren ajustes presupuestarios urgentes",
+                        tipo: "Protocolo de Emergencia",
+                        categoria: "protocolo",
+                        version: "1.5",
+                        estado: "vigente",
+                        fechaPublicacion: "2025-09-28",
+                        tamaño: "687 KB",
+                        icono: "exclamation-triangle",
+                        color: "#D69E2E"
+                    },
+                    {
+                        id: 2,
+                        titulo: "Manual de Casos Especiales - Entidades Autónomas",
+                        descripcion: "Procedimientos específicos para corporaciones públicas y entidades autónomas",
+                        tipo: "Manual Especializado",
+                        categoria: "manual",
+                        version: "2.1",
+                        estado: "vigente",
+                        fechaPublicacion: "2025-09-25",
+                        tamaño: "1.3 MB",
+                        icono: "building",
+                        color: "#4299E1"
+                    }
+                ],
+                updates: [
+                    {
+                        id: 1,
+                        titulo: "Protocolo v1.5 - Nuevos Procedimientos Post-Huracán",
+                        descripcion: "Incorporación de lecciones aprendidas de eventos climáticos recientes",
+                        fecha: "2025-09-28",
+                        tipo: "Actualización protocolo",
+                        icono: "cloud-rain"
+                    }
+                ]
+            }
+        };
+
+        // Función para obtener parámetros de URL
+        function getUrlParameter(name) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(name);
+        }
+
+        // Función para renderizar documentos con el nuevo diseño
+        function renderDocuments(documentos) {
+            const container = document.getElementById('documentsContainer');
+            container.innerHTML = '';
+
+            documentos.forEach((doc, index) => {
+                const statusClass = doc.estado === 'vigente' ? 'status-vigente' : 'status-revision';
+                const statusText = doc.estado === 'vigente' ? 'Vigente' : 'En revisión';
+
+                const docCard = `
+                    <div class="document-card fade-in" style="animation-delay: ${0.1 + (index * 0.1)}s;">
+                        <div class="doc-header">
+                            <div class="d-flex align-items-start gap-3 flex-grow-1">
+                                <div class="doc-icon" style="background: linear-gradient(135deg, ${doc.color}, ${doc.color}CC);">
+                                    <i class="bi bi-${doc.icono}" style="color: white; font-size: 1.4rem;"></i>
+                                </div>
+                                <div class="flex-grow-1">
+                                    <div class="d-flex justify-content-between align-items-start mb-2">
+                                        <div class="doc-title">${doc.titulo}</div>
+                                        <span class="${statusClass} ms-2">${statusText}</span>
+                                    </div>
+                                    <div class="doc-description">${doc.descripcion}</div>
+                                    <div class="doc-metadata-grid">
+                                        <div class="doc-metadata-item">
+                                            <i class="bi bi-file-text"></i>
+                                            <span>${doc.tipo}</span>
+                                        </div>
+                                        <div class="doc-metadata-item">
+                                            <i class="bi bi-tag"></i>
+                                            <span>v${doc.version}</span>
+                                        </div>
+                                        <div class="doc-metadata-item">
+                                            <i class="bi bi-hdd"></i>
+                                            <span>${doc.tamaño}</span>
+                                        </div>
+                                        <div class="doc-metadata-item">
+                                            <i class="bi bi-calendar3"></i>
+                                            <span>${new Date(doc.fechaPublicacion).toLocaleDateString('es-PR')}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="doc-actions">
+                            <a href="#" class="btn-doc btn-doc-primary">
+                                <i class="bi bi-eye me-2"></i>
+                                Ver Documento
+                            </a>
+                            <a href="#" class="btn-doc btn-doc-outline">
+                                <i class="bi bi-download me-2"></i>
+                                Descargar
+                            </a>
+                        </div>
+                    </div>
+                `;
+                container.innerHTML += docCard;
+            });
+        }
+
+        // Función para renderizar actualizaciones con timeline
+        function renderUpdates(updates) {
+            const container = document.getElementById('updatesContainer');
+            container.innerHTML = '';
+
+            updates.forEach((update, index) => {
+                const updateItem = `
+                    <div class="timeline-item fade-in" style="animation-delay: ${0.1 + (index * 0.1)}s;">
+                        <div class="timeline-marker">
+                            <i class="bi bi-${update.icono}"></i>
+                        </div>
+                        <div class="timeline-content">
+                            <div class="timeline-title">${update.titulo}</div>
+                            <p class="mb-2">${update.descripcion}</p>
+                            <div class="timeline-date">
+                                <i class="bi bi-calendar3 me-2"></i>
+                                ${new Date(update.fecha).toLocaleDateString('es-PR')}
+                                <span class="ms-3 badge bg-primary rounded-pill">${update.tipo}</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                container.innerHTML += updateItem;
+            });
+        }
+
+        // Función para cargar datos de la sección
+        function loadSectionData() {
+            let codigo = getUrlParameter('codigo') || '3.2.4.1';
+            
+            // Si el código es solo un capítulo principal (ej: "3"), buscar el primer subcapítulo disponible
+            if (codigo.length === 1 && estructuraCapitulos[codigo]) {
+                const capitulo = estructuraCapitulos[codigo];
+                const primerSubcapitulo = Object.keys(capitulo.subcapitulos).find(sub => seccionData[sub]);
+                if (primerSubcapitulo) {
+                    codigo = primerSubcapitulo;
+                    // Actualizar la URL sin recargar la página
+                    window.history.replaceState({}, '', `seccion.html?codigo=${codigo}`);
+                }
+            }
+            
+            const seccion = seccionData[codigo];
+
+            if (!seccion) {
+                // Datos por defecto si no se encuentra la sección
+                document.getElementById('sectionCode').textContent = 'Sección 3.2.4.1';
+                document.getElementById('sectionTitle').textContent = 'Gastos Operacionales (OPEX)';
+                document.getElementById('sectionDescription').textContent = 'Marco normativo integral para la clasificación y documentación de gastos operacionales.';
+                updateBreadcrumb('3.2.4.1', 'Gastos Operacionales (OPEX)');
+                document.getElementById('lastUpdate').textContent = '5 oct 2025';
+                document.getElementById('totalDocs').textContent = '6';
+                loadSubcapitulos('3', '3.2.4.1');
+                return;
+            }
+
+            // Actualizar contenido de la página
+            document.getElementById('sectionCode').textContent = `Sección ${seccion.codigo}`;
+            document.getElementById('sectionTitle').textContent = seccion.titulo;
+            document.getElementById('sectionDescription').textContent = seccion.descripcion;
+            updateBreadcrumb(seccion.codigo, seccion.titulo);
+            document.getElementById('lastUpdate').textContent = new Date(seccion.ultimaActualizacion).toLocaleDateString('es-PR', { month: 'short', day: 'numeric', year: 'numeric' });
+            document.getElementById('totalDocs').textContent = seccion.documentos.length;
+
+            // Actualizar título de la página
+            document.title = `OGP - ${seccion.codigo} ${seccion.titulo}`;
+
+            // Cargar subcapítulos del capítulo principal
+            const capituloPrincipal = codigo.split('.')[0];
+            loadSubcapitulos(capituloPrincipal, codigo);
+
+            // Renderizar contenido
+            renderDocuments(seccion.documentos);
+            renderUpdates(seccion.updates);
+        }
+
+        // Función para cargar subcapítulos en el sidebar
+        function loadSubcapitulos(capituloPrincipal, codigoActual = null) {
+            const subcapitulosContainer = document.getElementById('subcapitulos-nav');
+            const seccionTitle = document.querySelector('#subcapitulos-section .sidebar-title');
+            
+            if (!estructuraCapitulos[capituloPrincipal]) {
+                // Ocultar sección si no hay subcapítulos
+                document.getElementById('subcapitulos-section').style.display = 'none';
+                return;
+            }
+
+            const capitulo = estructuraCapitulos[capituloPrincipal];
+            seccionTitle.innerHTML = `
+                <div class="d-flex align-items-center">
+                    <i class="bi bi-diagram-3 me-2"></i>
+                    <div>
+                        <div class="fw-bold">${capitulo.titulo}</div>
+                        <small class="text-muted" style="font-size: 0.75rem;">Capítulo ${capitulo.codigo} - Subcapítulos</small>
+                    </div>
+                </div>
+            `;
+            
+            subcapitulosContainer.innerHTML = '';
+            
+            Object.values(capitulo.subcapitulos).forEach(subcapitulo => {
+                const isActive = subcapitulo.codigo === codigoActual;
+                const hasData = seccionData[subcapitulo.codigo];
+                
+                const li = document.createElement('li');
+                const a = document.createElement('a');
+                
+                if (hasData) {
+                    a.href = `seccion.html?codigo=${subcapitulo.codigo}`;
+                    a.classList.add('text-decoration-none');
+                } else {
+                    a.href = '#';
+                    a.classList.add('text-muted');
+                    a.style.cursor = 'not-allowed';
+                }
+                
+                if (isActive) {
+                    a.classList.add('active');
+                    a.style.background = 'var(--ogp-light)';
+                    a.style.color = 'var(--ogp-primary)';
+                    a.style.fontWeight = '600';
+                }
+                
+                a.innerHTML = `
+                    <div class="d-flex align-items-center">
+                        <div class="me-2">
+                            <span class="badge ${hasData ? 'bg-success' : 'bg-secondary'}" style="font-size: 0.7rem;">
+                                Sección ${subcapitulo.codigo}
+                            </span>
+                        </div>
+                        <div class="flex-grow-1">
+                            ${subcapitulo.titulo}
+                        </div>
+                        ${hasData ? '<i class="bi bi-arrow-right-short text-muted"></i>' : '<i class="bi bi-clock text-muted" title="Próximamente"></i>'}
+                    </div>
+                `;
+                
+                li.appendChild(a);
+                subcapitulosContainer.appendChild(li);
+            });
+        }
+
+        // Función para actualizar el breadcrumb con jerarquía completa
+        function updateBreadcrumb(codigo, titulo) {
+            const breadcrumbContainer = document.querySelector('.breadcrumb');
+            const capituloPrincipal = codigo.split('.')[0];
+            
+            // Limpiar breadcrumb actual (excepto el primer elemento)
+            const primerElemento = breadcrumbContainer.querySelector('li');
+            breadcrumbContainer.innerHTML = '';
+            breadcrumbContainer.appendChild(primerElemento);
+            
+            // Agregar capítulo principal si existe
+            if (estructuraCapitulos[capituloPrincipal]) {
+                const capituloItem = document.createElement('li');
+                capituloItem.className = 'breadcrumb-item';
+                capituloItem.innerHTML = `
+                    <a href="index.html#capitulos" class="text-decoration-none">
+                        <i class="bi bi-journal-text me-1"></i>
+                        ${estructuraCapitulos[capituloPrincipal].titulo}
+                    </a>
+                `;
+                breadcrumbContainer.appendChild(capituloItem);
+            }
+            
+            // Agregar elemento actual
+            const elementoActual = document.createElement('li');
+            elementoActual.className = 'breadcrumb-item active';
+            elementoActual.setAttribute('aria-current', 'page');
+            elementoActual.textContent = `${codigo} - ${titulo}`;
+            breadcrumbContainer.appendChild(elementoActual);
+        }
+
+        // Funciones de utilidad
+        function copyLink() {
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(window.location.href)
+                    .then(() => alert('Enlace copiado al portapapeles'))
+                    .catch(() => alert('No se pudo copiar el enlace'));
+            }
+        }
+
+        function downloadAll() {
+            alert('Funcionalidad de descarga masiva - En desarrollo');
+        }
+
+        function showTab(tabName) {
+            const tab = document.getElementById(tabName + '-tab');
+            if (tab) {
+                tab.click();
+            }
+        }
+
+        // Inicialización
+        document.addEventListener('DOMContentLoaded', () => {
+            loadSectionData();
+
+            // Búsqueda
+            document.getElementById('searchInput').addEventListener('input', (e) => {
+                const searchTerm = e.target.value.toLowerCase();
+                if (searchTerm.length > 2) {
+                    console.log(`Buscando: ${searchTerm}`);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
