@@ -826,13 +826,13 @@
                     Categorías de Guías
                 </div>
                 <div class="view-toggle">
-                    <button class="btn btn-modern btn-sm active" id="cardViewBtn" onclick="switchView('cards')">
-                        <i class="bi bi-grid-3x3-gap me-1"></i>
-                        Tarjetas
-                    </button>
-                    <button class="btn btn-modern btn-sm" id="listViewBtn" onclick="switchView('list')">
+                    <button class="btn btn-modern btn-sm active" id="listViewBtn" onclick="switchView('list')">
                         <i class="bi bi-list-ul me-1"></i>
                         Lista
+                    </button>
+                    <button class="btn btn-modern btn-sm" id="cardViewBtn" onclick="switchView('cards')">
+                        <i class="bi bi-grid-3x3-gap me-1"></i>
+                        Tarjetas
                     </button>
                 </div>
             </div>
@@ -931,7 +931,7 @@
                 categoria: "general",
                 ultimaActualizacion: "2025-10-05",
                 documentos: 4,
-                prioridad: "alta",
+                prioridad: "nuevo",
                 subcapitulos: [
                     { codigo: "1.1", titulo: "Propósito y estructura del Manual" },
                     { codigo: "1.2", titulo: "Aplicabilidad" },
@@ -945,7 +945,7 @@
                 categoria: "proceso", 
                 ultimaActualizacion: "2025-10-04",
                 documentos: 12,
-                prioridad: "critica",
+                prioridad: "por actualizar",
                 subcapitulos: [
                     { codigo: "2.1", titulo: "Ley federal PROMESA y el proceso presupuestario de Puerto Rico" },
                     { codigo: "2.2", titulo: "Enfoque multianual en el proceso presupuestario" },
@@ -970,7 +970,7 @@
                 categoria: "politicas",
                 ultimaActualizacion: "2025-10-05",
                 documentos: 18,
-                prioridad: "critica",
+                prioridad: "por actualizar",
                 subcapitulos: [
                     { codigo: "3.1", titulo: "Alineación con el Plan de Gobierno y Plan Fiscal certificado" },
                     { codigo: "3.2", titulo: "Reservas presupuestarias" },
@@ -993,7 +993,7 @@
                 categoria: "normas",
                 ultimaActualizacion: "2025-10-08",
                 documentos: 15,
-                prioridad: "critica",
+                prioridad: "por actualizar",
                 subcapitulos: [
                     { codigo: "4.1", titulo: "Gastos operacionales (OPEX)" },
                     { codigo: "4.2", titulo: "Nómina y gastos de personal" },
@@ -1007,7 +1007,7 @@
                 categoria: "instrucciones",
                 ultimaActualizacion: "2025-10-06",  
                 documentos: 8,
-                prioridad: "alta",
+                prioridad: "nuevo",
                 subcapitulos: [
                     { codigo: "5.1", titulo: "Narrativo de la petición presupuestaria" },
                     { codigo: "5.2", titulo: "Instrucciones técnicas de sometimiento" }
@@ -1020,7 +1020,7 @@
                 categoria: "control",
                 ultimaActualizacion: "2025-10-03",
                 documentos: 6,
-                prioridad: "alta",
+                prioridad: "nuevo",
                 subcapitulos: [
                     { codigo: "6.1", titulo: "Monitoreo y control de ejecución presupuestaria" }
                 ]
@@ -1040,7 +1040,7 @@
         ];
 
         // Variable para controlar la vista actual
-        let currentView = 'cards';
+        let currentView = 'list';
 
         // Función para renderizar las tarjetas de capítulos
         function renderChapters(chapters = capitulosData) {
@@ -1049,11 +1049,16 @@
 
             chapters.forEach((capitulo, index) => {
                 const prioridadColor = {
-                    'critica': 'danger',
-                    'alta': 'warning', 
+                    'por actualizar': 'danger',
+                    'nuevo': 'warning', 
                     'media': 'info'
                 };
 
+                // Determinar el enlace de descarga según el capítulo
+                const downloadLink = capitulo.codigo === '1' 
+                    ? 'docs/Capitulo1-Manual.pdf' 
+                    : '#';
+                
                 const chapterCard = `
                     <div class="chapter-card loading" style="animation-delay: ${0.7 + (index * 0.1)}s;">
                         <div class="chapter-header">
@@ -1077,7 +1082,7 @@
                                     <a href="javascript:void(0)" onclick="goToSeccion('${capitulo.codigo}')" class="btn btn-primary-modern">
                                     <i class="bi bi-arrow-right me-1"></i> Ver Secciones
                                     </a>
-                                    <a href="#" class="btn btn-modern">
+                                    <a href="${downloadLink}" ${capitulo.codigo === '1' ? 'download' : ''} class="btn btn-modern" ${capitulo.codigo !== '1' ? 'style="opacity: 0.5; cursor: not-allowed;"' : ''}>
                                         <i class="bi bi-download me-1"></i>
                                         Descargar
                                     </a>
@@ -1100,8 +1105,8 @@
 
             chapters.forEach((capitulo, index) => {
                 const prioridadColor = {
-                    'critica': 'danger',
-                    'alta': 'warning', 
+                    'por actualizar': 'danger',
+                    'nuevo': 'warning', 
                     'media': 'info'
                 };
 
@@ -1137,6 +1142,11 @@
                     `;
                 }).join('');
 
+                // Determinar el enlace de descarga según el capítulo
+                const downloadLink = capitulo.codigo === '1' 
+                    ? 'docs/Capitulo1-Manual.pdf' 
+                    : '#';
+
                 const chapterListItem = `
                     <div class="chapter-list-item loading" style="animation-delay: ${0.7 + (index * 0.1)}s;">
                         <div class="chapter-list-header" onclick="toggleChapterExpansion('chapter-${capitulo.codigo}')">
@@ -1158,6 +1168,11 @@
                                     <span class="badge bg-${prioridadColor[capitulo.prioridad]} rounded-pill">
                                         ${capitulo.prioridad}
                                     </span>
+                                    ${capitulo.codigo === '1' ? `
+                                    <a href="${downloadLink}" download onclick="event.stopPropagation()" class="btn btn-sm btn-modern" title="Descargar Manual PDF">
+                                        <i class="bi bi-download"></i>
+                                    </a>
+                                    ` : ''}
                                 </div>
                                 <i class="bi bi-chevron-right chapter-expand-icon" id="icon-chapter-${capitulo.codigo}"></i>
                             </div>
@@ -1287,6 +1302,9 @@
         document.addEventListener('DOMContentLoaded', () => {
             renderChapters();
             setupSearch();
+            
+            // Inicializar vista de lista por defecto
+            switchView('list');
 
             // Setup filter pills
             const filterPills = document.querySelectorAll('.filter-pill');

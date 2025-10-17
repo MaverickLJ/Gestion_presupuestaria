@@ -51,7 +51,7 @@ Se han desarrollado **dos propuestas completamente diferentes** para el sistema 
 - 🎯 **Tabs dinámicos** (Documentos | Actualizaciones | Recursos)
 - 🎯 **Timeline visual** para actualizaciones
 - 🎯 **Cards de documentos** con iconos coloridos y meta-información rica
-- 🎯 **Badges de prioridad** (Crítica, Alta, Media)
+- 🎯 **Badges de prioridad** (Crítica, nuevo, Media)
 - 🎯 **Animaciones suaves** y transiciones fluidas
 
 ### **Ideal Para:**

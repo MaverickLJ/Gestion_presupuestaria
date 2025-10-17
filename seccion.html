@@ -6,6 +6,7 @@
     <title>OGP - Detalle de Sección | Portal Digital</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -183,6 +184,121 @@
             background: rgba(255, 255, 255, 0.1);
             border-color: white;
             transform: translateY(-2px);
+        }
+
+        /* MEJORAS: Botón de descarga premium */
+        .btn-download-premium {
+            background: linear-gradient(135deg, #059669 0%, #38A169 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            padding: 1rem 2rem;
+            font-weight: 600;
+            font-size: 0.95rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(5, 150, 105, 0.3);
+        }
+
+        .btn-download-premium::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn-download-premium:hover::before {
+            left: 100%;
+        }
+
+        .btn-download-premium:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(5, 150, 105, 0.4);
+            color: white;
+            text-decoration: none;
+        }
+
+        .btn-download-premium .download-icon {
+            font-size: 1.1rem;
+            transition: transform 0.3s ease;
+        }
+
+        .btn-download-premium:hover .download-icon {
+            transform: translateY(2px);
+        }
+
+        /* MEJORAS: Información de fecha elegante */
+        .info-value-elegant {
+            font-weight: 600;
+            color: var(--ogp-primary);
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .info-value-elegant .date-icon {
+            color: var(--ogp-accent);
+            font-size: 1rem;
+        }
+
+        .info-badge-elegant {
+            background: linear-gradient(135deg, #EBF8FF 0%, #BEE3F8 100%);
+            color: var(--ogp-primary);
+            padding: 0.4rem 0.8rem;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            border: 1px solid rgba(49, 130, 206, 0.2);
+        }
+
+        .info-badge-elegant .badge-icon {
+            color: var(--ogp-accent);
+            font-size: 0.9rem;
+        }
+
+        /* MEJORAS: Último update con estilo premium */
+        .last-update-premium {
+            background: linear-gradient(135deg, #F7FAFC 0%, #EDF2F7 100%);
+            border: 1px solid rgba(113, 128, 150, 0.2);
+            border-radius: 12px;
+            padding: 1rem;
+            margin: 0.5rem 0;
+        }
+
+        .last-update-premium .update-label {
+            color: #64748B;
+            font-size: 0.8rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.25rem;
+        }
+
+        .last-update-premium .update-date {
+            color: var(--ogp-primary);
+            font-size: 1rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .last-update-premium .update-icon {
+            color: var(--ogp-success);
+            font-size: 1.1rem;
         }
 
         /* Main Layout */
@@ -513,11 +629,27 @@
             background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
             transition: left 0.5s cubic-bezier(0.4, 0, 0.2, 1);
             z-index: 1;
+            /* CRÍTICO: Evitar que el pseudo-elemento intercepte clics */
+            pointer-events: none !important;
+            /* Contener dentro del elemento padre */
+            overflow: hidden !important;
         }
 
         .btn-doc > * {
             position: relative;
             z-index: 2;
+            /* Asegurar que el contenido reciba los clics */
+            pointer-events: auto !important;
+        }
+
+        /* CRÍTICO: Contener efectos visuales dentro de cada botón */
+        .btn-doc {
+            /* Evitar desbordamiento visual */
+            overflow: hidden !important;
+            /* Aislar contexto de apilamiento */
+            isolation: isolate !important;
+            /* Contener el pseudo-elemento */
+            contain: layout style !important;
         }
 
         /* Animaciones gubernamentales sutiles */
@@ -580,6 +712,187 @@
             border-color: #1e4a73 !important;
             transform: translateY(-2px) !important;
             box-shadow: 0 4px 12px rgba(30, 74, 115, 0.12), inset 0 1px 0 rgba(255,255,255,0.9) !important;
+        }
+
+        /* CRÍTICO: Aislar cada botón para evitar interferencias */
+        .btn-doc, .btn-ver-documento-nuevo {
+            /* Contener efectos visuales */
+            overflow: hidden !important;
+            /* Aislar contexto de apilamiento */
+            isolation: isolate !important;
+            /* Evitar expansión fuera del contenedor */
+            contain: layout style !important;
+            /* Asegurar que cada elemento maneje sus propios clics */
+            position: relative !important;
+            /* Espacio entre botones */
+            margin: 0 4px !important;
+        }
+
+        /* Evitar que los pseudo-elementos se desborden */
+        .btn-doc-outline::before, .btn-doc-primary::before {
+            /* Contener dentro del botón */
+            clip-path: inset(0) !important;
+            /* Evitar interferencia de clics */
+            pointer-events: none !important;
+        }
+
+        /* Nuevo botón Ver Documento - Sin comportamiento de enlace */
+        .btn-ver-documento-nuevo {
+            background: linear-gradient(135deg, #1e4a73 0%, #2c5f8a 100%) !important;
+            color: white !important;
+            border: 1px solid #1e4a73 !important;
+            border-radius: 8px !important;
+            padding: 0.6rem 1.2rem !important;
+            font-weight: 500 !important;
+            font-size: 0.875rem !important;
+            cursor: pointer !important;
+            transition: all 0.3s ease !important;
+            text-decoration: none !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            box-shadow: 0 3px 12px rgba(30, 74, 115, 0.15) !important;
+            outline: none !important;
+            user-select: none !important;
+            /* CRÍTICO: Asegurar que NO se comporte como enlace */
+            text-align: center !important;
+            vertical-align: middle !important;
+            touch-action: manipulation !important;
+            /* Eliminar cualquier comportamiento de enlace heredado */
+            text-transform: none !important;
+            letter-spacing: normal !important;
+        }
+
+        .btn-ver-documento-nuevo:hover {
+            background: linear-gradient(135deg, #0f2b5b 0%, #1e4a73 100%) !important;
+            color: white !important;
+            text-decoration: none !important;
+            transform: translateY(-2px) !important;
+            box-shadow: 0 6px 18px rgba(15, 43, 91, 0.25) !important;
+        }
+
+        .btn-ver-documento-nuevo:active {
+            transform: translateY(0) !important;
+            box-shadow: 0 2px 8px rgba(15, 43, 91, 0.2) !important;
+        }
+
+        .btn-ver-documento-nuevo:focus {
+            outline: 2px solid #3b82f6 !important;
+            outline-offset: 2px !important;
+        }
+
+        /* CRÍTICO: Prevenir que el botón herede estilos de enlace */
+        button.btn-ver-documento-nuevo {
+            background: linear-gradient(135deg, #1e4a73 0%, #2c5f8a 100%) !important;
+            color: white !important;
+            border: 1px solid #1e4a73 !important;
+            text-decoration: none !important;
+            cursor: pointer !important;
+        }
+
+        button.btn-ver-documento-nuevo:hover {
+            background: linear-gradient(135deg, #0f2b5b 0%, #1e4a73 100%) !important;
+            color: white !important;
+            text-decoration: none !important;
+        }
+
+        /* CONTENEDOR DE BOTONES - Evitar interferencias */
+        .d-flex.gap-3 {
+            /* Aislar cada botón en su propia área */
+            isolation: isolate !important;
+        }
+
+        .d-flex.gap-3 > * {
+            /* Cada botón en su propio contexto */
+            isolation: isolate !important;
+            /* Evitar desbordamiento entre elementos */
+            flex-shrink: 0 !important;
+            /* Espacio mínimo entre elementos */
+            margin: 0 2px !important;
+        }
+
+        /* Específico para enlaces de descarga */
+        a.btn-doc.btn-doc-outline {
+            /* Contener completamente el enlace */
+            display: inline-flex !important;
+            /* Evitar expansión */
+            max-width: fit-content !important;
+            /* Aislar de otros elementos */
+            isolation: isolate !important;
+        }
+
+        /* Específico para botones de modal */
+        button.btn-ver-documento-nuevo {
+            /* Contener completamente el botón */
+            display: inline-flex !important;
+            /* Evitar expansión */
+            max-width: fit-content !important;
+            /* Aislar de otros elementos */
+            isolation: isolate !important;
+            /* Prioridad de clics */
+            z-index: 10 !important;
+        }
+
+        /* Glossary Styles */
+        .glossary-container {
+            background: #fafbfc;
+            border-radius: 12px;
+            padding: 2rem;
+            border: 1px solid #e5e7eb;
+        }
+
+        .glossary-list {
+            margin: 0;
+            padding: 0;
+        }
+
+        .glossary-term {
+            color: var(--ogp-primary);
+            font-weight: 600;
+            font-size: 1rem;
+            margin-top: 1.5rem;
+            margin-bottom: 0.5rem;
+            padding: 0.75rem 1rem;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            border-left: 4px solid var(--ogp-accent);
+            border-radius: 0 8px 8px 0;
+            position: relative;
+        }
+
+        .glossary-term:first-child {
+            margin-top: 0;
+        }
+
+        .glossary-definition {
+            color: #374151;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-left: 0;
+            margin-bottom: 1rem;
+            padding: 1rem 1.25rem;
+            background: white;
+            border-radius: 8px;
+            border: 1px solid #e5e7eb;
+            text-align: justify;
+        }
+
+        .glossary-definition:last-child {
+            margin-bottom: 0;
+        }
+
+        @media (max-width: 768px) {
+            .glossary-container {
+                padding: 1rem;
+            }
+            
+            .glossary-term {
+                padding: 0.5rem 0.75rem;
+                font-size: 0.9rem;
+            }
+            
+            .glossary-definition {
+                padding: 0.75rem;
+                font-size: 0.9rem;
+            }
         }
 
         /* Updates Timeline */
@@ -668,12 +981,99 @@
             font-weight: 600;
         }
 
+        /* Estilos para contenido completo */
+        .content-section {
+            font-size: 1rem;
+            line-height: 1.8;
+            color: #2D3748;
+        }
+
+        .content-section h4.section-subtitle {
+            color: var(--ogp-primary);
+            font-weight: 700;
+            font-size: 1.25rem;
+            border-left: 4px solid var(--ogp-accent);
+            padding-left: 1rem;
+        }
+
+        .content-section p.text-justify {
+            text-align: justify;
+            margin-bottom: 1rem;
+        }
+
+        .content-section .alert {
+            border-left: 4px solid #0EA5E9;
+            background: #F0F9FF;
+            border-radius: 8px;
+        }
+
         /* Footer */
         .footer-modern {
             background: var(--ogp-primary);
             color: white;
             padding: 3rem 0 1.5rem;
             margin-top: 4rem;
+        }
+
+        /* Badges NEW - Indicadores de contenido nuevo */
+        .badge-new {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: linear-gradient(135deg, #10B981, #059669);
+            color: white;
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 4px 8px;
+            border-radius: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
+            animation: pulse-new 2s infinite;
+            z-index: 10;
+        }
+
+        .badge-new-por actualizarl {
+            background: linear-gradient(135deg, #EF4444, #DC2626);
+            box-shadow: 0 2px 8px rgba(239, 68, 68, 0.3);
+            animation: pulse-por actualizarl 2s infinite;
+        }
+
+        .badge-new-high {
+            background: linear-gradient(135deg, #F59E0B, #D97706);
+            box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3);
+            animation: pulse-high 2s infinite;
+        }
+
+        .badge-new-medium {
+            background: linear-gradient(135deg, #3B82F6, #2563EB);
+            box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+            animation: pulse-medium 2s infinite;
+        }
+
+        @keyframes pulse-new {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        @keyframes pulse-por actualizarl {
+            0%, 100% { transform: scale(1); box-shadow: 0 2px 8px rgba(239, 68, 68, 0.3); }
+            50% { transform: scale(1.08); box-shadow: 0 4px 12px rgba(239, 68, 68, 0.5); }
+        }
+
+        @keyframes pulse-high {
+            0%, 100% { transform: scale(1); box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3); }
+            50% { transform: scale(1.06); box-shadow: 0 4px 12px rgba(245, 158, 11, 0.5); }
+        }
+
+        @keyframes pulse-medium {
+            0%, 100% { transform: scale(1); box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3); }
+            50% { transform: scale(1.04); box-shadow: 0 4px 12px rgba(59, 130, 246, 0.5); }
+        }
+
+        /* Contenedor con posición relativa para badges */
+        .document-card {
+            position: relative;
         }
 
         /* Responsive */
@@ -773,10 +1173,10 @@
                             <i class="bi bi-printer me-2"></i>
                             Imprimir Sección
                         </button>
-                        <button class="btn btn-hero-outline" onclick="downloadAll()">
-                            <i class="bi bi-download me-2"></i>
-                            Descargar Todo
-                        </button>
+                        <a href="docs/Capitulo1-Manual.pdf" download class="btn-download-premium">
+                            <i class="bi bi-download download-icon"></i>
+                            <span>Descargar Manual</span>
+                        </a>
                     </div>
                 </div>
                 <div class="col-lg-4 text-center">
@@ -801,12 +1201,20 @@
                         </div>
                         <div class="info-card">
                             <div class="info-item">
-                                <span class="info-label">Última actualización</span>
-                                <span class="info-value" id="lastUpdate">Cargando...</span>
+                                <div class="last-update-premium">
+                                    <div class="update-label">Última actualización</div>
+                                    <div class="update-date">
+                                        <i class="bi bi-calendar-check update-icon"></i>
+                                        <span id="lastUpdate">Cargando...</span>
+                                    </div>
+                                </div>
                             </div>
                             <div class="info-item">
                                 <span class="info-label">Total documentos</span>
-                                <span class="info-value" id="totalDocs">Cargando...</span>
+                                <span class="info-badge-elegant">
+                                    <i class="bi bi-files badge-icon"></i>
+                                    <span id="totalDocs">Cargando...</span>
+                                </span>
                             </div>
                             <div class="info-item">
                                 <span class="info-label">Estado actual</span>
@@ -814,9 +1222,9 @@
                             </div>
                             <div class="info-item">
                                 <span class="info-label">Fecha límite peticiones</span>
-                                <span class="info-value text-warning">
-                                    <i class="bi bi-calendar-event me-1"></i>
-                                    15 dic 2025
+                                <span class="info-value-elegant text-warning">
+                                    <i class="bi bi-calendar-event date-icon"></i>
+                                    <span>15 diciembre 2025</span>
                                 </span>
                             </div>
                         </div>
@@ -921,6 +1329,15 @@
                     <div class="tab-content">
                         <!-- Documentos Tab -->
                         <div class="tab-pane fade show active" id="documentos">
+                            <!-- Contenido Completo (si existe) -->
+                            <div id="contenidoCompleto" class="mb-4" style="display: none;">
+                                <div class="card border-0 shadow-sm">
+                                    <div class="card-body p-4">
+                                        <div id="contenidoTexto"></div>
+                                    </div>
+                                </div>
+                            </div>
+
                             <div class="documents-grid" id="documentsContainer">
                                 <!-- Los documentos se cargarán aquí -->
                             </div>
@@ -939,6 +1356,7 @@
                                 <div class="row g-4">
                                     <div class="col-md-6">
                                         <div class="document-card">
+                                            <span class="badge-new badge-new-high">NUEVO</span>
                                             <div class="doc-header">
                                                 <div class="d-flex">
                                                     <div class="doc-icon" style="background: linear-gradient(135deg, #9F7AEA, #805AD5);">
@@ -960,6 +1378,7 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="document-card">
+                                            <span class="badge-new badge-new-medium">NUEVO</span>
                                             <div class="doc-header">
                                                 <div class="d-flex">
                                                     <div class="doc-icon" style="background: linear-gradient(135deg, #38A169, #2F855A);">
@@ -1126,6 +1545,58 @@
 
         // Sistema Completo de Guías Presupuestarias OGP - Base de Datos de Producción
         const seccionData = {
+            "1.1": {
+                codigo: "1.1",
+                titulo: "Propósito y estructura del Manual",
+                descripcion: "Exposición clara del proceso, términos y conceptos esenciales relacionados al proceso presupuestario. Constituye una normativa integrada que establece los principios, normas y procedimientos generales aplicables a la formulación, evaluación, aprobación, ejecución y monitoreo del presupuesto.",
+                ultimaActualizacion: "2025-10-04",
+                contenidoCompleto: `
+                    <div class="content-section">
+                        <h4 class="section-subtitle mb-4">Política Pública y Objetivos</h4>
+                        <p class="text-justify">
+                            Es política pública del Gobierno de Puerto Rico proveer información financiera precisa y oportuna para la administración de las operaciones gubernamentales y para la preparación y ejecución del presupuesto. También, que se establezcan controles efectivos sobre los ingresos, desembolsos, fondos, propiedad y demás activos públicos. Consecuentemente, corresponde a la OGP implementar medidas rigurosas de control mediante la fiscalización adecuada de las partidas presupuestarias relacionadas con nombramientos, transacciones de personal, contrataciones y el control general del gasto gubernamental. La información que se genera a través del proceso presupuestario constituye la base para la preparación y justificación de las necesidades fiscales de las agencias, así como para el control de la ejecución presupuestaria.
+                        </p>
+
+                        <h4 class="section-subtitle mb-4 mt-5">Propósito del Manual</h4>
+                        <p class="text-justify">
+                            El propósito de este Manual es ofrecer una exposición clara del proceso, términos y conceptos esenciales relacionados al proceso presupuestario. En ese sentido, este Manual constituye una normativa integrada que establece los principios, normas y procedimientos generales aplicables a la formulación, evaluación, aprobación, ejecución y monitoreo del presupuesto.
+                        </p>
+
+                        <h4 class="section-subtitle mb-4 mt-5">Carta Presupuestaria Anual</h4>
+                        <p class="text-justify">
+                            Como complemento a este Manual, la OGP emitirá anualmente una <strong>Carta Presupuestaria Anual</strong>, la cual dará inicio al proceso presupuestario para cada año fiscal. La Carta Presupuestaria Anual se actualizará anualmente y se incorporará como parte del Capítulo 4 de este Manual, reflejando las instrucciones y parámetros específicos de cada ciclo presupuestario. Además, las actualizaciones al Manual se incorporarán en las distintas secciones del documento, según sea necesario. Para acceder a la versión más reciente de dichas enmiendas o revisiones, los usuarios deberán referirse a la columna de actualizaciones incluida en el Portal de Normativa Integrada de Presupuesto de la OGP en la página oficial <a href="http://www.ogp.pr.gov" target="_blank" class="text-primary">www.ogp.pr.gov</a>.
+                        </p>
+
+                        <div class="alert alert-info mt-4" role="alert">
+                            <i class="bi bi-info-circle me-2"></i>
+                            <strong>Nota Importante:</strong> La OGP se reserva la facultad de enmendar, revisar o actualizar este Manual, así como de emitir guías, circulares o instrucciones adicionales que sean necesarias para su interpretación o cumplimiento efectivo.
+                        </div>
+                        
+                        <!-- Botones de acción -->
+                        <div class="d-flex flex-wrap gap-3 mt-5 pt-4 border-top">
+                            <button id="btnVerDocumento13" class="btn-ver-documento-nuevo" type="button">
+                                <i class="bi bi-eye me-2"></i>
+                                Ver Documento
+                            </button>
+                            <a href="docs/Capitulo1-Manual.pdf" download class="btn-doc btn-doc-outline">
+                                <i class="bi bi-download me-2"></i>
+                                Descargar PDF
+                            </a>
+                        </div>
+                    </div>
+                `,
+                documentos: [],
+                updates: [
+                    {
+                        id: 1,
+                        titulo: "Actualización del Marco Normativo",
+                        descripcion: "Incorporación de nuevas directrices federales PROMESA",
+                        fecha: "2025-10-04",
+                        tipo: "Actualización normativa",
+                        icono: "file-text"
+                    }
+                ]
+            },
             "4.1": {
                 codigo: "4.1",
                 titulo: "Gastos Operacionales (OPEX)",
@@ -1143,7 +1614,9 @@
                         fechaPublicacion: "2025-10-05",
                         tamaño: "423 KB",
                         icono: "file-earmark-excel",
-                        color: "#38A169"
+                        color: "#38A169",
+                        esNuevo: true,
+                        prioridad: "por actualizar"
                     },
                     {
                         id: 2,
@@ -1169,7 +1642,9 @@
                         fechaPublicacion: "2025-09-28",
                         tamaño: "3.2 MB",
                         icono: "book",
-                        color: "#9F7AEA"
+                        color: "#9F7AEA",
+                        esNuevo: true,
+                        prioridad: "nuevo"
                     },
                     {
                         id: 4,
@@ -1195,7 +1670,9 @@
                         fechaPublicacion: "2025-09-15",
                         tamaño: "1.1 MB",
                         icono: "question-circle",
-                        color: "#ED8936"
+                        color: "#ED8936",
+                        esNuevo: true,
+                        prioridad: "media"
                     },
                     {
                         id: 6,
@@ -1799,83 +2276,37 @@
                     }
                 ]
             },
-            "1.1": {
-                codigo: "1.1",
-                titulo: "Propósito y estructura del Manual",
-                descripcion: "Marco conceptual y objetivos del Manual de Guías Presupuestarias del Gobierno de Puerto Rico. Define los principios fundamentales, estructura organizacional y alcance del manual para la gestión presupuestaria efectiva.",
-                ultimaActualizacion: "2025-10-05",
-                documentos: [
-                    {
-                        id: 1,
-                        titulo: "Declaración de Propósito y Estructura del Manual - OGP",
-                        descripcion: "Documento marco que establece los objetivos y estructura organizacional del manual",
-                        tipo: "Documento Marco",
-                        categoria: "normativa",
-                        version: "2.0",
-                        estado: "vigente",
-                        fechaPublicacion: "2025-10-05",
-                        tamaño: "156 KB",
-                        icono: "file-earmark-text",
-                        color: "#3182CE"
-                    },
-                    {
-                        id: 2,
-                        titulo: "Beneficios del Sistema Digital Presupuestario",
-                        descripcion: "Análisis detallado de ventajas y mejoras en eficiencia operacional",
-                        tipo: "Análisis Técnico",
-                        categoria: "analisis",
-                        version: "1.3",
-                        estado: "vigente",
-                        fechaPublicacion: "2025-09-28",
-                        tamaño: "892 KB",
-                        icono: "graph-up-arrow",
-                        color: "#38A169"
-                    }
-                ],
-                updates: [
-                    {
-                        id: 1,
-                        titulo: "Actualización Marco Normativo - Nueva Versión 2.0",
-                        descripcion: "Actualización integral que incorpora las últimas directrices federales",
-                        fecha: "2025-10-05",
-                        tipo: "Actualización normativa",
-                        icono: "file-text"
-                    }
-                ]
-            },
             "1.2": {
                 codigo: "1.2",
                 titulo: "Aplicabilidad",
                 descripcion: "Alcance y aplicabilidad del Manual de Guías Presupuestarias para todas las agencias, corporaciones públicas y entidades del Gobierno de Puerto Rico sujetas al proceso presupuestario.",
                 ultimaActualizacion: "2025-10-03",
-                documentos: [
-                    {
-                        id: 1,
-                        titulo: "Matriz de Aplicabilidad por Tipo de Entidad",
-                        descripcion: "Tabla detallada que especifica la aplicabilidad según el tipo de entidad gubernamental",
-                        tipo: "Matriz de Referencia",
-                        categoria: "referencia",
-                        version: "1.0",
-                        estado: "vigente",
-                        fechaPublicacion: "2025-10-03",
-                        tamaño: "89 KB",
-                        icono: "table",
-                        color: "#4299E1"
-                    },
-                    {
-                        id: 2,
-                        titulo: "Excepciones y Casos Especiales",
-                        descripcion: "Documento que detalla las excepciones y tratamiento especial para entidades específicas",
-                        tipo: "Guía de Excepciones",
-                        categoria: "guia",
-                        version: "1.1",
-                        estado: "vigente",
-                        fechaPublicacion: "2025-09-30",
-                        tamaño: "156 KB",
-                        icono: "exclamation-circle",
-                        color: "#D69E2E"
-                    }
-                ],
+                contenidoCompleto: `
+                    <div class="content-section">
+                        <h4 class="section-subtitle mb-4">Alcance del Manual</h4>
+                        <p class="text-justify">
+                            Este Manual aplica a todas las agencias, departamentos, oficinas, comisiones, administraciones, organismos, corporaciones públicas y demás instrumentalidades gubernamentales de la Rama Ejecutiva del Gobierno de Puerto Rico, así como a cualquiera de sus unidades y dependencias (Instrumentalidades) que reciban asignaciones presupuestarias del Fondo General, Fondos de Ingresos Especiales (FEE, IP, OI) y/o Fondos Federales.
+                        </p>
+
+                        <div class="alert alert-primary mt-4" role="alert">
+                            <i class="bi bi-info-circle me-2"></i>
+                            <strong>Entidades Cubiertas:</strong> Todas las instrumentalidades de la Rama Ejecutiva que participen en el proceso presupuestario gubernamental, independientemente de la fuente de financiamiento.
+                        </div>
+                        
+                        <!-- Botones de acción mejorados -->
+                        <div class="d-flex flex-wrap gap-3 mt-5 pt-4 border-top">
+                            <button onclick="testModal(); return false;" class="btn-doc btn-doc-primary" type="button">
+                                <i class="bi bi-eye me-2"></i>
+                                Ver Documento
+                            </button>
+                            <a href="docs/Capitulo1-Manual.pdf" download class="btn-doc btn-doc-outline">
+                                <i class="bi bi-download me-2"></i>
+                                Descargar PDF
+                            </a>
+                        </div>
+                    </div>
+                `,
+                documentos: [],
                 updates: [
                     {
                         id: 1,
@@ -1892,34 +2323,111 @@
                 titulo: "Términos y acrónimos",
                 descripcion: "Glosario completo de terminología técnica, definiciones operacionales y acrónimos utilizados en el proceso presupuestario del Gobierno de Puerto Rico.",
                 ultimaActualizacion: "2025-10-01",
-                documentos: [
-                    {
-                        id: 1,
-                        titulo: "Glosario Oficial de Términos Presupuestarios",
-                        descripcion: "Diccionario completo con más de 200 términos técnicos del proceso presupuestario",
-                        tipo: "Glosario Oficial",
-                        categoria: "referencia",
-                        version: "3.2",
-                        estado: "vigente",
-                        fechaPublicacion: "2025-10-01",
-                        tamaño: "234 KB",
-                        icono: "book-half",
-                        color: "#9F7AEA"
-                    },
-                    {
-                        id: 2,
-                        titulo: "Índice de Acrónimos y Abreviaciones",
-                        descripcion: "Lista alfabética de todos los acrónimos utilizados en el ámbito presupuestario",
-                        tipo: "Índice de Referencia",
-                        categoria: "referencia",
-                        version: "2.1",
-                        estado: "vigente",
-                        fechaPublicacion: "2025-09-28",
-                        tamaño: "67 KB",
-                        icono: "list-ul",
-                        color: "#38A169"
-                    }
-                ],
+                contenidoCompleto: {
+                    titulo: "Términos y acrónimos",
+                    subtitulo: "Glosario Oficial del Proceso Presupuestario",
+                    contenido: `
+                        <div class="mb-4">
+                            <p class="lead text-muted mb-4">
+                                El presente glosario contiene las definiciones oficiales de los términos técnicos, conceptos operacionales y acrónimos utilizados en el proceso presupuestario del Gobierno de Puerto Rico, en conformidad con las disposiciones de la Ley federal PROMESA y los requerimientos de la Junta de Supervisión y Administración Financiera.
+                            </p>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="glossary-container">
+                                    <dl class="glossary-list">
+                                        <dt class="glossary-term">a) "Al millar"</dt>
+                                        <dd class="glossary-definition">Redondear a millar o en miles de dólares ($). En la numeración decimal, cifra que en un número ocupa la cuarta posición de los números enteros, empezando por las unidades hacia la derecha, y que indica cuántos grupos de 1,000 números enteros tiene (como máximo 9). Por ejemplo, en el número 2,000 el 2 representa los millares; es decir 2,000,000 (dos millones) redondeados al millar son 2,000.</dd>
+
+                                        <dt class="glossary-term">b) Agencia</dt>
+                                        <dd class="glossary-definition">Para fines de este Memorando, la palabra "agencia" significará cualquier departamento, oficina, negociado, comisión, junta, administración, autoridad, corporación pública, incluyendo sus afiliadas y subsidiarias, o cualquier otro organismo de la Rama Ejecutiva.</dd>
+
+                                        <dt class="glossary-term">c) Año Fiscal</dt>
+                                        <dd class="glossary-definition">El período comprendido entre el primero de julio de cualquier año natural y el 30 de junio del año natural siguiente, ambos inclusive.</dd>
+
+                                        <dt class="glossary-term">d) Asignación</dt>
+                                        <dd class="glossary-definition">Cantidad de dinero autorizada por la Asamblea Legislativa con el propósito de llevar a cabo una actividad específica o lograr ciertos objetivos.</dd>
+
+                                        <dt class="glossary-term">e) Asignaciones Especiales</dt>
+                                        <dd class="glossary-definition">Asignaciones aprobadas mediante Resoluciones Conjuntas que limitan el uso de los fondos asignados.</dd>
+
+                                        <dt class="glossary-term">f) Carta Presupuestaria</dt>
+                                        <dd class="glossary-definition">Carta anual emitida por la OGP para dar inicio al proceso presupuestario de cada Año Fiscal.</dd>
+
+                                        <dt class="glossary-term">g) CapEx (mejoras permanentes)</dt>
+                                        <dd class="glossary-definition">Los fondos de inversión en mejoras permanentes ("CapEx") son desembolsos incurridos para comprar, extender la vida útil de un activo o mejorar activos de larga duración. Estos activos incluyen los que suelen denominarse bienes de infraestructura (carreteras, puentes, parques, activos financieros de recuperación de desastres, etc.), así como terrenos, edificios, instalaciones, vehículos, hardware y equipos de sistemas de información. Además, el CapEx consiste en todos los desembolsos necesarios para adquirir algún activo y prepararlo para su uso previsto y los desembolsos relacionados con inversiones intangibles, como la adquisición o el desarrollo de software de uso interno. Sin embargo, otros desembolsos, como los contratos de mantenimiento, los servicios de administración de aplicaciones, el manejo remoto de infraestructura, las mejoras periódicas y las correcciones estatutarias no se consideran una inversión en mejoras permanentes.</dd>
+
+                                        <dt class="glossary-term">h) Compromisos programáticos</dt>
+                                        <dd class="glossary-definition">Prioridades del Ejecutivo para establecer el plan de trabajo a cuatro años, según se desprende del Programa de Gobierno.</dd>
+
+                                        <dt class="glossary-term">i) Módulo de Presupuesto "EPM"</dt>
+                                        <dd class="glossary-definition">Herramienta de Oracle con el módulo de EPM (Enterprise Planning and Budgeting Cloud Services) para el registro de presupuesto. Es una herramienta en la nube, donde los usuarios pueden acceder desde sus navegadores de internet, ya sea desde sus computadoras o teléfonos inteligentes. También, al ser un sistema moderno, cuenta con funciones que facilitan y agilizan la forma en que actualmente se trabaja el presupuesto.</dd>
+
+                                        <dt class="glossary-term">j) Fondo General</dt>
+                                        <dd class="glossary-definition">Incluye Resolución Conjunta (Fondo 111) y Asignaciones Especiales (Fondo 141). Es el fondo en el que ingresan los mayores recaudos del Departamento de Hacienda. Estos recursos provienen de imposiciones de contribuciones, esencialmente sobre ingresos, herencias y donaciones; arbitrios sobre bebidas alcohólicas, cigarrillos, productos de petróleo, vehículos de motor y sus accesorios; impuestos sobre ventas y uso, entre otros. Son también fuentes de ingreso del Gobierno, como las contribuciones que se recaudan por concepto de licencias de vehículos de motor y otras licencias; los derechos, multas y confiscaciones; las rentas provenientes de la lotería; los derechos de aduana; y los arbitrios sobre embarques. En este Fondo se administran y contabilizan las actividades generales del gobierno y aquellas actividades para las cuales el gobierno no haya establecido un fondo particular, la Asamblea Legislativa hace las asignaciones para autorizar su uso y sufragar los distintos programas de servicios y de inversiones públicas para cada año fiscal.</dd>
+
+                                        <dt class="glossary-term">k) Fondo</dt>
+                                        <dd class="glossary-definition">Una suma de dinero u otros recursos separados con el propósito de llevar a cabo una actividad específica o lograr ciertos objetivos de acuerdo con leyes, reglamentos, restricciones o limitaciones especiales y que constituyen una entidad fiscal y de contabilidad independiente. Incluye las cuentas creadas para contabilizar el producto de las emisiones de bonos que sean autorizadas.</dd>
+
+                                        <dt class="glossary-term">l) Fondos de Ingresos Especiales (SRF)</dt>
+                                        <dd class="glossary-definition">"Special Revenue Funds", (SRF) por sus siglas en inglés: Bajo esta nueva clasificación [por requerimiento de la Junta Supervisión y Administración Financiera] se agrupan los recursos provenientes de Fondos Especiales Estatales (FEE), Ingresos Propios (IP) y Otros Ingresos (OI) de las agencias. A su vez, se clasifican conforme a sus fuentes de ingresos y usos.</dd>
+
+                                        <dt class="glossary-term">m) Fondos Federales</dt>
+                                        <dd class="glossary-definition">Son aportaciones otorgadas por el Gobierno de los Estados Unidos para financiar programas de educación, salud, bienestar social, empleo, mejoras permanentes y para otros fines. Estos recursos se rigen por la legislación y regulaciones federales que determinan su elegibilidad, propósito y requisitos de uso. Por lo cual, en principio, no requiere acción legislativa estatal.</dd>
+
+                                        <dt class="glossary-term">n) Notice of Award (NOA)</dt>
+                                        <dd class="glossary-definition">Es el documento oficial emitido por la agencia federal que acredita que la subvención federal fue aprobada, sujeta al cumplimiento de sus términos y condiciones. Además, contiene información importante sobre la subvención, tal como: número de la subvención, nombre del beneficiario (agencia u organización que recibe la misma), cantidad de la subvención, periodo de la subvención, condiciones especiales, regulación aplicable, entre otra información.</dd>
+
+                                        <dt class="glossary-term">o) Gastos ineludibles</dt>
+                                        <dd class="glossary-definition">Son aquellos gastos o compromisos por ley que correspondan a asignaciones nuevas o incrementos en las existentes que ya están legisladas a la fecha de la petición presupuestaria.</dd>
+
+                                        <dt class="glossary-term">p) Gasto recurrente</dt>
+                                        <dd class="glossary-definition">Obligación de gasto periódica y previsible que se repite dentro del mismo año fiscal y en años fiscales subsiguientes para sostener la operación ordinaria de la agencia. Incluye gastos de funcionamiento regulares como nómina, arrendamientos, servicios públicos, contratos de mantenimiento y servicios profesionales recurrentes, entre otros.</dd>
+
+                                        <dt class="glossary-term">q) Gasto no recurrente (one-time)</dt>
+                                        <dd class="glossary-definition">Gasto extraordinario, de duración limitada o única que no debe incorporarse al presupuesto base (baseline) porque no se espera que se repita en años fiscales futuros. Un gasto no recurrente puede cubrir desembolsos que ocurren en varios meses o fases (por ejemplo, un proyecto por etapas), pero se clasifica como no recurrente cuando su ejecución y desembolso concluyen una vez finalizado el proyecto o la actividad asociada.</dd>
+
+                                        <dt class="glossary-term">r) Junta de Supervisión y Administración Financiera (JSAF)</dt>
+                                        <dd class="glossary-definition">Entidad creada en virtud de la Ley Federal Pública 114-187, "Puerto Rico Oversight, Management and Economic Stability Act" (PROMESA, por sus siglas en inglés).</dd>
+
+                                        <dt class="glossary-term">s) Presupuesto Gastado</dt>
+                                        <dd class="glossary-definition">Presupuesto gastado en el año fiscal previo. [1 de julio al 30 de junio].</dd>
+
+                                        <dt class="glossary-term">t) Presupuesto aprobado</dt>
+                                        <dd class="glossary-definition">Presupuesto certificado por la JSAF. También se conoce como presupuesto vigente, corriente, o aprobado seguido del año fiscal aplicable.</dd>
+
+                                        <dt class="glossary-term">u) Presupuesto propuesto o recomendado</dt>
+                                        <dd class="glossary-definition">Presupuesto que el Gobernador o Gobernadora presentará a la JSAF y a la Asamblea Legislativa. Previo a la Junta, se conocía como Presupuesto Recomendado por el Gobernador.</dd>
+
+                                        <dt class="glossary-term">v) Programa de Gobierno</dt>
+                                        <dd class="glossary-definition">Se convierte en el plan de trabajo a cuatro años del Gobernador electo para establecer las políticas públicas y guías que dirigirán las acciones del Gobierno.</dd>
+
+                                        <dt class="glossary-term">w) PROMESA</dt>
+                                        <dd class="glossary-definition">Ley Federal Pública 114-187, "Puerto Rico Oversight, Management and Economic Stability Act" (PROMESA, por sus siglas en inglés).</dd>
+                                    </dl>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="alert alert-info mt-4">
+                            <i class="bi bi-info-circle-fill me-2"></i>
+                            <strong>Nota importante:</strong> Las definiciones contenidas en este glosario han sido establecidas en conformidad con la legislación vigente, las regulaciones federales aplicables y las disposiciones de la Junta de Supervisión y Administración Financiera para garantizar uniformidad en la terminología utilizada en el proceso presupuestario del Gobierno de Puerto Rico.
+                        </div>
+
+                        <div class="d-flex flex-wrap gap-3 mt-5 pt-4 border-top">
+                            <button id="btnVerDocumento13Dynamic" class="btn-ver-documento-nuevo" type="button">
+                                <i class="bi bi-eye me-2"></i>
+                                Ver Documento
+                            </button>
+                            <a href="docs/Capitulo1-Manual.pdf" download class="btn-doc btn-doc-outline">
+                                <i class="bi bi-download me-2"></i>
+                                Descargar PDF
+                            </a>
+                        </div>
+                    `
+                },
+                documentos: [],
                 updates: [
                     {
                         id: 1,
@@ -2188,9 +2696,36 @@
             documentos.forEach((doc, index) => {
                 const statusClass = doc.estado === 'vigente' ? 'status-vigente' : 'status-revision';
                 const statusText = doc.estado === 'vigente' ? 'Vigente' : 'En revisión';
+                
+                // Generar badge NEW basado en prioridad
+                let badgeNew = '';
+                if (doc.esNuevo) {
+                    let badgeClass = 'badge-new';
+                    let badgeText = 'NUEVO';
+                    
+                    switch(doc.prioridad) {
+                        case 'por actualizar':
+                            badgeClass += ' badge-new-por actualizarl';
+                            badgeText = 'NUEVO';
+                            break;
+                        case 'nuevo':
+                            badgeClass += ' badge-new-high';
+                            badgeText = 'NUEVO';
+                            break;
+                        case 'media':
+                            badgeClass += ' badge-new-medium';
+                            badgeText = 'NUEVO';
+                            break;
+                        default:
+                            badgeText = 'NUEVO';
+                    }
+                    
+                    badgeNew = `<span class="${badgeClass}">${badgeText}</span>`;
+                }
 
                 const docCard = `
                     <div class="document-card fade-in" style="animation-delay: ${0.1 + (index * 0.1)}s;">
+                        ${badgeNew}
                         <div class="doc-header">
                             <div class="d-flex align-items-start gap-3 flex-grow-1">
                                 <div class="doc-icon" style="background: linear-gradient(135deg, ${doc.color}, ${doc.color}CC);">
@@ -2224,11 +2759,15 @@
                             </div>
                         </div>
                         <div class="doc-actions">
-                            <a href="#" class="btn-doc btn-doc-primary">
+                            <button 
+                                type="button" 
+                                class="btn-ver-documento-nuevo"
+                                onclick="testModal(); return false;"
+                            >
                                 <i class="bi bi-eye me-2"></i>
                                 Ver Documento
-                            </a>
-                            <a href="#" class="btn-doc btn-doc-outline">
+                            </button>
+                            <a href="${doc.url}" download class="btn-doc btn-doc-outline">
                                 <i class="bi bi-download me-2"></i>
                                 Descargar
                             </a>
@@ -2265,9 +2804,133 @@
             });
         }
 
+        // Función de TEST completamente independiente
+        function testModal() {
+            
+            const modal = document.getElementById('capitulo1Modal');
+            if (modal) {
+                modal.classList.add('modal-visible');
+                document.body.style.overflow = 'hidden';
+            } else {
+                console.log('TEST: Modal NO encontrado');
+            }
+            return false;
+        }
+
+        // Función para mostrar el Capítulo 1 en un modal - VERSIÓN SIMPLIFICADA
+        function mostrarCapitulo1Modal(evento) {
+            // ALERTA TEMPORAL PARA DEBUG
+            alert('Función ejecutada - Abriendo modal');
+            
+            // Prevenir CUALQUIER comportamiento por defecto
+            if (evento) {
+                evento.preventDefault();
+                evento.stopPropagation();
+                evento.stopImmediatePropagation();
+            }
+            
+            // Prevenir comportamiento por defecto del evento global
+            if (window.event) {
+                window.event.preventDefault();
+                window.event.stopPropagation();
+                window.event.returnValue = false;
+            }
+            
+            console.log('Abriendo modal...');
+            
+            const modal = document.getElementById('capitulo1Modal');
+            if (modal) {
+                modal.classList.add('modal-visible');
+                document.body.style.overflow = 'hidden';
+                console.log('Modal abierto');
+            } else {
+                console.error('Modal no encontrado');
+            }
+            
+            // IMPORTANTE: Prevenir cualquier acción adicional
+            return false;
+        }
+
+        // SISTEMA DE DELEGACIÓN DE EVENTOS - SOLUCIÓN DEFINITIVA
+        function setupEventDelegation() {
+            console.log('Configurando delegación de eventos para botones Ver Documento...');
+            
+            // Remover listener anterior si existe
+            if (window.verDocumentoHandler) {
+                document.removeEventListener('click', window.verDocumentoHandler);
+            }
+            
+            // Crear nuevo handler MÁS ESPECÍFICO
+            window.verDocumentoHandler = function(event) {
+                // SOLO buscar botones específicos, NO enlaces
+                const target = event.target.closest('button.btn-doc-primary, button.btn-ver-documento-nuevo');
+                
+                // Asegurar que es un BOTÓN y contiene "Ver Documento"
+                if (target && target.tagName === 'BUTTON' && target.textContent.includes('Ver Documento')) {
+                    console.log('¡CLICK INTERCEPTADO en botón Ver Documento!');
+                    console.log('Elemento:', target.tagName, 'Clases:', target.className);
+                    
+                    // PREVENIR TODO
+                    event.preventDefault();
+                    event.stopPropagation();
+                    event.stopImmediatePropagation();
+                    
+                    // Abrir modal con la función que funciona
+                    console.log('DELEGACIÓN: Abriendo modal con testModal()...');
+                    testModal();
+                    
+                    return false;
+                }
+                
+                // Si es un enlace con download, permitir comportamiento normal
+                const enlaceDescarga = event.target.closest('a[download]');
+                if (enlaceDescarga) {
+                    console.log('Enlace de descarga detectado - permitiendo descarga normal');
+                    return true; // Permitir descarga
+                }
+            };
+            
+            // Agregar listener al documento con captura
+            document.addEventListener('click', window.verDocumentoHandler, true);
+            console.log('Delegación de eventos configurada exitosamente');
+        }
+
+        // Función para cerrar el modal
+        function cerrarCapitulo1Modal() {
+            console.log('Cerrando modal...');
+            const modal = document.getElementById('capitulo1Modal');
+            if (modal) {
+                // Remover clase de visibilidad
+                modal.classList.remove('modal-visible');
+                
+                // Restaurar scroll del fondo
+                document.body.style.overflow = 'auto';
+                
+                console.log('Modal cerrado');
+            }
+        }
+
+        // Cerrar modal al hacer clic fuera del contenido
+        window.onclick = function(event) {
+            const modal = document.getElementById('capitulo1Modal');
+            if (event.target === modal) {
+                cerrarCapitulo1Modal();
+            }
+        }
+
+        // Cerrar modal con tecla Escape
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                const modal = document.getElementById('capitulo1Modal');
+                if (modal && modal.classList.contains('modal-visible')) {
+                    cerrarCapitulo1Modal();
+                }
+            }
+        });
+
         // Función para cargar datos de la sección
         function loadSectionData() {
-            let codigo = getUrlParameter('codigo') || '3.2.4.1';
+            let codigo = getUrlParameter('codigo') || '1.1';
             
             // Si el código es solo un capítulo principal (ej: "3"), buscar el primer subcapítulo disponible
             if (codigo.length === 1 && estructuraCapitulos[codigo]) {
@@ -2288,7 +2951,7 @@
                 document.getElementById('sectionTitle').textContent = 'Gastos Operacionales (OPEX)';
                 document.getElementById('sectionDescription').textContent = 'Marco normativo integral para la clasificación y documentación de gastos operacionales.';
                 updateBreadcrumb('3.2.4.1', 'Gastos Operacionales (OPEX)');
-                document.getElementById('lastUpdate').textContent = '5 oct 2025';
+                document.getElementById('lastUpdate').innerHTML = '<i class="fas fa-clock me-1"></i>5 oct 2025';
                 document.getElementById('totalDocs').textContent = '6';
                 loadSubcapitulos('3', '3.2.4.1');
                 return;
@@ -2299,11 +2962,63 @@
             document.getElementById('sectionTitle').textContent = seccion.titulo;
             document.getElementById('sectionDescription').textContent = seccion.descripcion;
             updateBreadcrumb(seccion.codigo, seccion.titulo);
-            document.getElementById('lastUpdate').textContent = new Date(seccion.ultimaActualizacion).toLocaleDateString('es-PR', { month: 'short', day: 'numeric', year: 'numeric' });
+            document.getElementById('lastUpdate').innerHTML = '<i class="fas fa-clock me-1"></i>' + new Date(seccion.ultimaActualizacion).toLocaleDateString('es-PR', { month: 'short', day: 'numeric', year: 'numeric' });
             document.getElementById('totalDocs').textContent = seccion.documentos.length;
 
             // Actualizar título de la página
             document.title = `OGP - ${seccion.codigo} ${seccion.titulo}`;
+
+            // Mostrar contenido completo si existe
+            if (seccion.contenidoCompleto) {
+                console.log('Mostrando contenido completo para sección:', seccion.codigo);
+                const contenidoContainer = document.getElementById('contenidoCompleto');
+                const contenidoTexto = document.getElementById('contenidoTexto');
+                
+                // Verificar si contenidoCompleto es un objeto con estructura o una cadena HTML directa
+                if (typeof seccion.contenidoCompleto === 'object' && seccion.contenidoCompleto.contenido) {
+                    // Formato estructurado (secciones 1.2, 1.3, etc.)
+                    let html = '';
+                    if (seccion.contenidoCompleto.titulo) {
+                        html += `<h3 class="mb-3">${seccion.contenidoCompleto.titulo}</h3>`;
+                    }
+                    if (seccion.contenidoCompleto.subtitulo) {
+                        html += `<h5 class="text-muted mb-4">${seccion.contenidoCompleto.subtitulo}</h5>`;
+                    }
+                    html += seccion.contenidoCompleto.contenido;
+                    contenidoTexto.innerHTML = html;
+                } else {
+                    // Formato directo HTML (sección 1.1)
+                    contenidoTexto.innerHTML = seccion.contenidoCompleto;
+                }
+                
+                // ARREGLAR BOTONES "Ver Documento" después de insertar HTML
+                setTimeout(() => {
+                    // Buscar tanto la clase antigua como la nueva
+                    const botonesVerDocumento = document.querySelectorAll('button.btn-doc-primary, button.btn-ver-documento-nuevo');
+                    botonesVerDocumento.forEach(boton => {
+                        if (boton.textContent.includes('Ver Documento')) {
+                            console.log('Arreglando botón Ver Documento...');
+                            // Remover onclick existente que puede estar corrupto
+                            boton.removeAttribute('onclick');
+                            // Agregar event listener correcto con testModal()
+                            boton.addEventListener('click', function(e) {
+                                e.preventDefault();
+                                e.stopPropagation();
+                                console.log('Botón Ver Documento clickeado - abriendo modal con testModal()');
+                                testModal();
+                                return false;
+                            });
+                        }
+                    });
+                    console.log('Botones Ver Documento arreglados con testModal()');
+                }, 100);
+                
+                contenidoContainer.style.display = 'block';
+                console.log('Contenido mostrado exitosamente');
+            } else {
+                console.log('No hay contenido completo para la sección:', seccion.codigo);
+                document.getElementById('contenidoCompleto').style.display = 'none';
+            }
 
             // Cargar subcapítulos del capítulo principal
             const capituloPrincipal = codigo.split('.')[0];
@@ -2442,7 +3157,523 @@
                     console.log(`Buscando: ${searchTerm}`);
                 }
             });
+
+            // Hacer las funciones del modal disponibles globalmente
+            window.mostrarCapitulo1Modal = mostrarCapitulo1Modal;
+            window.cerrarCapitulo1Modal = cerrarCapitulo1Modal;
+            window.testModal = testModal; // Función de test
+            
+            // CONFIGURAR DELEGACIÓN DE EVENTOS INMEDIATAMENTE
+            setupEventDelegation();
+            
+            // FUNCIÓN PARA ASEGURAR QUE TODOS LOS BOTONES "VER DOCUMENTO" FUNCIONEN
+            function asegurarBotonesFuncionales() {
+                console.log('Verificando y corrigiendo todos los botones Ver Documento...');
+                
+                // Buscar todos los botones que contengan "Ver Documento"
+                const todosBotones = document.querySelectorAll('button, a');
+                let botonesCorregidos = 0;
+                
+                todosBotones.forEach(boton => {
+                    const texto = boton.textContent || boton.innerText || '';
+                    if (texto.includes('Ver Documento')) {
+                        // Si es un botón que no tiene onclick, agregarlo
+                        if (!boton.hasAttribute('onclick') && !boton.dataset.modalFixed) {
+                            console.log('Corrigiendo botón sin onclick:', texto.trim());
+                            
+                            boton.addEventListener('click', function(e) {
+                                e.preventDefault();
+                                e.stopPropagation();
+                                console.log('Botón Ver Documento (corregido) - abriendo modal');
+                                testModal();
+                                return false;
+                            });
+                            
+                            // Marcar como corregido para evitar duplicados
+                            boton.dataset.modalFixed = 'true';
+                            botonesCorregidos++;
+                        }
+                    }
+                });
+                
+                console.log(`Botones Ver Documento corregidos: ${botonesCorregidos}`);
+            }
+            
+            // Ejecutar la corrección inmediatamente
+            asegurarBotonesFuncionales();
+            
+            // CONFIGURACIÓN ESPECÍFICA PARA BOTÓN DE SECCIÓN 1.3
+            document.addEventListener('DOMContentLoaded', function() {
+                const btnVerDoc13 = document.getElementById('btnVerDocumento13');
+                const btnVerDoc13Dynamic = document.getElementById('btnVerDocumento13Dynamic');
+                
+                // Configurar botón estático
+                if (btnVerDoc13) {
+                    console.log('DOM Ready: Configurando botón ESTÁTICO específico para Sección 1.3...');
+                    console.log('Elemento encontrado:', btnVerDoc13.tagName, btnVerDoc13.className);
+                    
+                    // Agregar listener específico
+                    btnVerDoc13.addEventListener('click', function(e) {
+                        console.log('=== DOM READY CLICK - SECCIÓN 1.3 ESTÁTICO ===');
+                        e.preventDefault();
+                        e.stopPropagation();
+                        e.stopImmediatePropagation();
+                        console.log('CLICK DOM READY en botón Sección 1.3 ESTÁTICO - abriendo modal');
+                        testModal();
+                        return false;
+                    });
+                    
+                    console.log('DOM Ready: Botón Sección 1.3 ESTÁTICO configurado exitosamente');
+                }
+
+                // Configurar botón dinámico
+                if (btnVerDoc13Dynamic) {
+                    console.log('DOM Ready: Configurando botón DINÁMICO específico para Sección 1.3...');
+                    console.log('Elemento encontrado:', btnVerDoc13Dynamic.tagName, btnVerDoc13Dynamic.className);
+                    
+                    // Agregar listener específico
+                    btnVerDoc13Dynamic.addEventListener('click', function(e) {
+                        console.log('=== DOM READY CLICK - SECCIÓN 1.3 DINÁMICO ===');
+                        e.preventDefault();
+                        e.stopPropagation();
+                        e.stopImmediatePropagation();
+                        console.log('CLICK DOM READY en botón Sección 1.3 DINÁMICO - abriendo modal');
+                        testModal();
+                        return false;
+                    });
+                    
+                    console.log('DOM Ready: Botón Sección 1.3 DINÁMICO configurado exitosamente');
+                }
+
+                if (!btnVerDoc13 && !btnVerDoc13Dynamic) {
+                    console.log('DOM Ready: Ningún botón Sección 1.3 encontrado');
+                }
+            });
+            
+            // CONFIGURACIÓN INMEDIATA - NO ESPERAR DOM
+            setTimeout(() => {
+                const btnVerDoc13 = document.getElementById('btnVerDocumento13');
+                const btnVerDoc13Dynamic = document.getElementById('btnVerDocumento13Dynamic');
+                
+                // Configurar botón estático
+                if (btnVerDoc13) {
+                    console.log('CONFIGURACIÓN INMEDIATA: Botón Sección 1.3 ESTÁTICO encontrado');
+                    console.log('Elemento:', btnVerDoc13.tagName, 'Clases:', btnVerDoc13.className);
+                    
+                    // Remover cualquier onclick existente
+                    btnVerDoc13.removeAttribute('onclick');
+                    btnVerDoc13.removeAttribute('href');
+                    
+                    // Asegurar que es un botón, no un enlace
+                    btnVerDoc13.type = 'button';
+                    
+                    // Agregar listener directo con máxima prioridad
+                    btnVerDoc13.addEventListener('click', function(e) {
+                        console.log('=== CLICK DIRECTO EN BOTÓN SECCIÓN 1.3 ESTÁTICO ===');
+                        console.log('Tipo de elemento:', e.target.tagName);
+                        console.log('Clases:', e.target.className);
+                        
+                        e.preventDefault();
+                        e.stopPropagation();
+                        e.stopImmediatePropagation();
+                        
+                        console.log('CLICK INMEDIATO - abriendo modal');
+                        testModal();
+                        return false;
+                    }, true); // Usar captura para asegurar prioridad
+                    
+                    console.log('CONFIGURACIÓN INMEDIATA: Botón Sección 1.3 ESTÁTICO configurado');
+                }
+
+                // Configurar botón dinámico
+                if (btnVerDoc13Dynamic) {
+                    console.log('CONFIGURACIÓN INMEDIATA: Botón Sección 1.3 DINÁMICO encontrado');
+                    console.log('Elemento:', btnVerDoc13Dynamic.tagName, 'Clases:', btnVerDoc13Dynamic.className);
+                    
+                    // Remover cualquier onclick existente
+                    btnVerDoc13Dynamic.removeAttribute('onclick');
+                    btnVerDoc13Dynamic.removeAttribute('href');
+                    
+                    // Asegurar que es un botón, no un enlace
+                    btnVerDoc13Dynamic.type = 'button';
+                    
+                    // Agregar listener directo con máxima prioridad
+                    btnVerDoc13Dynamic.addEventListener('click', function(e) {
+                        console.log('=== CLICK DIRECTO EN BOTÓN SECCIÓN 1.3 DINÁMICO ===');
+                        console.log('Tipo de elemento:', e.target.tagName);
+                        console.log('Clases:', e.target.className);
+                        
+                        e.preventDefault();
+                        e.stopPropagation();
+                        e.stopImmediatePropagation();
+                        
+                        console.log('CLICK DINÁMICO - abriendo modal');
+                        testModal();
+                        return false;
+                    }, true); // Usar captura para asegurar prioridad
+                    
+                    console.log('CONFIGURACIÓN INMEDIATA: Botón Sección 1.3 DINÁMICO configurado');
+                }
+
+                if (!btnVerDoc13 && !btnVerDoc13Dynamic) {
+                    console.log('CONFIGURACIÓN INMEDIATA: Ningún botón Sección 1.3 encontrado');
+                }
+            }, 100);
+            
+            // Y cada vez que se actualice el contenido
+            const observer = new MutationObserver(() => {
+                asegurarBotonesFuncionales();
+            });
+            
+            observer.observe(document.body, {
+                childList: true,
+                subtree: true
+            });
+            
+            console.log('Funciones del modal registradas globalmente');
+            console.log('Sistema de delegación de eventos activado');
+            console.log('Sistema de corrección automática de botones activado');
+            
+            // Test del modal - remover después de verificar
+            console.log('Testing modal availability...');
+            setTimeout(() => {
+                const modal = document.getElementById('capitulo1Modal');
+                console.log('Modal element found:', modal ? 'YES' : 'NO');
+                if (modal) {
+                    console.log('Modal current display:', modal.style.display);
+                    console.log('Modal computed styles:', window.getComputedStyle(modal).display);
+                }
+            }, 1000);
         });
     </script>
+
+    <!-- Modal para mostrar Capítulo 1 -->
+    <div id="capitulo1Modal" class="modal-overlay" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="bi bi-book me-2"></i>Capítulo 1 - Manual del Proceso Presupuestario</h2>
+                <button onclick="cerrarCapitulo1Modal()" class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="capitulo-content">
+                    <h3>1.1. Propósito y estructura del Manual</h3>
+                    
+                    <h4>Política Pública y Objetivos</h4>
+                    <p>Es política pública del Gobierno de Puerto Rico proveer información financiera precisa y oportuna para la administración de las operaciones gubernamentales y para la preparación y ejecución del presupuesto. También, que se establezcan controles efectivos sobre los ingresos, desembolsos, fondos, propiedad y demás activos públicos. Consecuentemente, corresponde a la OGP implementar medidas rigurosas de control mediante la fiscalización adecuada de las partidas presupuestarias relacionadas con nombramientos, transacciones de personal, contrataciones y el control general del gasto gubernamental. La información que se genera a través del proceso presupuestario constituye la base para la preparación y justificación de las necesidades fiscales de las agencias, así como para el control de la ejecución presupuestaria.</p>
+
+                    <h4>Propósito del Manual</h4>
+                    <p>El propósito de este Manual es ofrecer una exposición clara del proceso, términos y conceptos esenciales relacionados al proceso presupuestario. En ese sentido, este Manual constituye una normativa integrada que establece los principios, normas y procedimientos generales aplicables a la formulación, evaluación, aprobación, ejecución y monitoreo del presupuesto.</p>
+
+                    <h4>Carta Presupuestaria Anual</h4>
+                    <p>Como complemento a este Manual, la OGP emitirá anualmente una <strong>Carta Presupuestaria Anual</strong>, la cual dará inicio al proceso presupuestario para cada año fiscal. La Carta Presupuestaria Anual se actualizará anualmente y se incorporará como parte del Capítulo 4 de este Manual, reflejando las instrucciones y parámetros específicos de cada ciclo presupuestario. Además, las actualizaciones al Manual se incorporarán en las distintas secciones del documento, según sea necesario. Para acceder a la versión más reciente de dichas enmiendas o revisiones, los usuarios deberán referirse a la columna de actualizaciones incluida en el Portal de Normativa Integrada de Presupuesto de la OGP en la página oficial <a href="http://www.ogp.pr.gov" target="_blank">www.ogp.pr.gov</a>.</p>
+
+                    <hr class="my-4">
+
+                    <h3>1.2. Aplicabilidad</h3>
+                    <h4>Alcance del Manual</h4>
+                    <p>Este Manual aplica a todas las agencias, departamentos, oficinas, comisiones, administraciones, organismos, corporaciones públicas y demás instrumentalidades gubernamentales de la Rama Ejecutiva del Gobierno de Puerto Rico, así como a cualquiera de sus unidades y dependencias (Instrumentalidades) que reciban asignaciones presupuestarias del Fondo General, Fondos de Ingresos Especiales (FEE, IP, OI) y/o Fondos Federales.</p>
+
+                    <div class="alert alert-primary">
+                        <strong>Entidades Cubiertas:</strong> Todas las instrumentalidades de la Rama Ejecutiva que participen en el proceso presupuestario gubernamental, independientemente de la fuente de financiamiento.
+                    </div>
+
+                    <hr class="my-4">
+
+                    <h3>1.3. Términos y acrónimos</h3>
+                    <h4>Glosario Oficial del Proceso Presupuestario</h4>
+                    <p>El presente glosario contiene las definiciones oficiales de los términos técnicos, conceptos operacionales y acrónimos utilizados en el proceso presupuestario del Gobierno de Puerto Rico, en conformidad con las disposiciones de la Ley federal PROMESA y los requerimientos de la Junta de Supervisión y Administración Financiera.</p>
+
+                    <div class="glosario-modal">
+                        <dl class="glosario-list-modal">
+                            <dt><strong>a) "Al millar"</strong></dt>
+                            <dd>Redondear a millar o en miles de dólares ($). En la numeración decimal, cifra que en un número ocupa la cuarta posición de los números enteros, empezando por las unidades hacia la derecha, y que indica cuántos grupos de 1,000 números enteros tiene (como máximo 9). Por ejemplo, en el número 2,000 el 2 representa los millares; es decir 2,000,000 (dos millones) redondeados al millar son 2,000.</dd>
+
+                            <dt><strong>b) Agencia</strong></dt>
+                            <dd>Para fines de este Memorando, la palabra "agencia" significará cualquier departamento, oficina, negociado, comisión, junta, administración, autoridad, corporación pública, incluyendo sus afiliadas y subsidiarias, o cualquier otro organismo de la Rama Ejecutiva.</dd>
+
+                            <dt><strong>c) Año Fiscal</strong></dt>
+                            <dd>El período comprendido entre el primero de julio de cualquier año natural y el 30 de junio del año natural siguiente, ambos inclusive.</dd>
+
+                            <dt><strong>d) Asignación</strong></dt>
+                            <dd>Cantidad de dinero autorizada por la Asamblea Legislativa con el propósito de llevar a cabo una actividad específica o lograr ciertos objetivos.</dd>
+
+                            <dt><strong>e) Asignaciones Especiales</strong></dt>
+                            <dd>Asignaciones aprobadas mediante Resoluciones Conjuntas que limitan el uso de los fondos asignados.</dd>
+
+                            <dt><strong>f) Carta Presupuestaria</strong></dt>
+                            <dd>Carta anual emitida por la OGP para dar inicio al proceso presupuestario de cada Año Fiscal.</dd>
+
+                            <dt><strong>g) CapEx (mejoras permanentes)</strong></dt>
+                            <dd>Los fondos de inversión en mejoras permanentes ("CapEx") son desembolsos incurridos para comprar, extender la vida útil de un activo o mejorar activos de larga duración. Estos activos incluyen los que suelen denominarse bienes de infraestructura (carreteras, puentes, parques, activos financieros de recuperación de desastres, etc.), así como terrenos, edificios, instalaciones, vehículos, hardware y equipos de sistemas de información. Además, el CapEx consiste en todos los desembolsos necesarios para adquirir algún activo y prepararlo para su uso previsto y los desembolsos relacionados con inversiones intangibles, como la adquisición o el desarrollo de software de uso interno. Sin embargo, otros desembolsos, como los contratos de mantenimiento, los servicios de administración de aplicaciones, el manejo remoto de infraestructura, las mejoras periódicas y las correcciones estatutarias no se consideran una inversión en mejoras permanentes.</dd>
+
+                            <dt><strong>h) Compromisos programáticos</strong></dt>
+                            <dd>Prioridades del Ejecutivo para establecer el plan de trabajo a cuatro años, según se desprende del Programa de Gobierno.</dd>
+
+                            <dt><strong>i) Módulo de Presupuesto "EPM"</strong></dt>
+                            <dd>Herramienta de Oracle con el módulo de EPM (Enterprise Planning and Budgeting Cloud Services) para el registro de presupuesto. Es una herramienta en la nube, donde los usuarios pueden acceder desde sus navegadores de internet, ya sea desde sus computadoras o teléfonos inteligentes. También, al ser un sistema moderno, cuenta con funciones que facilitan y agilizan la forma en que actualmente se trabaja el presupuesto.</dd>
+
+                            <dt><strong>j) Fondo General</strong></dt>
+                            <dd>Incluye Resolución Conjunta (Fondo 111) y Asignaciones Especiales (Fondo 141). Es el fondo en el que ingresan los mayores recaudos del Departamento de Hacienda. Estos recursos provienen de imposiciones de contribuciones, esencialmente sobre ingresos, herencias y donaciones; arbitrios sobre bebidas alcohólicas, cigarrillos, productos de petróleo, vehículos de motor y sus accesorios; impuestos sobre ventas y uso, entre otros. Son también fuentes de ingreso del Gobierno, como las contribuciones que se recaudan por concepto de licencias de vehículos de motor y otras licencias; los derechos, multas y confiscaciones; las rentas provenientes de la lotería; los derechos de aduana; y los arbitrios sobre embarques. En este Fondo se administran y contabilizan las actividades generales del gobierno y aquellas actividades para las cuales el gobierno no haya establecido un fondo particular, la Asamblea Legislativa hace las asignaciones para autorizar su uso y sufragar los distintos programas de servicios y de inversiones públicas para cada año fiscal.</dd>
+
+                            <dt><strong>k) Fondo</strong></dt>
+                            <dd>Una suma de dinero u otros recursos separados con el propósito de llevar a cabo una actividad específica o lograr ciertos objetivos de acuerdo con leyes, reglamentos, restricciones o limitaciones especiales y que constituyen una entidad fiscal y de contabilidad independiente. Incluye las cuentas creadas para contabilizar el producto de las emisiones de bonos que sean autorizadas.</dd>
+
+                            <dt><strong>l) Fondos de Ingresos Especiales (SRF)</strong></dt>
+                            <dd>"Special Revenue Funds", (SRF) por sus siglas en inglés: Bajo esta nueva clasificación [por requerimiento de la Junta Supervisión y Administración Financiera] se agrupan los recursos provenientes de Fondos Especiales Estatales (FEE), Ingresos Propios (IP) y Otros Ingresos (OI) de las agencias. A su vez, se clasifican conforme a sus fuentes de ingresos y usos.</dd>
+
+                            <dt><strong>m) Fondos Federales</strong></dt>
+                            <dd>Son aportaciones otorgadas por el Gobierno de los Estados Unidos para financiar programas de educación, salud, bienestar social, empleo, mejoras permanentes y para otros fines. Estos recursos se rigen por la legislación y regulaciones federales que determinan su elegibilidad, propósito y requisitos de uso. Por lo cual, en principio, no requiere acción legislativa estatal.</dd>
+
+                            <dt><strong>n) Notice of Award (NOA)</strong></dt>
+                            <dd>Es el documento oficial emitido por la agencia federal que acredita que la subvención federal fue aprobada, sujeta al cumplimiento de sus términos y condiciones. Además, contiene información importante sobre la subvención, tal como: número de la subvención, nombre del beneficiario (agencia u organización que recibe la misma), cantidad de la subvención, periodo de la subvención, condiciones especiales, regulación aplicable, entre otra información.</dd>
+
+                            <dt><strong>o) Gastos ineludibles</strong></dt>
+                            <dd>Son aquellos gastos o compromisos por ley que correspondan a asignaciones nuevas o incrementos en las existentes que ya están legisladas a la fecha de la petición presupuestaria.</dd>
+
+                            <dt><strong>p) Gasto recurrente</strong></dt>
+                            <dd>Obligación de gasto periódica y previsible que se repite dentro del mismo año fiscal y en años fiscales subsiguientes para sostener la operación ordinaria de la agencia. Incluye gastos de funcionamiento regulares como nómina, arrendamientos, servicios públicos, contratos de mantenimiento y servicios profesionales recurrentes, entre otros.</dd>
+
+                            <dt><strong>q) Gasto no recurrente (one-time)</strong></dt>
+                            <dd>Gasto extraordinario, de duración limitada o única que no debe incorporarse al presupuesto base (baseline) porque no se espera que se repita en años fiscales futuros. Un gasto no recurrente puede cubrir desembolsos que ocurren en varios meses o fases (por ejemplo, un proyecto por etapas), pero se clasifica como no recurrente cuando su ejecución y desembolso concluyen una vez finalizado el proyecto o la actividad asociada.</dd>
+
+                            <dt><strong>r) Junta de Supervisión y Administración Financiera (JSAF)</strong></dt>
+                            <dd>Entidad creada en virtud de la Ley Federal Pública 114-187, "Puerto Rico Oversight, Management and Economic Stability Act" (PROMESA, por sus siglas en inglés).</dd>
+
+                            <dt><strong>s) Presupuesto Gastado</strong></dt>
+                            <dd>Presupuesto gastado en el año fiscal previo. [1 de julio al 30 de junio].</dd>
+
+                            <dt><strong>t) Presupuesto aprobado</strong></dt>
+                            <dd>Presupuesto certificado por la JSAF. También se conoce como presupuesto vigente, corriente, o aprobado seguido del año fiscal aplicable.</dd>
+
+                            <dt><strong>u) Presupuesto propuesto o recomendado</strong></dt>
+                            <dd>Presupuesto que el Gobernador o Gobernadora presentará a la JSAF y a la Asamblea Legislativa. Previo a la Junta, se conocía como Presupuesto Recomendado por el Gobernador.</dd>
+
+                            <dt><strong>v) Programa de Gobierno</strong></dt>
+                            <dd>Se convierte en el plan de trabajo a cuatro años del Gobernador electo para establecer las políticas públicas y guías que dirigirán las acciones del Gobierno.</dd>
+
+                            <dt><strong>w) PROMESA</strong></dt>
+                            <dd>Ley Federal Pública 114-187, "Puerto Rico Oversight, Management and Economic Stability Act" (PROMESA, por sus siglas en inglés).</dd>
+                        </dl>
+                    </div>
+
+                    <div class="alert alert-info mt-4">
+                        <strong>Nota importante:</strong> Las definiciones contenidas en este glosario han sido establecidas en conformidad con la legislación vigente, las regulaciones federales aplicables y las disposiciones de la Junta de Supervisión y Administración Financiera para garantizar uniformidad en la terminología utilizada en el proceso presupuestario del Gobierno de Puerto Rico.
+                    </div>
+
+                    <div class="alert alert-info mt-4">
+                        <strong>Nota Importante:</strong> La OGP se reserva la facultad de enmendar, revisar o actualizar este Manual, así como de emitir guías, circulares o instrucciones adicionales que sean necesarias para su interpretación o cumplimiento efectivo.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .modal-overlay {
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            width: 100% !important;
+            height: 100% !important;
+            background: rgba(0, 0, 0, 0.7) !important;
+            z-index: 99999 !important;
+            display: none !important; /* Oculto por defecto */
+            align-items: center !important;
+            justify-content: center !important;
+            padding: 20px !important;
+            visibility: hidden !important; /* Oculto por defecto */
+            opacity: 0 !important; /* Oculto por defecto */
+        }
+
+        .modal-overlay.modal-visible {
+            display: flex !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+        }
+
+        .modal-content {
+            background: white !important;
+            border-radius: 12px !important;
+            max-width: 900px !important;
+            width: 100% !important;
+            max-height: 90vh !important;
+            overflow: hidden !important;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25) !important;
+            position: relative !important;
+            z-index: 100000 !important;
+        }
+
+        .modal-header {
+            background: linear-gradient(135deg, #0f2b5b 0%, #1e4a73 100%);
+            color: white;
+            padding: 20px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-radius: 12px 12px 0 0;
+        }
+
+        .modal-header h2 {
+            margin: 0;
+            font-size: 1.4rem;
+            font-weight: 600;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+            padding: 0;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: background-color 0.2s;
+        }
+
+        .modal-close:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .modal-body {
+            max-height: calc(90vh - 80px);
+            overflow-y: auto;
+            padding: 0;
+        }
+
+        .capitulo-content {
+            padding: 30px;
+            line-height: 1.6;
+        }
+
+        .capitulo-content h3 {
+            color: var(--ogp-primary);
+            font-weight: 600;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--ogp-accent);
+        }
+
+        .capitulo-content h4 {
+            color: var(--ogp-primary);
+            font-weight: 600;
+            margin-top: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .capitulo-content p {
+            text-align: justify;
+            margin-bottom: 1rem;
+            color: #374151;
+        }
+
+        .capitulo-content .alert {
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+        }
+
+        .capitulo-content .alert-primary {
+            background: #dbeafe;
+            border: 1px solid #93c5fd;
+            color: #1e40af;
+        }
+
+        .capitulo-content .alert-info {
+            background: #f0f9ff;
+            border: 1px solid #7dd3fc;
+            color: #0369a1;
+        }
+
+        .capitulo-content hr {
+            border: none;
+            border-top: 1px solid #e5e7eb;
+            margin: 2rem 0;
+        }
+
+        .glosario-modal {
+            background: #fafbfc;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            border: 1px solid #e5e7eb;
+        }
+
+        .glosario-list-modal {
+            margin: 0;
+            padding: 0;
+        }
+
+        .glosario-list-modal dt {
+            color: var(--ogp-primary);
+            font-weight: 600;
+            font-size: 0.95rem;
+            margin-top: 1rem;
+            margin-bottom: 0.5rem;
+            padding: 0.5rem 0.75rem;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            border-left: 3px solid var(--ogp-accent);
+            border-radius: 0 6px 6px 0;
+        }
+
+        .glosario-list-modal dt:first-child {
+            margin-top: 0;
+        }
+
+        .glosario-list-modal dd {
+            color: #374151;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin-left: 0;
+            margin-bottom: 0.75rem;
+            padding: 0.75rem 1rem;
+            background: white;
+            border-radius: 6px;
+            border: 1px solid #e5e7eb;
+            text-align: justify;
+        }
+
+        .glosario-list-modal dd:last-child {
+            margin-bottom: 0;
+        }
+
+        @media (max-width: 768px) {
+            .modal-content {
+                margin: 10px;
+                max-height: 95vh;
+            }
+            
+            .modal-header {
+                padding: 15px 20px;
+            }
+            
+            .modal-header h2 {
+                font-size: 1.2rem;
+            }
+            
+            .capitulo-content {
+                padding: 20px;
+            }
+
+            .glosario-modal {
+                padding: 1rem;
+            }
+            
+            .glosario-list-modal dt {
+                padding: 0.4rem 0.6rem;
+                font-size: 0.9rem;
+            }
+            
+            .glosario-list-modal dd {
+                padding: 0.6rem 0.8rem;
+                font-size: 0.85rem;
+            }
+        }
+    </style>
 </body>
 </html>
