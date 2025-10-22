@@ -1,0 +1,377 @@
+.chapter-header {
+    background: linear-gradient(135deg, var(--ogp-primary), var(--ogp-secondary));
+    color: white;
+    padding: 1.5rem 1.5rem 1rem 1.5rem;
+    position: relative;
+    border-bottom: 1px solid #e2e8f0;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}
+.chapter-body {
+    background: #fff;
+    padding: 1.25rem 1.5rem 1.5rem 1.5rem;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+/* Card header: first row with code and badge */
+.chapter-header .d-flex {
+    margin-bottom: 0.5rem;
+}
+.chapter-code {
+    font-size: 0.95rem;
+    font-weight: 600;
+    background: rgba(255,255,255,0.18);
+    color: #fff;
+    padding: 0.25rem 0.8rem;
+    border-radius: 20px;
+    display: inline-block;
+    letter-spacing: 0.5px;
+}
+/* Ensure left content in card header uses full width and wraps */
+.chapter-header > div {
+    flex-grow: 1;
+    min-width: 0;
+}
+
+.chapter-ver-mas {
+    color: var(--ogp-primary);
+    text-decoration: underline;
+    cursor: pointer;
+    margin-left: 0.2em;
+    font-weight: 500;
+    transition: color 0.2s;
+}
+.chapter-ver-mas:hover {
+    color: var(--ogp-secondary);
+}
+.chapter-title {
+    width: 100%;
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 0.5rem;
+    line-height: 1.25;
+    white-space: normal;
+    word-break: break-word;
+    display: block;
+    overflow-wrap: break-word;
+}
+.chapter-summary {
+    width: 100%;
+    color: #e2e8f0;
+    font-size: 1rem;
+    font-weight: 400;
+    margin-bottom: 0.5rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-height: 3.6em;
+    max-height: 3.6em;
+    margin-right: 0;
+}
+/* Limit chapter-summary to 3 lines with ellipsis */
+.chapter-summary {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-height: 3.6em;
+    max-height: 3.6em;
+}
+/* Filter pills layout fix */
+.filter-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    align-items: center;
+}
+
+.filter-pill {
+    background: #f1f5f9;
+    color: var(--ogp-primary);
+    border: 1px solid #e2e8f0;
+    border-radius: 20px;
+    padding: 0.3rem 1rem;
+    font-size: 0.95rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.2s;
+    display: inline-block;
+}
+.filter-pill.active {
+    background: var(--ogp-primary);
+    color: #fff;
+    border-color: var(--ogp-primary);
+}
+.filter-pill:hover {
+    background: var(--ogp-secondary);
+    color: #fff;
+    border-color: var(--ogp-secondary);
+}
+/* Badge in chapter header */
+.chapter-header .badge {
+    font-size: 0.75rem;
+    font-weight: 500;
+    padding: 0.22rem 0.7rem;
+    border-radius: 14px;
+    margin-left: 0.5rem;
+    margin-top: 0.1rem;
+    box-shadow: 0 1px 2px rgba(49,130,206,0.08);
+    white-space: nowrap;
+}
+.chapter-actions {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 2px 12px rgba(49,130,206,0.08);
+    padding: 16px 18px;
+    margin-top: 18px;
+    margin-bottom: 0;
+    min-height: 56px;
+}
+.chapter-actions .btn {
+    min-width: 120px;
+    max-width: 180px;
+    text-align: center;
+    white-space: nowrap;
+}
+.chapter-actions .btn {
+    min-width: 120px;
+    max-width: 180px;
+    text-align: left;
+}
+.chapter-actions {
+    margin-bottom: 0; /* Elimina espacio extra debajo de los botones */
+}
+/* 
+ * OGP Portal - Componentes Cards y Stats
+ * Estilos para tarjetas, estadísticas y filtros
+ */
+
+/* Search Section */
+.search-section {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.search-container .input-group {
+    border-radius: 50px;
+    overflow: hidden;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
+    border: 1px solid #e9ecef;
+}
+
+.search-container .input-group-text {
+    background: white;
+    color: #6c757d;
+    border: none;
+    padding: 0.75rem 1.2rem;
+    border-radius: 50px 0 0 50px;
+}
+
+.search-container .form-control {
+    border: none;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    background: white;
+    border-radius: 0 50px 50px 0;
+}
+
+.search-container .form-control:focus {
+    box-shadow: none;
+    border-color: transparent;
+    background: white;
+}
+
+.search-container .form-control::placeholder {
+    color: #adb5bd;
+}
+
+/* Stats Cards */
+.stats-container {
+    margin-top: -3rem;
+    position: relative;
+    z-index: 10;
+}
+
+.stat-card {
+    background: white;
+    border-radius: 20px;
+    padding: 2rem;
+    text-align: center;
+    box-shadow: var(--shadow-lg);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: var(--transition-normal);
+    height: 100%;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-xl);
+}
+
+.stat-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1rem;
+    font-size: 1.5rem;
+    color: white;
+}
+
+.stat-number {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--ogp-primary);
+    margin-bottom: 0.5rem;
+}
+
+.stat-label {
+    color: var(--ogp-gray);
+    font-weight: 500;
+    font-size: 0.95rem;
+}
+
+/* Main Content */
+.main-content {
+    padding: 4rem 0;
+}
+
+/* Filter Section */
+.filter-section {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.filter-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--ogp-primary);
+    display: flex;
+    align-items: center;
+    margin-bottom: 0;
+}
+
+
+.filter-pill.active {
+    background: var(--ogp-primary);
+    color: white;
+    border-color: var(--ogp-primary);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(49, 130, 206, 0.3);
+    text-decoration: none;
+}
+
+.view-toggle {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.view-toggle .btn {
+    border-radius: 8px !important;
+    padding: 0.4rem 0.8rem !important;
+    font-size: 0.85rem !important;
+}
+
+.view-toggle .btn.active {
+    background: var(--ogp-primary) !important;
+    color: white !important;
+    border-color: var(--ogp-primary) !important;
+}
+
+/* Botón Filtros Avanzados azul oscuro */
+.btn-filtros {
+    background: var(--ogp-primary);
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    font-weight: 500;
+    font-size: 1rem;
+    padding: 0.6rem 1.5rem;
+    box-shadow: 0 2px 8px rgba(15,43,91,0.08);
+    transition: background 0.2s, box-shadow 0.2s;
+}
+.btn-filtros:hover,
+.btn-filtros:focus {
+    background: var(--ogp-secondary);
+    color: #fff;
+    box-shadow: 0 4px 16px rgba(15,43,91,0.15);
+}
+
+/* Chapter Cards Grid */
+.chapters-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+/* Mejor alineación de botones en tarjetas */
+.chapter-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+    min-height: 380px;
+}
+
+/* .chapter-body cleaned up to prevent excessive space below buttons */
+.chapter-body {
+    /* Remove flex properties to avoid pushing buttons down */
+    padding-bottom: 0;
+}
+}
+    overflow-wrap: break-word;
+
+
+/* List View Styles */
+.chapters-list {
+    display: none;
+    margin-top: 2rem;
+}
+
+.chapters-list.active {
+    display: block;
+}
+
+@media (max-width: 768px) {
+    .chapters-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .filter-section {
+        padding: 1.5rem;
+    }
+    
+    .view-toggle {
+        flex-direction: column;
+        gap: 0.25rem;
+    }
+    
+    .filter-pills {
+        justify-content: center;
+    }
+}

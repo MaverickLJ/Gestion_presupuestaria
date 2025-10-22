@@ -1,0 +1,90 @@
+/* 
+ * OGP Portal - Variables CSS Globales
+ * Configuración de variables de diseño y tipografía
+ */
+
+:root {
+    /* Colores principales */
+    --ogp-primary: #0F2B5B;
+    --ogp-secondary: #1A365D;
+    --ogp-accent: #3182CE;
+    --ogp-light: #F7FAFC;
+    --ogp-gray: #718096;
+    --ogp-success: #38A169;
+    --ogp-warning: #D69E2E;
+    --ogp-danger: #E53E3E;
+
+    /* Sombras */
+    --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+
+    /* Gradientes */
+    --gradient-primary: linear-gradient(135deg, var(--ogp-primary), var(--ogp-secondary));
+    --gradient-accent: linear-gradient(135deg, var(--ogp-accent), #2C5AA0);
+    --gradient-background: linear-gradient(135deg, #f8faff 0%, #eef4ff 100%);
+
+    /* Animaciones */
+    --transition-fast: 0.15s ease-out;
+    --transition-normal: 0.3s ease-out;
+    --transition-slow: 0.5s ease-out;
+
+    /* Espaciado */
+    --space-xs: 0.25rem;
+    --space-sm: 0.5rem;
+    --space-md: 1rem;
+    --space-lg: 1.5rem;
+    --space-xl: 2rem;
+    --space-xxl: 3rem;
+
+    /* Bordes */
+    --border-radius-sm: 0.375rem;
+    --border-radius-md: 0.5rem;
+    --border-radius-lg: 0.75rem;
+    --border-radius-xl: 1rem;
+}
+
+/* Reset global */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Configuración base del body */
+body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    line-height: 1.6;
+    background: var(--gradient-background);
+    color: #2D3748;
+    min-height: 100vh;
+    font-feature-settings: 'cv11', 'ss01', 'ss02';
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Utilidades globales */
+.fade-in {
+    animation: fadeInUp 0.6s ease-out forwards;
+    opacity: 0;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Clases de texto */
+.text-gradient {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}

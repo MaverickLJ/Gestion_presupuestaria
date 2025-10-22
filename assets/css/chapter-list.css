@@ -1,0 +1,248 @@
+/* 
+ * OGP Portal - Lista de Capítulos
+ * Estilos para la vista de lista expandible
+ */
+
+.chapter-list-item {
+    background: white;
+    border-radius: 15px;
+    box-shadow: var(--shadow-md);
+    margin-bottom: 1.5rem;
+    overflow: hidden;
+    border: 1px solid rgba(15, 43, 91, 0.05);
+    transition: var(--transition-normal);
+}
+
+.chapter-list-item:hover {
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-2px);
+}
+
+.chapter-list-header {
+    background: var(--gradient-primary);
+    color: white;
+    padding: 1.25rem 1.5rem;
+    cursor: pointer;
+    transition: var(--transition-normal);
+}
+
+.chapter-list-header:hover {
+    background: linear-gradient(135deg, var(--ogp-secondary), var(--ogp-primary));
+}
+
+.chapter-list-title {
+    display: flex;
+    align-items: center;
+    justify-content: between;
+    width: 100%;
+}
+
+.chapter-list-info {
+    flex: 1;
+}
+
+.chapter-list-code {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    display: inline-block;
+    letter-spacing: 0.5px;
+}
+
+.chapter-list-name {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+    line-height: 1.3;
+}
+
+.chapter-list-summary {
+    font-size: 0.9rem;
+    opacity: 0.9;
+    line-height: 1.4;
+}
+
+.chapter-list-meta {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 0.85rem;
+    margin-left: auto;
+    flex-shrink: 0;
+}
+
+.chapter-expand-icon {
+    margin-left: 1rem;
+    transition: transform var(--transition-normal);
+}
+
+.chapter-expand-icon.expanded {
+    transform: rotate(90deg);
+}
+
+.chapter-subcapitulos {
+    background: #f8faff;
+    padding: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: var(--transition-normal);
+}
+
+.chapter-subcapitulos.expanded {
+    max-height: 500px;
+    padding: 1rem 0;
+}
+
+.subcapitulo-item {
+    display: flex;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid rgba(15, 43, 91, 0.08);
+    transition: var(--transition-normal);
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+    gap: 1rem;
+}
+
+.subcapitulo-item:hover {
+    background: rgba(59, 130, 246, 0.08);
+    color: #3b82f6;
+}
+
+.subcapitulo-code {
+    background: #3b82f6;
+    color: white;
+    padding: 0.4rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.subcapitulo-title {
+    flex: 1;
+    font-weight: 500;
+    color: #3b82f6;
+}
+
+.subcapitulo-arrow,
+.subcapitulo-expand-btn {
+    margin-left: auto;
+    color: #3b82f6;
+    font-size: 0.9rem;
+    transition: var(--transition-normal);
+}
+
+.subcapitulo-expand-btn.expanded {
+    transform: rotate(90deg);
+}
+
+.subcapitulo-item:last-child {
+    border-bottom: none;
+}
+
+/* Estilos para subsecciones anidadas */
+.subseccion-container {
+    margin-left: 2rem;
+    margin-top: 0.5rem;
+    border-left: 2px solid #e5e7eb;
+    background: #f9fafb;
+    border-radius: 0 6px 6px 0;
+    padding: 0.75rem 0;
+    margin-bottom: 0.5rem;
+}
+
+.subseccion-item {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+    color: #6b7280;
+    text-decoration: none;
+    transition: var(--transition-normal);
+    border-bottom: 1px solid rgba(229, 231, 235, 0.5);
+    gap: 0.75rem;
+    cursor: pointer;
+    margin: 0;
+    border-radius: 0;
+}
+
+.subseccion-item:hover {
+    background: rgba(229, 231, 235, 0.3);
+    color: #374151;
+}
+
+.subseccion-item:last-child {
+    border-bottom: none;
+}
+
+.subseccion-code {
+    background: #e5e7eb;
+    color: #374151;
+    padding: 0.3rem 0.7rem;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.subseccion-title {
+    flex: 1;
+    font-weight: 400;
+    line-height: 1.3;
+    color: #6b7280;
+}
+
+.subseccion-arrow {
+    margin-left: auto;
+    color: #9ca3af;
+    font-size: 0.8rem;
+}
+
+.subseccion-toggle {
+    background: none;
+    border: none;
+    color: var(--ogp-primary);
+    font-size: 0.8rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    margin-left: auto;
+    cursor: pointer;
+    transition: var(--transition-normal);
+}
+
+.subseccion-toggle:hover {
+    background: rgba(15, 43, 91, 0.1);
+}
+
+.subseccion-toggle.expanded {
+    transform: rotate(90deg);
+}
+
+@media (max-width: 768px) {
+    .chapter-list-header {
+        padding: 1rem;
+    }
+    
+    .chapter-list-meta {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+        margin-left: 0;
+        margin-top: 0.75rem;
+    }
+    
+    .chapter-list-title {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .subcapitulo-item {
+        padding: 0.5rem 1rem;
+    }
+}
