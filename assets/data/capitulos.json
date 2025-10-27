@@ -1,11 +1,11 @@
 [
     {
         "codigo": "1",
-        "titulo": "Información sobre este Manual",
+        "titulo": "Información General del Manual",
         "resumen": "Propósito, estructura, aplicabilidad y terminología fundamental del Manual de Guías Presupuestarias del Gobierno de Puerto Rico.",
         "categoria": "general",
         "ultimaActualizacion": "2025-10-05",
-        "documentos": 4,
+        "secciones": 3,
         "prioridad": "nuevo",
         "subcapitulos": [
             { "codigo": "1.1", "titulo": "Propósito y estructura del Manual"},
@@ -22,11 +22,11 @@
     },
     {
         "codigo": "2",
-        "titulo": "Información General del Proceso Presupuestario en Puerto Rico",
+        "titulo": "Contexto del Proceso Presupuestario en Puerto Rico",
         "resumen": "Marco normativo integral del proceso presupuestario en Puerto Rico, incluyendo PROMESA, enfoque multianual y descripción detallada de etapas.",
         "categoria": "proceso",
         "ultimaActualizacion": "2025-10-04",
-        "documentos": 12,
+        "secciones": 3,
         "prioridad": "por actualizar",
         "subcapitulos": [
             { "codigo": "2.1", "titulo": "Ley federal PROMESA y el proceso presupuestario de Puerto Rico" },
@@ -36,25 +36,27 @@
                 "titulo": "Descripción de las etapas del proceso presupuestario",
                 "subsecciones": [
                     { "codigo": "2.3.1", "titulo": "Calendario presupuestario notificado por la JASF" },
-                    { "codigo": "2.3.2", "titulo": "OGP envía Carta Presupuestaria a las agencias" },
+                    { "codigo": "2.3.2", "titulo": "Emisión de Carta Presupuestaria Anual a las agencias" },
                     { "codigo": "2.3.3", "titulo": "Agencias someten petición presupuestaria a la OGP" },
-                    { "codigo": "2.3.4", "titulo": "Reuniones entre OGP y las agencias" },
-                    { "codigo": "2.3.5", "titulo": "Gobernadora somete el presupuesto propuesto a la JASF" },
-                    { "codigo": "2.3.6", "titulo": "El presupuesto aprobado se presenta a la Asamblea Legislativa" }
+                    { "codigo": "2.3.4", "titulo": "Reuniones entre OGP y las agencias: \"Target Meetings\"" },
+                    { "codigo": "2.3.5", "titulo": "Gobernadora somete el presupuesto propuesto a la JSAF" },
+                    { "codigo": "2.3.6", "titulo": "El presupuesto aprobado se presenta a la Asamblea Legislativa" },
+                    { "codigo": "2.3.7", "titulo": "Asamblea Legislativa evalúa y adopta el presupuesto" },
+                    { "codigo": "2.3.8", "titulo": "Firma de la Resolución Conjunta del Presupuesto General de Gastos" }
                 ]
             }
         ]
     },
     {
         "codigo": "3",
-        "titulo": "Políticas fiscales, presupuestarias y programáticas",
+        "titulo": "Políticas Fiscales, Presupuestarias y Programáticas",
         "resumen": "Políticas integrales incluyendo alineación con planes gubernamentales, reservas, riesgos presupuestarios y fondos especiales.",
         "categoria": "politicas",
         "ultimaActualizacion": "2025-10-05",
-        "documentos": 18,
+        "secciones": 6,
         "prioridad": "por actualizar",
         "subcapitulos": [
-            { "codigo": "3.1", "titulo": "Alineación con el Plan de Gobierno y Plan Fiscal certificado" },
+            { "codigo": "3.1", "titulo": "Alineación con el Plan de Gobierno y Plan Fiscal Certificado" },
             { "codigo": "3.2", "titulo": "Reservas presupuestarias" },
             {
                 "codigo": "3.3",
@@ -65,46 +67,81 @@
             },
             { "codigo": "3.4", "titulo": "Gastos recurrentes y no recurrentes" },
             { "codigo": "3.5", "titulo": "Reasignaciones y reprogramaciones" },
-            { "codigo": "3.6", "titulo": "Fondos especiales y federales" }
+            { "codigo": "3.6", "titulo": "Special Revenue Funds (SRF)" }
         ]
     },
     {
         "codigo": "4",
-        "titulo": "Normas sobre Petición Presupuestaria, Justificación y Narrativo del Presupuesto",
+        "titulo": "Normas y Requisitos para la Petición Presupuestaria",
         "resumen": "Normativas detalladas para gastos operacionales, nómina y proyectos de infraestructura, incluyendo justificaciones y narrativos completos.",
         "categoria": "normas",
         "ultimaActualizacion": "2025-10-08",
-        "documentos": 15,
+        "secciones": 3,
         "prioridad": "por actualizar",
         "subcapitulos": [
-            { "codigo": "4.1", "titulo": "Gastos operacionales (OPEX)" },
-            { "codigo": "4.2", "titulo": "Nómina y gastos de personal" },
-            { "codigo": "4.3", "titulo": "Proyectos de infraestructura (CAPEX)" }
+            {
+                "codigo": "4.1",
+                "titulo": "GASTOS OPERACIONALES (OPEX)",
+                "subsecciones": [
+                    { "codigo": "4.1.1", "titulo": "Requerimientos principales" },
+                    { "codigo": "4.1.2", "titulo": "Iniciativas del Programa de Gobierno, de Política Pública o del Plan Fiscal" },
+                    { "codigo": "4.1.3", "titulo": "Indicadores de desempeño (KPI's)" },
+                    { "codigo": "4.1.4", "titulo": "Plan de implementación, plan de trabajo y cronograma de ejecución" },
+                    { 
+                        "codigo": "4.1.5", 
+                        "titulo": "Agencias que administran contratos y/o subvenciones federales",
+                        "subsecciones": [
+                            { "codigo": "4.1.5.1", "titulo": "Solicitud de fondos para pareo" }
+                        ]
+                    },
+                    { "codigo": "4.1.6", "titulo": "Plan de Tecnología" }
+                ]
+            },
+            { "codigo": "4.2", "titulo": "NÓMINA (PAYROLL)" },
+            {
+                "codigo": "4.3",
+                "titulo": "PROYECTOS DE INFRAESTRUCTURA O MEJORAS CAPITALES (CAPEX)",
+                "subsecciones": [
+                    { "codigo": "4.3.1", "titulo": "Tipos de proyectos" }
+                ]
+            }
         ]
     },
     {
         "codigo": "5",
-        "titulo": "Instrucciones para someter la Petición Presupuestaria",
+        "titulo": "Procedimiento para Someter la Petición Presupuestaria",
         "resumen": "Procedimientos paso a paso para la presentación formal de peticiones presupuestarias, incluyendo narrativos e instrucciones técnicas.",
         "categoria": "instrucciones",
         "ultimaActualizacion": "2025-10-06",
-        "documentos": 8,
+        "secciones": 4,
         "prioridad": "nuevo",
         "subcapitulos": [
-            { "codigo": "5.1", "titulo": "Narrativo de la petición presupuestaria" },
-            { "codigo": "5.2", "titulo": "Instrucciones técnicas de sometimiento" }
+            { "codigo": "5.1", "titulo": "Instrucciones técnicas" },
+            {
+                "codigo": "5.2",
+                "titulo": "\"Cards\" del sistema EPM que deben completarse",
+                "subsecciones": [
+                    { "codigo": "5.2.1", "titulo": "Requerimientos de Información OGP/Junta de Supervisión Fiscal" }
+                ]
+            },
+            {
+                "codigo": "5.3",
+                "titulo": "Narrativos",
+                "subsecciones": [
+                    { "codigo": "5.3.1", "titulo": "Justificación Narrativa del Presupuesto Solicitado" }
+                ]
+            },
+            { "codigo": "5.4", "titulo": "Carta Presupuestaria Anual" }
         ]
     },
     {
         "codigo": "6",
-        "titulo": "Control y Monitoreo",
+        "titulo": "Control, Monitoreo",
         "resumen": "Sistemas y metodologías para el control, seguimiento y monitoreo de la ejecución presupuestaria y cumplimiento de metas.",
         "categoria": "control",
         "ultimaActualizacion": "2025-10-03",
-        "documentos": 6,
+        "secciones": 3,
         "prioridad": "nuevo",
-        "subcapitulos": [
-            { "codigo": "6.1", "titulo": "Monitoreo y control de ejecución presupuestaria" }
-        ]
+        "subcapitulos": []
     }
 ]
