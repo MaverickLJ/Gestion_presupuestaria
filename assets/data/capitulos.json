@@ -6,7 +6,7 @@
         "categoria": "general",
         "ultimaActualizacion": "2025-10-26",
         "secciones": 3,
-        "prioridad": "nuevo",
+        "prioridad": "Nuevo",
         "subcapitulos": [
             { "codigo": "1.1", "titulo": "Propósito y estructura del Manual"},
             { "codigo": "1.2", "titulo": "Aplicabilidad"},
@@ -27,7 +27,7 @@
         "categoria": "proceso",
         "ultimaActualizacion": "2025-10-26",
         "secciones": 3,
-        "prioridad": "por actualizar",
+        "prioridad": "Nuevo",
         "subcapitulos": [
             { "codigo": "2.1", "titulo": "Ley federal PROMESA y el proceso presupuestario de Puerto Rico" },
             { "codigo": "2.2", "titulo": "Enfoque multianual en el proceso presupuestario" },
@@ -54,7 +54,7 @@
         "categoria": "politicas",
         "ultimaActualizacion": "2025-10-26",
         "secciones": 6,
-        "prioridad": "por actualizar",
+        "prioridad": "Nuevo",
         "subcapitulos": [
             { "codigo": "3.1", "titulo": "Alineación con el Plan de Gobierno y Plan Fiscal Certificado" },
             { "codigo": "3.2", "titulo": "Reservas presupuestarias" },
@@ -77,7 +77,7 @@
         "categoria": "normas",
         "ultimaActualizacion": "2025-10-26",
         "secciones": 3,
-        "prioridad": "por actualizar",
+        "prioridad": "Nuevo",
         "subcapitulos": [
             {
                 "codigo": "4.1",
@@ -114,7 +114,7 @@
         "categoria": "instrucciones",
         "ultimaActualizacion": "2025-10-26",
         "secciones": 4,
-        "prioridad": "nuevo",
+        "prioridad": "Nuevo",
         "subcapitulos": [
             { "codigo": "5.1", "titulo": "Instrucciones técnicas" },
             {
@@ -141,7 +141,7 @@
         "categoria": "control",
         "ultimaActualizacion": "2025-10-26",
         "secciones": 3,
-        "prioridad": "nuevo",
+        "prioridad": "Nuevo",
         "subcapitulos": []
     }
 ]

@@ -9,7 +9,7 @@ function renderChaptersList(chapters = capitulosData) {
     chapters.slice(0, 6).forEach((capitulo, index) => {
         const prioridadColor = {
             'por actualizar': 'danger',
-            'nuevo': 'warning',
+            'Nuevo': 'warning',
             'media': 'info'
         };
         // Si el capítulo no tiene subcapítulos (como el Capítulo 6), crear un mensaje clickeable

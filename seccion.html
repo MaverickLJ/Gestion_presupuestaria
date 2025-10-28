@@ -1033,7 +1033,7 @@
             z-index: 10;
         }
 
-        .badge-new-por actualizarl {
+        .badge-new-Nuevol {
             background: linear-gradient(135deg, #EF4444, #DC2626);
             box-shadow: 0 2px 8px rgba(239, 68, 68, 0.3);
             animation: pulse-por-actualizar 2s infinite;
@@ -1811,7 +1811,7 @@
                         icono: "file-earmark-excel",
                         color: "#38A169",
                         esNuevo: true,
-                        prioridad: "por actualizar"
+                        prioridad: "Nuevo"
                     },
                     {
                         id: 2,
@@ -3448,7 +3448,7 @@
 
                         <div class="list-group list-group-flush mb-4">
                             <div class="list-group-item d-flex align-items-center">
-                                <span class="badge bg-danger rounded-pill me-3">1</span>
+                                <span class="badge bg-warning rounded-pill me-3">1</span>
                                 <div>
                                     <strong>La conservación de la salud pública</strong>
                                 </div>
@@ -6725,7 +6725,7 @@
                         <h5 class="mb-3">Gastos NO Considerados como Inversión de Capital</h5>
                         
                         <div class="card border-danger mb-4">
-                            <div class="card-header bg-danger text-white">
+                            <div class="card-header bg-warning text-white">
                                 <h6 class="mb-0">
                                     <i class="bi bi-x-circle me-2"></i>Exclusiones Específicas
                                 </h6>
@@ -7102,7 +7102,7 @@
                         <div class="row mb-4">
                             <div class="col-md-6">
                                 <div class="card border-danger h-100">
-                                    <div class="card-header bg-danger text-white">
+                                    <div class="card-header bg-warning text-white">
                                         <h6 class="mb-0">
                                             <i class="bi bi-clock me-2"></i>Fechas Límite Críticas
                                         </h6>
@@ -7436,13 +7436,13 @@
                                         <tr>
                                             <td><strong>Etapa 1</strong></td>
                                             <td>Presupuesto Gastado AF 2025<br><small>(1 julio 2024 - 30 junio 2025)</small></td>
-                                            <td><span class="badge bg-danger">12 de diciembre de 2025</span></td>
+                                            <td><span class="badge bg-warning">12 de diciembre de 2025</span></td>
                                             <td>Agencias</td>
                                         </tr>
                                         <tr>
                                             <td><strong>Etapa 2</strong></td>
                                             <td>Metas Presupuestarias y Presupuesto Solicitado AF 2027</td>
-                                            <td><span class="badge bg-danger">12 de diciembre de 2025</span></td>
+                                            <td><span class="badge bg-warning">12 de diciembre de 2025</span></td>
                                             <td>Agencias</td>
                                         </tr>
                                         <tr class="table-success">
@@ -8317,7 +8317,7 @@
                         </h3>
                         
                         <div class="card border-danger mb-4">
-                            <div class="card-header bg-danger text-white">
+                            <div class="card-header bg-warning text-white">
                                 <h6 class="mb-0">Principales Categorías de Riesgo</h6>
                             </div>
                             <div class="card-body">
@@ -9401,13 +9401,13 @@
                                         <tr>
                                             <td><strong>Etapa 1</strong></td>
                                             <td>Presupuesto Gastado AF 2025<br><small>(1 julio 2024 - 30 junio 2025)</small></td>
-                                            <td><span class="badge bg-danger">12 de diciembre de 2025</span></td>
+                                            <td><span class="badge bg-warning">12 de diciembre de 2025</span></td>
                                             <td>Agencias</td>
                                         </tr>
                                         <tr>
                                             <td><strong>Etapa 2</strong></td>
                                             <td>Metas Presupuestarias y Presupuesto Solicitado AF 2027</td>
-                                            <td><span class="badge bg-danger">12 de diciembre de 2025</span></td>
+                                            <td><span class="badge bg-warning">12 de diciembre de 2025</span></td>
                                             <td>Agencias</td>
                                         </tr>
                                         <tr class="table-success">
@@ -10111,16 +10111,250 @@
             }
         }
 
+        // Función de búsqueda avanzada
+        function realizarBusqueda(searchTerm) {
+            // Preservar el elemento activo antes de la búsqueda
+            const elementoActivo = document.activeElement;
+            
+            if (searchTerm.length === 0) {
+                // Mostrar todo el contenido si no hay término de búsqueda
+                mostrarTodoElContenido();
+                return;
+            }
+
+            if (searchTerm.length < 2) {
+                return; // No buscar con menos de 2 caracteres
+            }
+
+            console.log(`Buscando: "${searchTerm}"`);
+
+            // Elementos donde buscar - enfocado en contenido de texto
+            const elementosBusqueda = [
+                // Títulos y subtítulos
+                ...document.querySelectorAll('h1, h2, h3, h4, h5, h6'),
+                // Párrafos y texto
+                ...document.querySelectorAll('p, li, span.doc-title, span.doc-meta'),
+                // Contenido de tarjetas específicas (sin HTML complejo)
+                ...document.querySelectorAll('.card-body p, .card-body h6, .card-body li'),
+                // Contenido de tabs (solo párrafos y títulos)
+                ...document.querySelectorAll('.tab-pane p, .tab-pane h3, .tab-pane h4, .tab-pane h5'),
+                // Contenido de alertas y avisos
+                ...document.querySelectorAll('.alert, .badge'),
+                // Botones y enlaces con texto
+                ...document.querySelectorAll('button, .btn')
+            ];
+
+            let resultadosEncontrados = 0;
+
+            // Ocultar todos los elementos primero
+            ocultarTodoElContenido();
+
+            // Buscar en cada elemento con soporte para caracteres especiales
+            elementosBusqueda.forEach(elemento => {
+                const texto = elemento.textContent || elemento.innerText || '';
+                const textoNormalizado = normalizarTexto(texto);
+                const searchNormalizado = normalizarTexto(searchTerm);
+                
+                // Buscar tanto en texto original como normalizado
+                if (texto.toLowerCase().includes(searchTerm) || textoNormalizado.includes(searchNormalizado)) {
+                    // Mostrar el elemento y sus padres relevantes
+                    mostrarElementoYPadres(elemento);
+                    resaltarTexto(elemento, searchTerm);
+                    resultadosEncontrados++;
+                }
+            });
+
+            // Mostrar resultado de la búsqueda
+            mostrarResultadoBusqueda(searchTerm, resultadosEncontrados);
+            
+            // Restaurar el foco al input si se perdió
+            if (elementoActivo && elementoActivo.id === 'searchInput') {
+                setTimeout(() => {
+                    elementoActivo.focus();
+                    // Mover cursor al final
+                    const length = elementoActivo.value.length;
+                    elementoActivo.setSelectionRange(length, length);
+                }, 10);
+            }
+        }
+
+        function ocultarTodoElContenido() {
+            // Ocultar contenido principal pero mantener navegación visible
+            const elementos = [
+                ...document.querySelectorAll('.tab-pane'),
+                ...document.querySelectorAll('.section-content'),
+                ...document.querySelectorAll('.document-card')
+            ];
+            
+            elementos.forEach(el => {
+                el.style.display = 'none';
+                el.classList.add('search-hidden');
+            });
+        }
+
+        function mostrarTodoElContenido() {
+            // Preservar el elemento activo
+            const elementoActivo = document.activeElement;
+            
+            // Remover resaltado previo
+            removerResaltado();
+            
+            // Mostrar todo el contenido
+            const elementos = document.querySelectorAll('.search-hidden');
+            elementos.forEach(el => {
+                el.style.display = '';
+                el.classList.remove('search-hidden');
+            });
+
+            // Ocultar mensaje de búsqueda si existe
+            const mensajeBusqueda = document.getElementById('search-results-message');
+            if (mensajeBusqueda) {
+                mensajeBusqueda.remove();
+            }
+            
+            // Restaurar foco si es necesario
+            if (elementoActivo && elementoActivo.id === 'searchInput') {
+                setTimeout(() => {
+                    elementoActivo.focus();
+                    const length = elementoActivo.value.length;
+                    elementoActivo.setSelectionRange(length, length);
+                }, 10);
+            }
+        }
+
+        function mostrarElementoYPadres(elemento) {
+            let current = elemento;
+            
+            // Recorrer hacia arriba para mostrar contenedores padre
+            while (current && current !== document.body) {
+                if (current.classList && current.classList.contains('search-hidden')) {
+                    current.style.display = '';
+                    current.classList.remove('search-hidden');
+                }
+                
+                // Activar tabs si es necesario
+                if (current.classList && current.classList.contains('tab-pane')) {
+                    const tabId = current.getAttribute('id');
+                    const tabLink = document.querySelector(`[data-bs-target="#${tabId}"], [href="#${tabId}"]`);
+                    if (tabLink) {
+                        tabLink.click();
+                    }
+                }
+                
+                current = current.parentElement;
+            }
+        }
+
+        function resaltarTexto(elemento, searchTerm) {
+            // Solo resaltar en elementos de texto simples, evitar elementos con HTML complejo
+            if (elemento.children.length === 0 && elemento.tagName.match(/^H[1-6]$|^P$|^LI$|^SPAN$|^DIV$/)) {
+                const textoOriginal = elemento.textContent || elemento.innerText || '';
+                if (textoOriginal.length > 0) {
+                    // Normalizar texto para manejar tildes y caracteres especiales
+                    const searchNormalized = normalizarTexto(searchTerm);
+                    const textoNormalized = normalizarTexto(textoOriginal);
+                    
+                    if (textoNormalized.includes(searchNormalized)) {
+                        // Crear el resaltado sin usar innerHTML para evitar mostrar HTML
+                        const regex = new RegExp(`(${escapeRegex(searchTerm)})`, 'gi');
+                        const textoResaltado = textoOriginal.replace(regex, '<mark style="background: #fff3cd; color: #856404; padding: 1px 3px; border-radius: 3px; font-weight: 500;">$1</mark>');
+                        elemento.innerHTML = textoResaltado;
+                    }
+                }
+            }
+        }
+
+        // Función para normalizar texto (remover tildes y convertir ñ)
+        function normalizarTexto(texto) {
+            return texto.toLowerCase()
+                .normalize('NFD')
+                .replace(/[\u0300-\u036f]/g, '') // Remover tildes y acentos
+                .replace(/ñ/g, 'n')
+                .replace(/Ñ/g, 'n');
+        }
+
+        // Función para escapar caracteres especiales en regex
+        function escapeRegex(string) {
+            return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        }
+
+        function removerResaltado() {
+            const elementosResaltados = document.querySelectorAll('mark');
+            elementosResaltados.forEach(mark => {
+                if (mark.parentNode) {
+                    const textoLimpio = mark.textContent || mark.innerText || '';
+                    const nodoTexto = document.createTextNode(textoLimpio);
+                    mark.parentNode.replaceChild(nodoTexto, mark);
+                }
+            });
+            
+            // Normalizar texto después de remover marks
+            setTimeout(() => {
+                document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, li, span, div').forEach(el => {
+                    if (el.childNodes.length > 1) {
+                        el.normalize();
+                    }
+                });
+            }, 50);
+        }
+
+        function mostrarResultadoBusqueda(searchTerm, resultados) {
+            // Remover mensaje anterior si existe
+            const mensajePrevio = document.getElementById('search-results-message');
+            if (mensajePrevio) {
+                mensajePrevio.remove();
+            }
+
+            // Crear mensaje de resultados
+            const mensaje = document.createElement('div');
+            mensaje.id = 'search-results-message';
+            mensaje.className = 'alert alert-info mt-3';
+            mensaje.style.position = 'sticky';
+            mensaje.style.top = '20px';
+            mensaje.style.zIndex = '1000';
+            
+            if (resultados > 0) {
+                mensaje.innerHTML = `
+                    <i class="bi bi-search me-2"></i>
+                    Se encontraron <strong>${resultados}</strong> resultados para "<strong>${searchTerm}</strong>"
+                    <button type="button" class="btn-close float-end" onclick="document.getElementById('searchInput').value=''; realizarBusqueda('');"></button>
+                `;
+            } else {
+                mensaje.className = 'alert alert-warning mt-3';
+                mensaje.innerHTML = `
+                    <i class="bi bi-exclamation-triangle me-2"></i>
+                    No se encontraron resultados para "<strong>${searchTerm}</strong>"
+                    <button type="button" class="btn-close float-end" onclick="document.getElementById('searchInput').value=''; realizarBusqueda('');"></button>
+                `;
+            }
+
+            // Insertar después del breadcrumb
+            const breadcrumb = document.querySelector('.breadcrumb-modern');
+            if (breadcrumb) {
+                breadcrumb.parentNode.insertBefore(mensaje, breadcrumb.nextSibling);
+            }
+        }
+
+        // Variable para el timeout de búsqueda
+        let searchTimeout = null;
+
         // Inicialización
         document.addEventListener('DOMContentLoaded', () => {
             loadSectionData();
 
-            // Búsqueda
+            // Búsqueda mejorada con debounce
             document.getElementById('searchInput').addEventListener('input', (e) => {
-                const searchTerm = e.target.value.toLowerCase();
-                if (searchTerm.length > 2) {
-                    console.log(`Buscando: ${searchTerm}`);
+                const searchTerm = e.target.value.toLowerCase().trim();
+                
+                // Cancelar búsqueda anterior si existe
+                if (searchTimeout) {
+                    clearTimeout(searchTimeout);
                 }
+                
+                // Ejecutar búsqueda después de 300ms de inactividad
+                searchTimeout = setTimeout(() => {
+                    realizarBusqueda(searchTerm);
+                }, 300);
             });
 
             // Hacer las funciones del modal disponibles globalmente

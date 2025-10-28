@@ -507,10 +507,8 @@
 .chapter-body {
     /* Remove flex properties to avoid pushing buttons down */
     padding-bottom: 0;
-}
-}
     overflow-wrap: break-word;
-
+}
 
 /* List View Styles */
 .chapters-list {
@@ -520,6 +518,11 @@
 
 .chapters-list.active {
     display: block;
+}
+
+/* Fix para badges bg-warning - texto negro */
+.badge.bg-warning {
+    color: #000 !important;
 }
 
 @media (max-width: 768px) {
