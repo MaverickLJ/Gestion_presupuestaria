@@ -4,7 +4,7 @@
         "titulo": "Información General del Manual",
         "resumen": "Propósito, estructura, aplicabilidad y terminología fundamental del Manual de Guías Presupuestarias del Gobierno de Puerto Rico.",
         "categoria": "general",
-        "ultimaActualizacion": "2025-10-05",
+        "ultimaActualizacion": "2025-10-26",
         "secciones": 3,
         "prioridad": "nuevo",
         "subcapitulos": [
@@ -25,7 +25,7 @@
         "titulo": "Contexto del Proceso Presupuestario en Puerto Rico",
         "resumen": "Marco normativo integral del proceso presupuestario en Puerto Rico, incluyendo PROMESA, enfoque multianual y descripción detallada de etapas.",
         "categoria": "proceso",
-        "ultimaActualizacion": "2025-10-04",
+        "ultimaActualizacion": "2025-10-26",
         "secciones": 3,
         "prioridad": "por actualizar",
         "subcapitulos": [
@@ -52,7 +52,7 @@
         "titulo": "Políticas Fiscales, Presupuestarias y Programáticas",
         "resumen": "Políticas integrales incluyendo alineación con planes gubernamentales, reservas, riesgos presupuestarios y fondos especiales.",
         "categoria": "politicas",
-        "ultimaActualizacion": "2025-10-05",
+        "ultimaActualizacion": "2025-10-26",
         "secciones": 6,
         "prioridad": "por actualizar",
         "subcapitulos": [
@@ -75,7 +75,7 @@
         "titulo": "Normas y Requisitos para la Petición Presupuestaria",
         "resumen": "Normativas detalladas para gastos operacionales, nómina y proyectos de infraestructura, incluyendo justificaciones y narrativos completos.",
         "categoria": "normas",
-        "ultimaActualizacion": "2025-10-08",
+        "ultimaActualizacion": "2025-10-26",
         "secciones": 3,
         "prioridad": "por actualizar",
         "subcapitulos": [
@@ -112,7 +112,7 @@
         "titulo": "Procedimiento para Someter la Petición Presupuestaria",
         "resumen": "Procedimientos paso a paso para la presentación formal de peticiones presupuestarias, incluyendo narrativos e instrucciones técnicas.",
         "categoria": "instrucciones",
-        "ultimaActualizacion": "2025-10-06",
+        "ultimaActualizacion": "2025-10-26",
         "secciones": 4,
         "prioridad": "nuevo",
         "subcapitulos": [
@@ -139,7 +139,7 @@
         "titulo": "Control, Monitoreo",
         "resumen": "Sistemas y metodologías para el control, seguimiento y monitoreo de la ejecución presupuestaria y cumplimiento de metas.",
         "categoria": "control",
-        "ultimaActualizacion": "2025-10-03",
+        "ultimaActualizacion": "2025-10-26",
         "secciones": 3,
         "prioridad": "nuevo",
         "subcapitulos": []

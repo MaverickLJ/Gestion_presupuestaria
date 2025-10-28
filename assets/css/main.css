@@ -20,3 +20,6 @@
 
 /* Footer y elementos misceláneos */
 @import url('./footer.css');
+
+/* Estilos de impresión */
+@import url('./print.css');

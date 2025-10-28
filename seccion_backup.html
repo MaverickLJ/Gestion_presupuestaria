@@ -1279,7 +1279,7 @@
                         <i class="bi bi-journals"></i>
                     </div>
                     <div>
-                        <div style="font-size: 1.3rem;">OGP Normativas</div>
+                        <div style="font-size: 1.3rem;">OGP Guías</div>
                         <div style="font-size: 0.7rem; opacity: 0.7; font-weight: 400;">Portal Presupuestario</div>
                     </div>
                 </a>
@@ -1327,7 +1327,7 @@
                             <i class="bi bi-link-45deg me-2"></i>
                             Compartir Enlace
                         </button>
-                        <button class="btn btn-hero-outline" onclick="imprimirPDFDirecto()">
+                        <button class="btn btn-hero-outline" onclick="window.print()">
                             <i class="bi bi-printer me-2"></i>
                             Imprimir Sección
                         </button>
@@ -7973,6 +7973,75 @@
             console.log('Delegación de eventos configurada exitosamente');
         }
 
+        // Función principal para preparar impresión de modales
+        function prepararImpresionModal(modal, titulo) {
+            const contenido = modal.querySelector('.modal-body');
+            if (!contenido) {
+                alert('No se pudo encontrar el contenido del modal para imprimir.');
+                return;
+            }
+
+            // Crear ventana de impresión
+            const ventanaImpresion = window.open('', '_blank');
+            
+            const fecha = new Date().toLocaleDateString('es-PR');
+            const anio = new Date().getFullYear();
+            
+            // Construir HTML paso a paso
+            var html = '<!DOCTYPE html>';
+            html += '<html lang="es">';
+            html += '<head>';
+            html += '<meta charset="UTF-8">';
+            html += '<title>' + titulo + ' - Manual OGP</title>';
+            html += '<style>';
+            html += '@media print { @page { margin: 2cm; size: A4; } }';
+            html += 'body { font-family: "Times New Roman", serif; font-size: 12pt; line-height: 1.4; background: white; color: black; margin: 0; padding: 20px; }';
+            html += '.print-header { border-bottom: 2px solid #333; padding-bottom: 15px; margin-bottom: 20px; }';
+            html += '.print-title { font-size: 24px; font-weight: bold; color: #0f2b5b; margin-bottom: 8px; }';
+            html += '.print-subtitle { font-size: 16px; color: #666; margin-bottom: 5px; }';
+            html += '.print-meta { font-size: 12px; color: #999; font-style: italic; }';
+            html += '.print-footer { border-top: 1px solid #ccc; padding-top: 10px; margin-top: 30px; text-align: center; font-size: 10px; color: #666; }';
+            html += 'h3 { color: #0f2b5b; font-size: 18px; margin-top: 20px; margin-bottom: 10px; border-bottom: 1px solid #ccc; padding-bottom: 5px; }';
+            html += 'h4 { color: #333; font-size: 16px; margin-top: 15px; margin-bottom: 8px; }';
+            html += 'h5 { color: #333; font-size: 14px; margin-top: 12px; margin-bottom: 6px; }';
+            html += 'p { text-align: justify; margin-bottom: 8px; }';
+            html += '.alert { border: 1px solid #ddd; background: #f9f9f9; padding: 10px; margin: 10px 0; }';
+            html += '.bi { display: none; }';
+            html += '</style>';
+            html += '</head>';
+            html += '<body>';
+            html += '<div class="print-header">';
+            html += '<div class="print-title">' + titulo + '</div>';
+            html += '<div class="print-subtitle">Manual de Guías Presupuestarias</div>';
+            html += '<div class="print-meta">Oficina de Gerencia y Presupuesto - Gobierno de Puerto Rico</div>';
+            html += '<div class="print-meta">Fecha de impresión: ' + fecha + '</div>';
+            html += '</div>';
+            html += contenido.innerHTML;
+            html += '<div class="print-footer">';
+            html += '<p>Este documento forma parte del Manual de Guías Presupuestarias del Gobierno de Puerto Rico</p>';
+            html += '<p>&copy; ' + anio + ' Oficina de Gerencia y Presupuesto - Todos los derechos reservados</p>';
+            html += '</div>';
+            // Sin script automático
+            html += '</body>';
+            html += '</html>';
+
+            ventanaImpresion.document.write(html);
+            ventanaImpresion.document.close();
+            
+            // Activar impresión después de cargar
+            setTimeout(function() {
+                ventanaImpresion.print();
+            }, 500);
+        }
+
+        // Función para imprimir el modal del Capítulo 1
+        function imprimirCapitulo1Modal() {
+            const modal = document.getElementById('capitulo1Modal');
+            if (modal) {
+                prepararImpresionModal(modal, 'Capítulo 1 - Manual del Proceso Presupuestario');
+            }
+        }
+
         // Función para cerrar el modal
         function cerrarCapitulo1Modal() {
             console.log('Cerrando modal...');
@@ -7985,76 +8054,6 @@
                 document.body.style.overflow = 'auto';
                 
                 console.log('Modal cerrado');
-            }
-        }
-
-        // Función para imprimir el Capítulo 1 - Abre el PDF oficial
-        function imprimirCapitulo1(event) {
-            console.log('Función imprimirCapitulo1 ejecutada');
-            
-            if (event) {
-                event.preventDefault();
-                event.stopPropagation();
-            }
-            
-            console.log('Intentando abrir PDF...');
-            
-            // Abrir el PDF directamente
-            const pdfUrl = 'docs/Capitulo1-Manual.pdf';
-            console.log('URL del PDF:', pdfUrl);
-            
-            try {
-                const ventana = window.open(pdfUrl, '_blank');
-                
-                if (ventana) {
-                    console.log('PDF abierto exitosamente');
-                } else {
-                    console.log('Ventana bloqueada por el navegador');
-                    alert('Por favor permite ventanas emergentes para abrir el PDF, o haz clic derecho y "Abrir en nueva pestaña"');
-                }
-            } catch (error) {
-                console.error('Error al abrir PDF:', error);
-                alert('Error al abrir el PDF: ' + error.message);
-            }
-            
-            return false;
-        }
-
-        // Función para imprimir PDF directamente con vista optimizada
-        function imprimirPDFDirecto() {
-            console.log('Abriendo PDF para impresión directa...');
-            
-            // Calcular posición centrada
-            const ancho = 900;
-            const alto = 700;
-            const left = (screen.width - ancho) / 2;
-            const top = (screen.height - alto) / 2;
-            
-            // Configurar ventana centrada
-            const opcionesVentana = `width=${ancho},height=${alto},left=${left},top=${top},scrollbars=yes,resizable=yes,toolbar=no,menubar=no,status=no`;
-            
-            // Abrir PDF con parámetros optimizados
-            const pdfUrl = 'docs/Capitulo1-Manual.pdf#toolbar=1&navpanes=0&scrollbar=1&view=FitH&zoom=100';
-            const ventanaPDF = window.open(pdfUrl, 'ventanaPDF', opcionesVentana);
-            
-            if (ventanaPDF) {
-                // Enfocar la ventana
-                ventanaPDF.focus();
-                
-                // Solo intentar imprimir una vez después de que cargue
-                ventanaPDF.addEventListener('load', function() {
-                    setTimeout(function() {
-                        try {
-                            ventanaPDF.print();
-                        } catch (e) {
-                            console.log('Impresión automática no disponible - usar Ctrl+P manualmente');
-                        }
-                    }, 1500);
-                }, { once: true });
-                
-                console.log('PDF abierto para impresión en ventana centrada');
-            } else {
-                alert('Por favor permite ventanas emergentes para abrir la vista de impresión del PDF');
             }
         }
 
@@ -8212,6 +8211,14 @@
                 console.error('Modal Capítulo 2 no encontrado');
             }
             return false;
+        }
+
+        // Función para imprimir el modal del Capítulo 2
+        function imprimirCapitulo2Modal() {
+            const modal = document.getElementById('capitulo2Modal');
+            if (modal) {
+                prepararImpresionModal(modal, 'Capítulo 2 - Marco Normativo y Cronograma Presupuestario');
+            }
         }
 
         // Función para cerrar el modal del Capítulo 2
@@ -8379,7 +8386,13 @@
             return false;
         }
 
-
+        // Función para imprimir el modal del Capítulo 3
+        function imprimirCapitulo3Modal() {
+            const modal = document.getElementById('capitulo3Modal');
+            if (modal) {
+                prepararImpresionModal(modal, 'Capítulo 3 - Políticas Fiscales, Presupuestarias y Programáticas');
+            }
+        }
 
         // Función para cerrar el modal del Capítulo 3
         function cerrarCapitulo3Modal() {
@@ -8824,7 +8837,13 @@
             return false;
         }
 
-
+        // Función para imprimir el modal del Capítulo 4
+        function imprimirCapitulo4Modal() {
+            const modal = document.getElementById('capitulo4Modal');
+            if (modal) {
+                prepararImpresionModal(modal, 'Capítulo 4 - Normas y Requisitos para la Petición Presupuestaria');
+            }
+        }
 
         // Función para cerrar el modal del Capítulo 4
         function cerrarCapitulo4Modal() {
@@ -9444,7 +9463,13 @@
             return false;
         }
 
-
+        // Función para imprimir el modal del Capítulo 5
+        function imprimirCapitulo5Modal() {
+            const modal = document.getElementById('capitulo5Modal');
+            if (modal) {
+                prepararImpresionModal(modal, 'Capítulo 5 - Procedimiento para Someter la Petición Presupuestaria');
+            }
+        }
 
         // Función para cerrar el modal del Capítulo 5
         function cerrarCapitulo5Modal() {
@@ -9719,7 +9744,13 @@
             return false;
         }
 
-
+        // Función para imprimir el modal del Capítulo 6
+        function imprimirCapitulo6Modal() {
+            const modal = document.getElementById('capitulo6Modal');
+            if (modal) {
+                prepararImpresionModal(modal, 'Capítulo 6 - Control, Monitoreo');
+            }
+        }
 
         // Función para cerrar el modal del Capítulo 6
         function cerrarCapitulo6Modal() {
@@ -10126,17 +10157,22 @@
             // Hacer las funciones del modal disponibles globalmente
             window.mostrarCapitulo1Modal = mostrarCapitulo1Modal;
             window.cerrarCapitulo1Modal = cerrarCapitulo1Modal;
-            window.imprimirCapitulo1 = imprimirCapitulo1;
+            window.imprimirCapitulo1Modal = imprimirCapitulo1Modal;
             window.mostrarCapitulo2Modal = mostrarCapitulo2Modal;
             window.cerrarCapitulo2Modal = cerrarCapitulo2Modal;
+            window.imprimirCapitulo2Modal = imprimirCapitulo2Modal;
             window.mostrarCapitulo3Modal = mostrarCapitulo3Modal;
             window.cerrarCapitulo3Modal = cerrarCapitulo3Modal;
+            window.imprimirCapitulo3Modal = imprimirCapitulo3Modal;
             window.mostrarCapitulo4Modal = mostrarCapitulo4Modal;
             window.cerrarCapitulo4Modal = cerrarCapitulo4Modal;
+            window.imprimirCapitulo4Modal = imprimirCapitulo4Modal;
             window.mostrarCapitulo5Modal = mostrarCapitulo5Modal;
             window.cerrarCapitulo5Modal = cerrarCapitulo5Modal;
+            window.imprimirCapitulo5Modal = imprimirCapitulo5Modal;
             window.mostrarCapitulo6Modal = mostrarCapitulo6Modal;
             window.cerrarCapitulo6Modal = cerrarCapitulo6Modal;
+            window.imprimirCapitulo6Modal = imprimirCapitulo6Modal;
             window.scrollToSection = scrollToSection; // Función para navegación interna
             window.testModal = testModal; // Función de test
             
@@ -10330,7 +10366,7 @@
             <div class="modal-header">
                 <h2><i class="bi bi-book me-2"></i>Capítulo 1 - Manual del Proceso Presupuestario</h2>
                 <div class="modal-header-actions">
-                    <button onclick="return imprimirCapitulo1(event)" class="btn-print-simple" title="Abrir PDF oficial para imprimir">
+                    <button onclick="imprimirCapitulo1Modal()" class="btn-print" title="Imprimir capítulo">
                         <i class="bi bi-printer"></i>
                     </button>
                     <button onclick="cerrarCapitulo1Modal()" class="modal-close">&times;</button>
@@ -10550,28 +10586,6 @@
 
         .modal-close:hover {
             background: rgba(255, 255, 255, 0.2);
-        }
-
-        .btn-print-simple {
-            background: none;
-            border: none;
-            color: white;
-            font-size: 18px;
-            cursor: pointer;
-            padding: 8px;
-            margin-right: 8px;
-            border-radius: 50%;
-            transition: background-color 0.2s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 36px;
-            height: 36px;
-        }
-
-        .btn-print-simple:hover {
-            background: rgba(255, 255, 255, 0.2);
-            color: #ffd700;
         }
 
         .modal-body {
@@ -10878,7 +10892,9 @@
             <div class="modal-header">
                 <h2><i class="bi bi-diagram-3 me-2"></i>Capítulo 2 - Marco Normativo y Cronograma Presupuestario</h2>
                 <div class="modal-header-actions">
-
+                    <button onclick="imprimirCapitulo2Modal()" class="btn-print" title="Imprimir capítulo">
+                        <i class="bi bi-printer"></i>
+                    </button>
                     <button onclick="cerrarCapitulo2Modal()" class="modal-close">&times;</button>
                 </div>
             </div>
@@ -11075,7 +11091,9 @@
             <div class="modal-header">
                 <h2><i class="bi bi-gear-fill me-2"></i>Capítulo 3 - Políticas Fiscales, Presupuestarias y Programáticas</h2>
                 <div class="modal-header-actions">
-
+                    <button onclick="imprimirCapitulo3Modal()" class="btn-print" title="Imprimir capítulo">
+                        <i class="bi bi-printer"></i>
+                    </button>
                     <button onclick="cerrarCapitulo3Modal()" class="modal-close">&times;</button>
                 </div>
             </div>
@@ -11328,7 +11346,9 @@
             <div class="modal-header">
                 <h2><i class="bi bi-file-earmark-text-fill me-2"></i>Capítulo 4 - Normas y Requisitos para la Petición Presupuestaria</h2>
                 <div class="modal-header-actions">
-
+                    <button onclick="imprimirCapitulo4Modal()" class="btn-print" title="Imprimir capítulo">
+                        <i class="bi bi-printer"></i>
+                    </button>
                     <button onclick="cerrarCapitulo4Modal()" class="modal-close">&times;</button>
                 </div>
             </div>
@@ -11346,7 +11366,9 @@
             <div class="modal-header">
                 <h2><i class="bi bi-upload me-2"></i>Capítulo 5 - Procedimiento para Someter la Petición Presupuestaria</h2>
                 <div class="modal-header-actions">
-
+                    <button onclick="imprimirCapitulo5Modal()" class="btn-print" title="Imprimir capítulo">
+                        <i class="bi bi-printer"></i>
+                    </button>
                     <button onclick="cerrarCapitulo5Modal()" class="modal-close">&times;</button>
                 </div>
             </div>
@@ -11364,7 +11386,9 @@
             <div class="modal-header">
                 <h2><i class="bi bi-graph-up-arrow me-2"></i>Capítulo 6 - Control, Monitoreo</h2>
                 <div class="modal-header-actions">
-
+                    <button onclick="imprimirCapitulo6Modal()" class="btn-print" title="Imprimir capítulo">
+                        <i class="bi bi-printer"></i>
+                    </button>
                     <button onclick="cerrarCapitulo6Modal()" class="modal-close">&times;</button>
                 </div>
             </div>

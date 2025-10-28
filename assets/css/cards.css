@@ -168,6 +168,11 @@
     border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
+.search-container {
+    position: relative;
+    z-index: 1000;
+}
+
 .search-container .input-group {
     border-radius: 50px;
     overflow: hidden;
@@ -199,6 +204,167 @@
 
 .search-container .form-control::placeholder {
     color: #adb5bd;
+}
+
+/* Search Suggestions Portal */
+.search-suggestions-portal {
+    position: fixed !important;
+    background: transparent !important;
+    border: none !important;
+    z-index: 999999 !important;
+    display: none !important;
+    pointer-events: none !important;
+}
+
+.search-suggestions-portal.show {
+    display: block !important;
+    pointer-events: auto !important;
+    animation: fadeInUp 0.2s ease-out !important;
+    will-change: transform, opacity !important;
+}
+
+.suggestions-container {
+    background: white !important;
+    border-radius: 12px !important;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(0, 0, 0, 0.1) !important;
+    border: none !important;
+    max-height: 400px !important;
+    overflow-y: auto !important;
+    transform: translateZ(0) !important;
+}
+
+/* Legacy search suggestions (mantener por compatibilidad) */
+.search-suggestions {
+    position: absolute !important;
+    top: 100% !important;
+    left: 0 !important;
+    right: 0 !important;
+    background: white !important;
+    border-radius: 12px !important;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(0, 0, 0, 0.1) !important;
+    border: none !important;
+    z-index: 99999 !important;
+    max-height: 400px !important;
+    overflow-y: auto !important;
+    display: none !important;
+    margin-top: 8px !important;
+    transform: translateZ(0) !important;
+}
+
+.search-suggestions.show {
+    display: block !important;
+    animation: fadeInUp 0.2s ease-out !important;
+    will-change: transform, opacity !important;
+}
+
+.search-suggestions-portal .suggestion-item,
+.suggestions-container .suggestion-item,
+.suggestion-item {
+    padding: 12px 16px;
+    cursor: pointer;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.search-suggestions-portal .suggestion-item:hover,
+.search-suggestions-portal .suggestion-item.active,
+.suggestions-container .suggestion-item:hover,
+.suggestions-container .suggestion-item.active,
+.suggestion-item:hover,
+.suggestion-item.active {
+    background: rgba(59, 130, 246, 0.08);
+    color: #1d4ed8;
+}
+
+.suggestion-item:last-child {
+    border-bottom: none;
+}
+
+.suggestion-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    color: white;
+    flex-shrink: 0;
+}
+
+.suggestion-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.suggestion-title {
+    font-weight: 600;
+    font-size: 14px;
+    margin-bottom: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.suggestion-subtitle {
+    font-size: 12px;
+    color: #6b7280;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.suggestion-type {
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 12px;
+    background: rgba(156, 163, 175, 0.2);
+    color: #6b7280;
+    flex-shrink: 0;
+}
+
+/* Highlight de búsqueda */
+.suggestion-title mark {
+    background: rgba(59, 130, 246, 0.2);
+    color: #1d4ed8;
+    padding: 1px 3px;
+    border-radius: 3px;
+}
+
+/* Animación para las sugerencias */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive para búsqueda */
+@media (max-width: 768px) {
+    .search-suggestions {
+        margin-left: -16px;
+        margin-right: -16px;
+        border-radius: 0 0 12px 12px;
+        border-left: none;
+        border-right: none;
+    }
+    
+    .suggestion-item {
+        padding: 16px 20px;
+    }
+    
+    .suggestion-icon {
+        width: 28px;
+        height: 28px;
+        font-size: 12px;
+    }
 }
 
 /* Stats Cards */

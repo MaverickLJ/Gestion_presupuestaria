@@ -79,7 +79,7 @@ function renderChaptersList(chapters = capitulosData) {
                             </div>
                             <div>
                                 <i class="bi bi-calendar3 me-1"></i>
-                                ${new Date(capitulo.ultimaActualizacion).toLocaleDateString('es-PR')}
+                                26 de octubre, 2025
                             </div>
                             <span class="badge bg-${prioridadColor[capitulo.prioridad]} rounded-pill">
                                 ${capitulo.prioridad}
@@ -155,7 +155,7 @@ function renderChapters(chapters = capitulosData) {
                             </div>
                             <div class="chapter-date">
                                 <i class="bi bi-calendar3 me-1"></i>
-                                ${new Date(capitulo.ultimaActualizacion).toLocaleDateString('es-PR')}
+                                26 de octubre, 2025
                             </div>
                         </div>
                         <div class="d-flex align-items-center gap-2 mt-2">
@@ -277,19 +277,321 @@ function filterChapters(categoria) {
     }
 }
 
-// Función para búsqueda global
+// Variables globales para la búsqueda
+let searchData = [];
+let currentSuggestionIndex = -1;
+let searchTimeout = null;
+
+// Función para inicializar datos de búsqueda
+function initSearchData() {
+    searchData = [];
+    
+    capitulosData.forEach(capitulo => {
+        // Agregar capítulo principal
+        searchData.push({
+            type: 'capitulo',
+            codigo: capitulo.codigo,
+            titulo: capitulo.titulo,
+            subtitulo: `Capítulo ${capitulo.codigo} - ${capitulo.secciones} secciones`,
+            categoria: capitulo.categoria,
+            searchText: `${capitulo.codigo} ${capitulo.titulo} ${capitulo.resumen}`.toLowerCase()
+        });
+        
+        // Agregar subcapítulos/secciones
+        capitulo.subcapitulos.forEach(sub => {
+            searchData.push({
+                type: 'seccion',
+                codigo: sub.codigo,
+                titulo: sub.titulo,
+                subtitulo: `Sección ${sub.codigo} - Capítulo ${capitulo.codigo}`,
+                categoria: capitulo.categoria,
+                parentCapitulo: capitulo.codigo,
+                searchText: `${sub.codigo} ${sub.titulo} ${capitulo.titulo}`.toLowerCase()
+            });
+            
+            // Agregar subsecciones si existen
+            if (sub.subsecciones) {
+                sub.subsecciones.forEach(subsec => {
+                    searchData.push({
+                        type: 'subseccion',
+                        codigo: subsec.codigo,
+                        titulo: subsec.titulo,
+                        subtitulo: `Subsección ${subsec.codigo} - Sección ${sub.codigo}`,
+                        categoria: capitulo.categoria,
+                        parentCapitulo: capitulo.codigo,
+                        parentSeccion: sub.codigo,
+                        searchText: `${subsec.codigo} ${subsec.titulo} ${sub.titulo} ${capitulo.titulo}`.toLowerCase()
+                    });
+                });
+            }
+        });
+    });
+}
+
+// Función para buscar sugerencias
+function searchSuggestions(query) {
+    if (!query || query.length < 1) return [];
+    
+    const queryLower = query.toLowerCase();
+    const results = searchData.filter(item => 
+        item.searchText.includes(queryLower) ||
+        item.codigo.toLowerCase().includes(queryLower)
+    );
+    
+    // Ordenar resultados por relevancia
+    return results.sort((a, b) => {
+        const aStartsWith = a.titulo.toLowerCase().startsWith(queryLower);
+        const bStartsWith = b.titulo.toLowerCase().startsWith(queryLower);
+        const aCodeMatch = a.codigo.toLowerCase() === queryLower;
+        const bCodeMatch = b.codigo.toLowerCase() === queryLower;
+        
+        if (aCodeMatch && !bCodeMatch) return -1;
+        if (!aCodeMatch && bCodeMatch) return 1;
+        if (aStartsWith && !bStartsWith) return -1;
+        if (!aStartsWith && bStartsWith) return 1;
+        
+        // Por tipo: capítulos primero, luego secciones, luego subsecciones
+        const typeOrder = { capitulo: 1, seccion: 2, subseccion: 3 };
+        return typeOrder[a.type] - typeOrder[b.type];
+    }).slice(0, 8); // Limitar a 8 sugerencias
+}
+
+// Función para crear o obtener el portal de sugerencias
+function getSuggestionsPortal() {
+    let portal = document.getElementById('searchSuggestionsPortal');
+    if (!portal) {
+        portal = document.createElement('div');
+        portal.id = 'searchSuggestionsPortal';
+        portal.className = 'search-suggestions-portal';
+        document.body.appendChild(portal);
+    }
+    return portal;
+}
+
+// Función para posicionar el portal de sugerencias
+function positionSuggestionsPortal() {
+    const searchInput = document.getElementById('searchInput');
+    const portal = getSuggestionsPortal();
+    
+    if (!searchInput) return;
+    
+    const rect = searchInput.getBoundingClientRect();
+    const scrollY = window.scrollY || document.documentElement.scrollTop;
+    
+    portal.style.position = 'fixed';
+    portal.style.top = (rect.bottom + 8) + 'px';
+    portal.style.left = rect.left + 'px';
+    portal.style.width = rect.width + 'px';
+    portal.style.zIndex = '999999';
+}
+
+// Función para renderizar sugerencias
+function renderSuggestions(suggestions) {
+    const query = document.getElementById('searchInput').value.trim();
+    const portal = getSuggestionsPortal();
+    
+    // Posicionar el portal correctamente
+    positionSuggestionsPortal();
+    
+    if (!suggestions.length) {
+        if (query.length >= 2) {
+            // Mostrar mensaje de "no resultados" si hay una búsqueda de al menos 2 caracteres
+            portal.innerHTML = `
+                <div class="suggestions-container">
+                    <div class="suggestion-item" style="cursor: default; opacity: 0.7;">
+                        <div class="suggestion-icon" style="background: linear-gradient(135deg, #9CA3AF, #6B7280);">
+                            <i class="bi bi-search"></i>
+                        </div>
+                        <div class="suggestion-content">
+                            <div class="suggestion-title">No se encontraron resultados</div>
+                            <div class="suggestion-subtitle">Intenta con otros términos de búsqueda</div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            portal.classList.add('show');
+        } else {
+            portal.classList.remove('show');
+        }
+        return;
+    }
+    
+    const html = suggestions.map((item, index) => {
+        const iconColor = getIconColor(item.type);
+        const icon = getIcon(item.type);
+        
+        return `
+            <div class="suggestion-item" data-index="${index}" data-item='${JSON.stringify(item)}'>
+                <div class="suggestion-icon" style="background: ${iconColor};">
+                    <i class="bi bi-${icon}"></i>
+                </div>
+                <div class="suggestion-content">
+                    <div class="suggestion-title">${highlightMatch(item.titulo, document.getElementById('searchInput').value)}</div>
+                    <div class="suggestion-subtitle">${item.subtitulo}</div>
+                </div>
+                <div class="suggestion-type">${item.type}</div>
+            </div>
+        `;
+    }).join('');
+    
+    portal.innerHTML = `<div class="suggestions-container">${html}</div>`;
+    portal.classList.add('show');
+    currentSuggestionIndex = -1;
+}
+
+// Función para obtener color del ícono según tipo
+function getIconColor(type) {
+    const colors = {
+        capitulo: 'linear-gradient(135deg, #3182CE, #2C5AA0)',
+        seccion: 'linear-gradient(135deg, #38A169, #2F855A)', 
+        subseccion: 'linear-gradient(135deg, #D69E2E, #B7791F)'
+    };
+    return colors[type] || colors.seccion;
+}
+
+// Función para obtener ícono según tipo
+function getIcon(type) {
+    const icons = {
+        capitulo: 'journal-bookmark',
+        seccion: 'list-ul',
+        subseccion: 'chevron-right'
+    };
+    return icons[type] || icons.seccion;
+}
+
+// Función para resaltar coincidencias
+function highlightMatch(text, query) {
+    if (!query) return text;
+    const regex = new RegExp(`(${query})`, 'gi');
+    return text.replace(regex, '<mark>$1</mark>');
+}
+
+// Función para manejar la navegación con teclado
+function handleKeyboardNavigation(e) {
+    const portal = document.getElementById('searchSuggestionsPortal');
+    const suggestions = portal ? portal.querySelectorAll('.suggestion-item') : [];
+    
+    switch(e.key) {
+        case 'ArrowDown':
+            e.preventDefault();
+            currentSuggestionIndex = Math.min(currentSuggestionIndex + 1, suggestions.length - 1);
+            updateActiveSuggestion();
+            break;
+        case 'ArrowUp':
+            e.preventDefault();
+            currentSuggestionIndex = Math.max(currentSuggestionIndex - 1, -1);
+            updateActiveSuggestion();
+            break;
+        case 'Enter':
+            e.preventDefault();
+            if (currentSuggestionIndex >= 0 && suggestions[currentSuggestionIndex]) {
+                selectSuggestion(suggestions[currentSuggestionIndex]);
+            } else {
+                performSearch();
+            }
+            break;
+        case 'Escape':
+            hideSuggestions();
+            break;
+    }
+}
+
+// Función para actualizar la sugerencia activa
+function updateActiveSuggestion() {
+    const portal = document.getElementById('searchSuggestionsPortal');
+    if (portal) {
+        const suggestions = portal.querySelectorAll('.suggestion-item');
+        suggestions.forEach((item, index) => {
+            item.classList.toggle('active', index === currentSuggestionIndex);
+        });
+    }
+}
+
+// Función para seleccionar una sugerencia
+function selectSuggestion(suggestionElement) {
+    const itemData = JSON.parse(suggestionElement.dataset.item);
+    
+    // Si es un capítulo, navegar a la vista de capítulos
+    if (itemData.type === 'capitulo') {
+        goToSeccion(itemData.codigo);
+    } else {
+        // Si es una sección o subsección, navegar a seccion.html
+        window.location.href = `seccion.html?capitulo=${itemData.parentCapitulo}&seccion=${itemData.codigo}`;
+    }
+    
+    hideSuggestions();
+}
+
+// Función para ocultar sugerencias
+function hideSuggestions() {
+    const portal = document.getElementById('searchSuggestionsPortal');
+    if (portal) {
+        portal.classList.remove('show');
+    }
+    currentSuggestionIndex = -1;
+}
+
+// Función para realizar búsqueda cuando se presiona Enter
+function performSearch() {
+    const query = document.getElementById('searchInput').value.toLowerCase();
+    
+    if (query.length === 0) {
+        if (currentView === 'cards') {
+            renderChapters(capitulosData);
+        } else {
+            renderChaptersList(capitulosData);
+        }
+        return;
+    }
+
+    const filteredChapters = capitulosData.filter(cap => 
+        cap.titulo.toLowerCase().includes(query) ||
+        cap.codigo.toLowerCase().includes(query) ||
+        cap.resumen.toLowerCase().includes(query) ||
+        cap.subcapitulos.some(sub => 
+            sub.titulo.toLowerCase().includes(query) ||
+            sub.codigo.toLowerCase().includes(query) ||
+            (sub.subsecciones && sub.subsecciones.some(subsec =>
+                subsec.titulo.toLowerCase().includes(query) ||
+                subsec.codigo.toLowerCase().includes(query)
+            ))
+        )
+    );
+
+    if (currentView === 'cards') {
+        renderChapters(filteredChapters);
+    } else {
+        renderChaptersList(filteredChapters);
+    }
+    
+    hideSuggestions();
+}
+
+// Función principal de configuración de búsqueda
 function setupSearch() {
     const searchInput = document.getElementById('searchInput');
+    const suggestionsContainer = document.getElementById('searchSuggestions');
     
     if (!searchInput) {
         console.warn('Input de búsqueda no encontrado');
         return;
     }
     
+    // Inicializar datos de búsqueda
+    initSearchData();
+    
+    // Evento de input para mostrar sugerencias con debounce
     searchInput.addEventListener('input', (e) => {
-        const searchTerm = e.target.value.toLowerCase();
+        const query = e.target.value.trim();
         
-        if (searchTerm.length === 0) {
+        // Limpiar timeout anterior
+        if (searchTimeout) {
+            clearTimeout(searchTimeout);
+        }
+        
+        if (query.length === 0) {
+            hideSuggestions();
+            // Mostrar todos los capítulos cuando no hay búsqueda
             if (currentView === 'cards') {
                 renderChapters(capitulosData);
             } else {
@@ -297,25 +599,38 @@ function setupSearch() {
             }
             return;
         }
-
-        const filteredChapters = capitulosData.filter(cap => 
-            cap.titulo.toLowerCase().includes(searchTerm) ||
-            cap.codigo.toLowerCase().includes(searchTerm) ||
-            cap.resumen.toLowerCase().includes(searchTerm) ||
-            cap.subcapitulos.some(sub => 
-                sub.titulo.toLowerCase().includes(searchTerm) ||
-                sub.codigo.toLowerCase().includes(searchTerm) ||
-                (sub.subsecciones && sub.subsecciones.some(subsec =>
-                    subsec.titulo.toLowerCase().includes(searchTerm) ||
-                    subsec.codigo.toLowerCase().includes(searchTerm)
-                ))
-            )
-        );
-
-        if (currentView === 'cards') {
-            renderChapters(filteredChapters);
-        } else {
-            renderChaptersList(filteredChapters);
+        
+        // Agregar pequeño delay para mejorar performance
+        searchTimeout = setTimeout(() => {
+            const suggestions = searchSuggestions(query);
+            renderSuggestions(suggestions);
+        }, 150);
+    });
+    
+    // Navegación con teclado
+    searchInput.addEventListener('keydown', handleKeyboardNavigation);
+    
+    // Click en sugerencias del portal
+    document.addEventListener('click', (e) => {
+        if (e.target.closest('#searchSuggestionsPortal .suggestion-item')) {
+            selectSuggestion(e.target.closest('.suggestion-item'));
+        } else if (!e.target.closest('.search-container') && !e.target.closest('#searchSuggestionsPortal')) {
+            hideSuggestions();
+        }
+    });
+    
+    // Reposicionar o ocultar sugerencias al hacer scroll/resize
+    document.addEventListener('scroll', () => {
+        const portal = document.getElementById('searchSuggestionsPortal');
+        if (portal && portal.classList.contains('show')) {
+            positionSuggestionsPortal();
+        }
+    });
+    
+    window.addEventListener('resize', () => {
+        const portal = document.getElementById('searchSuggestionsPortal');
+        if (portal && portal.classList.contains('show')) {
+            positionSuggestionsPortal();
         }
     });
 }
