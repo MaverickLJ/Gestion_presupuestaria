@@ -1,0 +1,25 @@
+/* 
+ * OGP Portal - Hoja de Estilos Principal
+ * Archivo maestro que importa todos los módulos CSS
+ */
+
+/* Variables y configuraciones globales */
+@import url('./variables.css');
+
+/* Componentes de navegación */
+@import url('./navbar.css');
+
+/* Componentes de tarjetas y estadísticas */
+@import url('./cards.css');
+
+/* Lista de capítulos expandible */
+@import url('./chapter-list.css');
+
+/* Tarjetas de capítulos en grilla */
+@import url('./chapter-cards.css');
+
+/* Footer y elementos misceláneos */
+@import url('./footer.css');
+
+/* Estilos de impresión */
+@import url('./print.css');

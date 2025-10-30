@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OGP - Guías Presupuestarias | Portal Digital</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="./assets/css/main.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar-modern">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center w-100">
+                <a href="index.html" class="navbar-brand-modern">
+                    <div class="brand-icon">
+                        <i class="bi bi-journals"></i>
+                    </div>
+                    <div>
+                        <div style="font-size: 1.3rem;">OGP Normativas</div>
+                        <div style="font-size: 0.7rem; opacity: 0.7; font-weight: 400;">Portal Presupuestario</div>
+                    </div>
+                </a>
+                
+                <div class="d-flex align-items-center gap-3">
+                    <button class="btn btn-modern btn-sm">
+                        <i class="bi bi-bell me-1"></i>
+                        Notificaciones
+                    </button>
+                    <button class="btn btn-primary-modern btn-sm">
+                        <i class="bi bi-person-circle me-1"></i>
+                        Mi Cuenta
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-modern">
+        <div class="container hero-content">
+            <div class="row align-items-center">
+                <div class="col-lg-8">
+                    <h1 class="hero-title fade-in">
+                        Manual de Guías Presupuestarias
+                    </h1>
+                    <p class="hero-subtitle fade-in" style="animation-delay: 0.2s;">
+                        Portal digital oficial del Gobierno de Puerto Rico para normativas, procedimientos y guías del proceso presupuestario bajo PROMESA.
+                    </p>
+                    <div class="d-flex gap-3 fade-in" style="animation-delay: 0.4s;">
+                        <button onclick="scrollToChapters()" class="btn btn-light btn-lg">
+                            <i class="bi bi-list-ul me-2"></i>
+                            Explorar Capítulos
+                        </button>
+                        <button onclick="showQuickStart()" class="btn btn-outline-light btn-lg">
+                            <i class="bi bi-play-circle me-2"></i>
+                            Guía Rápida
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-container">
+        <div class="container">
+            <div class="row g-4 justify-content-center">
+                <div class="col-md-4">
+                    <div class="stat-card fade-in" style="animation-delay: 0.6s;">
+                        <div class="stat-icon" style="background: linear-gradient(135deg, #3182CE, #2C5AA0);">
+                            <i class="bi bi-journals"></i>
+                        </div>
+                        <div class="stat-number">6</div>
+                        <div class="stat-label">Capítulos Principales</div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="stat-card fade-in" style="animation-delay: 0.7s;">
+                        <div class="stat-icon" style="background: linear-gradient(135deg, #38A169, #2F855A);">
+                            <i class="bi bi-list-ol"></i>
+                        </div>
+                        <div class="stat-number">22</div>
+                        <div class="stat-label">Secciones Principales</div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="stat-card fade-in" style="animation-delay: 0.8s;">
+                        <div class="stat-icon" style="background: linear-gradient(135deg, #D69E2E, #B7791F);">
+                            <i class="bi bi-calendar-check"></i>
+                        </div>
+                        <div class="stat-number">Oct 26, 2025</div>
+                        <div class="stat-label">Última Actualización</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <section class="main-content">
+        <div class="container">
+            <!-- Search Section -->
+            <div class="search-section fade-in" style="animation-delay: 0.8s;">
+                <div class="row align-items-center g-3">
+                    <div class="col-lg-9">
+                        <div class="search-container position-relative">
+                            <div class="input-group">
+                                <span class="input-group-text">
+                                    <i class="bi bi-search"></i>
+                                </span>
+                                <input type="text" 
+                                       class="form-control" 
+                                       id="searchInput" 
+                                       placeholder="Buscar por capítulo, sección o palabra clave..."
+                                       autocomplete="off">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <button class="btn btn-filtros w-100">
+                            <i class="bi bi-funnel me-2"></i>
+                            Filtros Avanzados
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Filter Section -->
+            <div class="filter-section fade-in" style="animation-delay: 1.0s;">
+                <div class="row align-items-start g-3">
+                    <div class="col-lg-2 col-md-3">
+                        <div class="filter-title">
+                            <i class="bi bi-tag me-2"></i>
+                            Categorías de Guías
+                        </div>
+                    </div>
+                    <div class="col-lg-8 col-md-6">
+                        <div class="filter-pills">
+                            <a href="#" class="filter-pill active" data-filter="all">Todas las Guías</a>
+                            <a href="#" class="filter-pill" data-filter="general">Información del Manual</a>
+                            <a href="#" class="filter-pill" data-filter="proceso">Proceso Presupuestario</a>
+                            <a href="#" class="filter-pill" data-filter="politicas">Políticas Fiscales</a>
+                            <a href="#" class="filter-pill" data-filter="normas">Normas de Petición</a>
+                            <a href="#" class="filter-pill" data-filter="instrucciones">Instrucciones</a>
+                            <a href="#" class="filter-pill" data-filter="control">Control y Monitoreo</a>
+                            <a href="#" class="filter-pill" data-filter="especiales">Guías Especiales</a>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-3">
+                        <div class="view-toggle">
+                            <button id="listViewBtn" class="btn btn-outline-primary active" onclick="switchView('list')">
+                                <i class="bi bi-list-ul"></i> Lista
+                            </button>
+                            <button id="cardViewBtn" class="btn btn-outline-primary" onclick="switchView('cards')">
+                                <i class="bi bi-grid"></i> Tarjetas
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Chapters Grid View -->
+            <div class="chapters-grid" id="chaptersContainer">
+                <!-- Chapters will be loaded here -->
+            </div>
+
+            <!-- Chapters List View -->
+            <div class="chapters-list" id="chaptersListContainer">
+                <!-- Chapter list will be loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer-modern">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-4">
+                    <div class="d-flex align-items-center mb-3">
+                        <div class="brand-icon me-3">
+                            <i class="bi bi-journals"></i>
+                        </div>
+                        <div>
+                            <div class="fw-bold">OGP Normativas Presupuestarias</div>
+                            <div class="small opacity-75">Portal Digital Oficial</div>
+                        </div>
+                    </div>
+                    <p class="mb-3">
+                        Oficina de Gerencia y Presupuesto del Gobierno de Puerto Rico. 
+                        Portal oficial para normativas presupuestarias bajo PROMESA.
+                    </p>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <h5>Navegación</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="index.html">Inicio</a></li>
+                        <li><a href="#proceso">Proceso</a></li>
+                        <li><a href="#normas">Normas</a></li>
+                        <li><a href="#documentos">Documentos</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <h5>Recursos</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#ayuda">Centro de Ayuda</a></li>
+                        <li><a href="#formularios">Formularios</a></li>
+                        <li><a href="#calendario">Calendario Fiscal</a></li>
+                        <li><a href="#contacto">Contacto</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-12 mb-4">
+                    <h5>Contacto OGP</h5>
+                    <p>
+                        <i class="bi bi-geo-alt me-1"></i>
+                        San Juan, Puerto Rico<br>
+                        <i class="bi bi-telephone me-1"></i>
+                        (787) 977-9200<br>
+                        <i class="bi bi-envelope me-1"></i>
+                        info@ogp.pr.gov
+                    </p>
+                </div>
+            </div>
+            <hr class="my-4 opacity-25">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <p class="mb-0 small opacity-75">
+                        © 2025 Gobierno de Puerto Rico. Todos los derechos reservados.
+                    </p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p class="mb-0 small opacity-75">
+                        Actualizado: 26 de Octubre, 2025 | Versión 2.1.3
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="./assets/js/main.js"></script>
+</body>
+</html>
