@@ -56,6 +56,16 @@ function renderChaptersList(chapters = capitulosData) {
         }
         const downloadLink = capitulo.codigo === '1'
             ? 'docs/Capitulo1-Manual.pdf'
+            : capitulo.codigo === '2'
+            ? 'docs/Capitulo2-Manual.pdf'
+            : capitulo.codigo === '3'
+            ? 'docs/Capitulo3-Manual.pdf'
+            : capitulo.codigo === '4'
+            ? 'docs/Capitulo4-Manual.pdf'
+            : capitulo.codigo === '5'
+            ? 'docs/Capitulo5-Manual.pdf'
+            : capitulo.codigo === '6'
+            ? 'docs/Capitulo6-Manual.pdf'
             : '#';
         // Determinar si el capítulo tiene subcapítulos para el comportamiento del header
         const hasSubcapitulos = capitulo.subcapitulos && capitulo.subcapitulos.length > 0;
@@ -84,7 +94,7 @@ function renderChaptersList(chapters = capitulosData) {
                             <span class="badge bg-${prioridadColor[capitulo.prioridad]} rounded-pill">
                                 ${capitulo.prioridad}
                             </span>
-                            ${capitulo.codigo === '1' ? `
+                            ${(['1', '2', '3', '4', '5', '6'].includes(capitulo.codigo)) ? `
                             <a href="${downloadLink}" download onclick="event.stopPropagation()" class="btn btn-sm btn-modern" title="Descargar Manual PDF">
                                 <i class="bi bi-download"></i>
                             </a>
@@ -131,6 +141,16 @@ function renderChapters(chapters = capitulosData) {
         // Determinar el enlace de descarga según el capítulo
         const downloadLink = capitulo.codigo === '1'
             ? 'docs/Capitulo1-Manual.pdf'
+            : capitulo.codigo === '2'
+            ? 'docs/Capitulo2-Manual.pdf'
+            : capitulo.codigo === '3'
+            ? 'docs/Capitulo3-Manual.pdf'
+            : capitulo.codigo === '4'
+            ? 'docs/Capitulo4-Manual.pdf'
+            : capitulo.codigo === '5'
+            ? 'docs/Capitulo5-Manual.pdf'
+            : capitulo.codigo === '6'
+            ? 'docs/Capitulo6-Manual.pdf'
             : '#';
 
             const resumenId = `chapter-summary-${capitulo.codigo}`;
@@ -162,7 +182,7 @@ function renderChapters(chapters = capitulosData) {
                             <a href="javascript:void(0)" onclick="goToSeccion('${capitulo.codigo}')" class="btn btn-primary-modern">
                                 <i class="bi bi-arrow-right me-1"></i> Ver Secciones
                             </a>
-                            <a href="${downloadLink}" ${capitulo.codigo === '1' ? 'download' : ''} class="btn btn-modern" ${capitulo.codigo !== '1' ? 'style=\"opacity: 0.5; cursor: not-allowed;\"' : ''}>
+                            <a href="${downloadLink}" ${(['1', '2', '3', '4', '5', '6'].includes(capitulo.codigo)) ? 'download' : ''} class="btn btn-modern" ${(!['1', '2', '3', '4', '5', '6'].includes(capitulo.codigo)) ? 'style=\"opacity: 0.5; cursor: not-allowed;\"' : ''}>
                                 <i class="bi bi-download me-1"></i>
                                 Descargar
                             </a>
